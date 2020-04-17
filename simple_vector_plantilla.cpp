@@ -1,6 +1,4 @@
 #include "simple_vector.hpp"
-
-
 /*
  * CLASS BidirIterator METHODS ---------------------------------------------
  */
@@ -11,24 +9,21 @@ double &BidirIterator::operator*(){
   return *ptr;
 }
 
+BidirIterator &BidirIterator::operator++(){  // ++it
+    ptr = ptr + sizeof(double);
+    return *this;
+}
+
+BidirIterator BidirIterator::operator++(int){  // it++
+    BidirIterator temporal = *this;
+    ++*this;
+    return temporal;
+} 
 
 BidirIterator &BidirIterator::operator--(){
   ptr= ptr - sizeof(double);
-  //return ptr;
-}
-
-
-BidirIterator &BidirIterator::operator++(){  // ++it
-  ptr++;
   return *this;
 }
-
-
-BidirIterator BidirIterator:: operator++(int){  // it++
-  BidirIterator temporal = *this;
-  ++*this;
-  return temporal;
-} 
 
 //**********************************************
 
