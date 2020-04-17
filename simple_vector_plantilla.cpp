@@ -6,6 +6,21 @@
  */
 
 //**********************************************
+
+double &BidirIterator::operator*()
+{
+  return *ptr;
+}
+
+
+BidirIterator &BidirIterator::operator--()
+{
+  ptr= ptr - sizeof(double);
+  //return ptr;
+}
+
+
+
 BidirIterator& BidirIterator::operator++(){  // ++it
     ptr++;
     return *this;
