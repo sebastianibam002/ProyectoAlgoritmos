@@ -7,7 +7,6 @@
 
 //**********************************************
 BidirIterator& BidirIterator::operator++(){  // ++it
-    BidirIterator temporal;
     ptr++;
     return *this;
 }
