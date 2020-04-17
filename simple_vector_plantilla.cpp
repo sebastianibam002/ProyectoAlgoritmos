@@ -5,21 +5,20 @@
  * CLASS BidirIterator METHODS ---------------------------------------------
  */
 
-/**********************************************
- *
- *
- *
- *
- *
- * Su
- * código
- * aquí
- *
- *
- *
- *
- *
- **********************************************/
+//**********************************************
+BidirIterator& BidirIterator::operator++(){  // ++it
+    BidirIterator temporal;
+    ptr++;
+    return *this;
+}
+
+BidirIterator BidirIterator:: operator++(int){  // it++
+    BidirIterator temporal = *this;
+    ++*this;
+    return temporal;
+} 
+
+//**********************************************
 
 
 /*
