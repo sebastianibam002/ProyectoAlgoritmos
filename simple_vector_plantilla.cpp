@@ -7,29 +7,27 @@
 
 //**********************************************
 
-double &BidirIterator::operator*()
-{
+double &BidirIterator::operator*(){
   return *ptr;
 }
 
 
-BidirIterator &BidirIterator::operator--()
-{
+BidirIterator &BidirIterator::operator--(){
   ptr= ptr - sizeof(double);
   //return ptr;
 }
 
 
-
 BidirIterator& BidirIterator::operator++(){  // ++it
-    ptr++;
-    return *this;
+  ptr++;
+  return *this;
 }
 
+
 BidirIterator BidirIterator:: operator++(int){  // it++
-    BidirIterator temporal = *this;
-    ++*this;
-    return temporal;
+  BidirIterator temporal = *this;
+  ++*this;
+  return temporal;
 } 
 
 //**********************************************
