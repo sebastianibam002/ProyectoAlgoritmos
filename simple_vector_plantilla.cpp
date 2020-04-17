@@ -18,7 +18,7 @@ BidirIterator &BidirIterator::operator--(){
 }
 
 
-BidirIterator& BidirIterator::operator++(){  // ++it
+BidirIterator &BidirIterator::operator++(){  // ++it
   ptr++;
   return *this;
 }
