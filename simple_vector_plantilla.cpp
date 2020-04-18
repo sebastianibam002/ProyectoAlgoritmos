@@ -21,9 +21,14 @@ BidirIterator BidirIterator::operator++(int){  // it++
 } 
 
 BidirIterator &BidirIterator::operator--(){
-  ptr= ptr - sizeof(double);
+  ptr = ptr - sizeof(double);
   return *this;
 }
+
+void BidirIterator::operator=(const BidirIterator it){ // REVIZAR!!!
+    ptr = it;
+}
+
 
 //**********************************************
 
