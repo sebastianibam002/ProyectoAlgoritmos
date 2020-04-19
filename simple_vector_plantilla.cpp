@@ -5,7 +5,7 @@
 
 //**********************************************
 
-double &BidirIterator::operator*()const {
+double &BidirIterator::operator*(){
   //double value = *ptr;
   return *ptr;
 }
@@ -42,18 +42,31 @@ BidirIterator::BidirIterator(const BidirIterator &it)
   //ptr= it.getIt();
   //ptr = &temp;
   //es un Copy constructor
-  double temp = *it;
-  ptr = &temp;
+  
+  ptr = it.getIt();
   
 }
 
-/*
+
 
 void BidirIterator::operator=(const BidirIterator it){ // REVIZAR!!!
   ptr = it.getIt();
 }
 
-*/
+bool BidirIterator::operator==(const BidirIterator it)
+{
+  return it.getIt() == ptr;
+}
+
+double *BidirIterator::getIt()const
+{
+  return ptr;
+}
+
+bool BidirIterator::operator!=(const BidirIterator it)
+{
+  return it.getIt() != ptr;
+}
 
 
 //**********************************************

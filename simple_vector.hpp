@@ -23,24 +23,24 @@ public:
   ~BidirIterator() {}
   
   // dereference operator
-  double& operator*()const;
+  double& operator*();
   
   // prefix/postfix ++ operators
-  //BidirIterator & operator++();  // ++it
-  //BidirIterator operator++(int); // it++
+  BidirIterator & operator++();  // ++it
+  BidirIterator operator++(int); // it++
   // prefix/postfix -- operators
   BidirIterator & operator--();  // --it
   BidirIterator operator--(int); // it--
 
-  //double* getIt();//returns the position in memory
+  double* getIt()const;//returns the position in memory
 
 
   // assignment operator
-  //void operator=(const BidirIterator it);
+  void operator=(const BidirIterator it);
   
   // comparison operators
-  //bool operator==(const BidirIterator it);
-  //bool operator!=(const BidirIterator it);
+  bool operator==(const BidirIterator it);
+  bool operator!=(const BidirIterator it);
 };
 
 
