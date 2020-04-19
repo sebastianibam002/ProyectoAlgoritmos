@@ -5,10 +5,12 @@
 
 //**********************************************
 
-double &BidirIterator::operator*(){
+double &BidirIterator::operator*()const {
+  //double value = *ptr;
   return *ptr;
 }
 
+/*
 BidirIterator &BidirIterator::operator++(){  // ++it
     ptr = ptr + sizeof(double);
     return *this;
@@ -20,14 +22,38 @@ BidirIterator BidirIterator::operator++(int){  // it++
     return temporal;
 } 
 
+*/
+
 BidirIterator &BidirIterator::operator--(){
   ptr = ptr - sizeof(double);
   return *this;
 }
 
-void BidirIterator::operator=(const BidirIterator it){ // REVIZAR!!!
-    ptr = it;
+//constructor con argumento de un apuntador a double
+BidirIterator::BidirIterator(double *beg)
+{
+  ptr = beg;
+  
 }
+
+
+BidirIterator::BidirIterator(const BidirIterator &it)
+{
+  //ptr= it.getIt();
+  //ptr = &temp;
+  //es un Copy constructor
+  double temp = *it;
+  ptr = &temp;
+  
+}
+
+/*
+
+void BidirIterator::operator=(const BidirIterator it){ // REVIZAR!!!
+  ptr = it.getIt();
+}
+
+*/
 
 
 //**********************************************

@@ -1,0 +1,10 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+  int *a = nullptr;
+  int b = 44;
+  a = &b;
+  cout<<*a<<endl;
+  return 0;
+}

@@ -1,8 +1,10 @@
 #include "simple_vector.hpp"
-
+#include <iostream>
+using namespace std;
 
 int main() {
-    SimpleVec myvec;
+  /*
+  SimpleVec myvec;
     
     // initialize the vector
     for(int i = 0; i < 20; i++)
@@ -48,6 +50,14 @@ int main() {
     << " *it: " << *it2 << endl;
     cout << "++*it: " << *++it3
     << " *it: " << *it3 << endl;
-    
-    return 0;
+  */
+
+  
+  double numero = 22.4;
+  
+  BidirIterator prueba(&numero);
+  BidirIterator testII(prueba);
+  cout<<*testII<<endl;
+  
+  return 0;
 }

@@ -13,31 +13,34 @@ private:
     double *ptr;
 
 public:
-    // default constructor
-    BidirIterator() { ptr = nullptr; }
-    // constructor
-    BidirIterator(double *beg);
-    // copy constructor
-    BidirIterator(const BidirIterator& it);
-    // destructor
-    ~BidirIterator() {}
+  // default constructor
+  BidirIterator() { ptr = nullptr; }
+  // constructor
+  BidirIterator(double *beg);
+  // copy constructor
+  BidirIterator(const BidirIterator& it);
+  // destructor
+  ~BidirIterator() {}
+  
+  // dereference operator
+  double& operator*()const;
+  
+  // prefix/postfix ++ operators
+  //BidirIterator & operator++();  // ++it
+  //BidirIterator operator++(int); // it++
+  // prefix/postfix -- operators
+  BidirIterator & operator--();  // --it
+  BidirIterator operator--(int); // it--
 
-    // dereference operator
-    double & operator*();
+  //double* getIt();//returns the position in memory
 
-    // prefix/postfix ++ operators
-    BidirIterator & operator++();  // ++it
-    BidirIterator operator++(int); // it++
-    // prefix/postfix -- operators
-    BidirIterator & operator--();  // --it
-    BidirIterator operator--(int); // it--
 
-    // assignment operator
-    void operator=(const BidirIterator it);
-
-    // comparison operators
-    bool operator==(const BidirIterator it);
-    bool operator!=(const BidirIterator it);
+  // assignment operator
+  //void operator=(const BidirIterator it);
+  
+  // comparison operators
+  //bool operator==(const BidirIterator it);
+  //bool operator!=(const BidirIterator it);
 };
 
 
