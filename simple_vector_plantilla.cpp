@@ -10,19 +10,20 @@ double &BidirIterator::operator*(){
   return *ptr;
 }
 
-/*
+
 BidirIterator &BidirIterator::operator++(){  // ++it
-    ptr = ptr + sizeof(double);
-    return *this;
+  ptr++;
+  //return *this;
 }
 
 BidirIterator BidirIterator::operator++(int){  // it++
-    BidirIterator temporal = *this;
-    ++*this;
-    return temporal;
+  ++ptr;
+  //BidirIterator temporal = *this;
+  //++*this;
+  //return temporal;
 } 
 
-*/
+
 
 BidirIterator &BidirIterator::operator--(){
   ptr = ptr - sizeof(double);
@@ -42,16 +43,18 @@ BidirIterator::BidirIterator(const BidirIterator &it)
   //ptr= it.getIt();
   //ptr = &temp;
   //es un Copy constructor
-  
+  //double temp = *it;
   ptr = it.getIt();
   
 }
 
 
 
-void BidirIterator::operator=(const BidirIterator it){ // REVIZAR!!!
-  ptr = it.getIt();
+void BidirIterator::operator=(BidirIterator it){ // REVIZAR!!!
+  double temp = *it;
+  ptr = &temp;
 }
+
 
 bool BidirIterator::operator==(const BidirIterator it)
 {
@@ -116,6 +119,23 @@ SimpleVec & SimpleVec::operator=(const SimpleVec& rhs) {
 
     return *this;
 }
+
+
+//iteraro andn related methods
+
+SimpleVec::iterator SimpleVec::begin()
+{
+  BidirIterator begin(array);
+  return begin;
+}
+
+SimpleVec::iterator SimpleVec::end()
+{
+  //BidirIterator end(array[length]);
+  BidirIterator end(&(array[length -1]));
+  return end;
+}
+
 
 
 // Other SimpleVec methods

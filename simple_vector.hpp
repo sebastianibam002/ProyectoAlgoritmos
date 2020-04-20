@@ -36,7 +36,7 @@ public:
 
 
   // assignment operator
-  void operator=(const BidirIterator it);
+  void operator=(BidirIterator it);
   
   // comparison operators
   bool operator==(const BidirIterator it);
@@ -53,29 +53,29 @@ private:
 
 public:
     // iterator and related methods
-    typedef BidirIterator iterator;
-    iterator begin();
-    iterator end();
+  typedef BidirIterator iterator;
+  iterator begin();
+  iterator end();
+  
+  // constructors
+  SimpleVec();
+  SimpleVec(const SimpleVec& rhs);
+  // destructor
+  ~SimpleVec();
 
-    // constructors
-    SimpleVec();
-    SimpleVec(const SimpleVec& rhs);
-    // destructor
-    ~SimpleVec();
-
-    // assignment operator
-    SimpleVec & operator=(const SimpleVec &rhs);
-
-    // other SimpleVec methods
-    void push(double value);
-    void erase(int index);
-    void insert(int index, double value);
-    void modify(int index, double value);
-    double retrieve(int index);
-
-    void clear();
-    bool empty();
-    int size();
+  // assignment operator
+  SimpleVec & operator=(const SimpleVec &rhs);
+  
+  // other SimpleVec methods
+  void push(double value);
+  void erase(int index);
+  void insert(int index, double value);
+  void modify(int index, double value);
+  double retrieve(int index);
+  
+  void clear();
+  bool empty();
+  int size();
 };
 
 #endif

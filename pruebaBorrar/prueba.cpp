@@ -2,10 +2,6 @@
 using namespace std;
 
 
-int sumaUno(const valor)
-{
-  
-}
 int main()
 {
   int *a = nullptr;
