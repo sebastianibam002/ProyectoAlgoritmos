@@ -3,13 +3,22 @@
  * CLASS BidirIterator METHODS ---------------------------------------------
  */
 
-//**********************************************
 
-double &BidirIterator::operator*(){
-  //double value = *ptr;
-  return *ptr;
+//CONSTRUCTORES
+//constructor con argumento de un apuntador a double
+BidirIterator::BidirIterator(double *beg){
+  ptr = beg;
 }
 
+BidirIterator::BidirIterator(const BidirIterator &it){
+    ptr = it.ptr;
+}
+
+//OPERADORES
+
+double &BidirIterator::operator*(){
+  return *ptr;
+}
 
 BidirIterator &BidirIterator::operator++(){  // ++it
   ptr++;
@@ -18,77 +27,49 @@ BidirIterator &BidirIterator::operator++(){  // ++it
 
 BidirIterator BidirIterator::operator++(int){  // it++
   ++ptr;
-  //BidirIterator temporal = *this;
-  //++*this;
-  //return temporal;
   return *this;
-} 
-
-
+}
 
 BidirIterator &BidirIterator::operator--(){
   ptr--;
   return *this;
 }
 
-BidirIterator BidirIterator::operator--(int){
+BidirIterator BidirIterator::operator--(int){  // it++
   --ptr;
   return *this;
 }
 
-//constructor con argumento de un apuntador a double
-BidirIterator::BidirIterator(double *beg)
-{
-  ptr = beg;
-  
-}
-
-
-BidirIterator::BidirIterator(const BidirIterator &it)
-{
-
-  ptr = it.ptr;
-  
-}
-
-
-
-void BidirIterator::operator=(BidirIterator it){ // REVIZAR!!!
-  
+void BidirIterator::operator=(BidirIterator it){
   ptr = it.ptr;
 }
 
 
-bool BidirIterator::operator==(const BidirIterator it)
-{
+bool BidirIterator::operator==(const BidirIterator it){
   return it.ptr == ptr;
 }
 
-
-
-bool BidirIterator::operator!=(const BidirIterator it)
-{
+bool BidirIterator::operator!=(const BidirIterator it){
   return it.ptr != ptr;
 }
-
-
-//**********************************************
-
 
 /*
  * CLASS SimpleVec METHODS -------------------------------------------------
  */
 
 // Iterator-related methods
-/**********************************************
- *
- *
- * Su
- * código
- * aquí
- *
- *
- **********************************************/
+
+SimpleVec::iterator SimpleVec::begin(){
+  BidirIterator begin(array);
+  return begin;
+}
+
+SimpleVec::iterator SimpleVec::end(){
+  //BidirIterator end(array[length]);
+  BidirIterator end(&(array[length]));
+  return end;
+}
+
 
 // Constructors
 SimpleVec::SimpleVec() : capacity(INITIAL_CAPACITY), length(0) {
@@ -121,23 +102,6 @@ SimpleVec & SimpleVec::operator=(const SimpleVec& rhs) {
 }
 
 
-//iteraro andn related methods
-
-SimpleVec::iterator SimpleVec::begin()
-{
-  BidirIterator begin(array);
-  return begin;
-}
-
-SimpleVec::iterator SimpleVec::end()
-{
-  //BidirIterator end(array[length]);
-  BidirIterator end(&(array[length]));
-  return end;
-}
-
-
-
 // Other SimpleVec methods
 void SimpleVec::push(double value) {
     if(length == capacity) expandCapacity();
@@ -148,7 +112,6 @@ void SimpleVec::erase(int index) {
     for(int i = index; i < length-1; ++i)
         array[i] = array[i+1];
     length--;
-    
 }
 
 void SimpleVec::insert(int index, double value) {
