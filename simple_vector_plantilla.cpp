@@ -13,7 +13,7 @@ double &BidirIterator::operator*(){
 
 BidirIterator &BidirIterator::operator++(){  // ++it
   ptr++;
-  //return *this;
+  return *this;
 }
 
 BidirIterator BidirIterator::operator++(int){  // it++
@@ -21,12 +21,19 @@ BidirIterator BidirIterator::operator++(int){  // it++
   //BidirIterator temporal = *this;
   //++*this;
   //return temporal;
+  return *this;
 } 
 
 
 
 BidirIterator &BidirIterator::operator--(){
   ptr--;
+  return *this;
+}
+
+BidirIterator BidirIterator::operator--(int){
+  --ptr;
+  return *this;
 }
 
 //constructor con argumento de un apuntador a double
