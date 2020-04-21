@@ -24,7 +24,7 @@ int main() {
     //it++;
     //cout<<*(++it)<<endl;
     
-    cout<<((myvec.end()).getIt() -(myvec.begin()).getIt())/sizeof(int)<<endl;
+    //cout<<((myvec.end()).getIt() -(myvec.begin()).getIt())/sizeof(int)<<endl;
     
 
 

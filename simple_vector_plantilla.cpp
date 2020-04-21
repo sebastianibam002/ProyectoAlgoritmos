@@ -57,10 +57,7 @@ bool BidirIterator::operator==(const BidirIterator it)
   return it.ptr == ptr;
 }
 
-double *BidirIterator::getIt()const
-{
-  return ptr;
-}
+
 
 bool BidirIterator::operator!=(const BidirIterator it)
 {
@@ -128,7 +125,7 @@ SimpleVec::iterator SimpleVec::begin()
 SimpleVec::iterator SimpleVec::end()
 {
   //BidirIterator end(array[length]);
-  BidirIterator end(&(array[length -1]));
+  BidirIterator end(&(array[length]));
   return end;
 }
 
@@ -144,6 +141,7 @@ void SimpleVec::erase(int index) {
     for(int i = index; i < length-1; ++i)
         array[i] = array[i+1];
     length--;
+    
 }
 
 void SimpleVec::insert(int index, double value) {

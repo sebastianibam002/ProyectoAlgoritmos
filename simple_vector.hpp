@@ -32,8 +32,6 @@ public:
   BidirIterator & operator--();  // --it
   BidirIterator operator--(int); // it--
 
-  double* getIt()const;//returns the position in memory
-
 
   // assignment operator
   void operator=(BidirIterator it);
