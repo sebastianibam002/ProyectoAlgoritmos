@@ -28,7 +28,7 @@ int main() {
     
 
 
-    /*
+    
     for(it = myvec.begin(); it != myvec.end(); it++)
         cout << *it << " ";
     cout << endl;
@@ -60,7 +60,7 @@ int main() {
     << " *it: " << *it3 << endl;
   
 
-    
+    /*
   double numero = 22.4;
   
   BidirIterator prueba(&numero);

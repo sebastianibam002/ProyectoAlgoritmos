@@ -26,8 +26,7 @@ BidirIterator BidirIterator::operator++(int){  // it++
 
 
 BidirIterator &BidirIterator::operator--(){
-  ptr = ptr - sizeof(double);
-  return *this;
+  ptr--;
 }
 
 //constructor con argumento de un apuntador a double
@@ -40,25 +39,22 @@ BidirIterator::BidirIterator(double *beg)
 
 BidirIterator::BidirIterator(const BidirIterator &it)
 {
-  //ptr= it.getIt();
-  //ptr = &temp;
-  //es un Copy constructor
-  //double temp = *it;
-  ptr = it.getIt();
+
+  ptr = it.ptr;
   
 }
 
 
 
 void BidirIterator::operator=(BidirIterator it){ // REVIZAR!!!
-  double temp = *it;
-  ptr = &temp;
+  
+  ptr = it.ptr;
 }
 
 
 bool BidirIterator::operator==(const BidirIterator it)
 {
-  return it.getIt() == ptr;
+  return it.ptr == ptr;
 }
 
 double *BidirIterator::getIt()const
@@ -68,7 +64,7 @@ double *BidirIterator::getIt()const
 
 bool BidirIterator::operator!=(const BidirIterator it)
 {
-  return it.getIt() != ptr;
+  return it.ptr != ptr;
 }
 
 
