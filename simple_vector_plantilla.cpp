@@ -1,74 +1,86 @@
+//Camilo Tejada, Sebastian Suarez & Sebastian Ibarra
 #include "simple_vector.hpp"
 /*
  * CLASS BidirIterator METHODS ---------------------------------------------
  */
 
-
-//CONSTRUCTORES
-//constructor con argumento de un apuntador a double
-BidirIterator::BidirIterator(double *beg){
-  ptr = beg;
-}
-
-BidirIterator::BidirIterator(const BidirIterator &it){
-    ptr = it.ptr;
-}
-
-//OPERADORES
+//**********************************************
 
 double &BidirIterator::operator*(){
+  
   return *ptr;
 }
 
-BidirIterator &BidirIterator::operator++(){  // ++it
-  ptr++;
-  return *this;
-}
 
-BidirIterator BidirIterator::operator++(int){  // it++
+BidirIterator &BidirIterator::operator++(){  // ++it
   ++ptr;
   return *this;
 }
 
-BidirIterator &BidirIterator::operator--(){
+BidirIterator BidirIterator::operator++(int){  // it++
+  
+  BidirIterator temp(ptr);
+  ptr++;
+  //return temporal;
+  return temp;
+} 
+
+
+
+BidirIterator &BidirIterator::operator--(){//--it
   ptr--;
   return *this;
 }
 
-BidirIterator BidirIterator::operator--(int){  // it++
+BidirIterator BidirIterator::operator--(int){//it--
+  
+  BidirIterator temp(ptr);
   --ptr;
-  return *this;
+  return temp;
 }
 
-void BidirIterator::operator=(BidirIterator it){
+//constructor con argumento de un apuntador a double
+BidirIterator::BidirIterator(double *beg)
+{
+  ptr = beg;
+  
+}
+
+
+BidirIterator::BidirIterator(const BidirIterator &it)
+{
+
+  ptr = it.ptr;
+  
+}
+
+
+
+void BidirIterator::operator=(BidirIterator it){ // REVIZAR!!!
+  
   ptr = it.ptr;
 }
 
 
-bool BidirIterator::operator==(const BidirIterator it){
+bool BidirIterator::operator==(const BidirIterator it)
+{
   return it.ptr == ptr;
 }
 
-bool BidirIterator::operator!=(const BidirIterator it){
+
+
+bool BidirIterator::operator!=(const BidirIterator it)
+{
   return it.ptr != ptr;
 }
+
+
+//**********************************************
+
 
 /*
  * CLASS SimpleVec METHODS -------------------------------------------------
  */
-
-// Iterator-related methods
-
-SimpleVec::iterator SimpleVec::begin(){
-  BidirIterator begin(array);
-  return begin;
-}
-
-SimpleVec::iterator SimpleVec::end(){
-  //BidirIterator end(array[length]);
-  BidirIterator end(&(array[length]));
-  return end;
-}
 
 
 // Constructors
@@ -102,6 +114,23 @@ SimpleVec & SimpleVec::operator=(const SimpleVec& rhs) {
 }
 
 
+//iteraro andn related methods
+
+SimpleVec::iterator SimpleVec::begin()
+{
+  BidirIterator begin(array);
+  return begin;
+}
+
+SimpleVec::iterator SimpleVec::end()
+{
+  //BidirIterator end(array[length]);
+  BidirIterator end(&(array[length]));
+  return end;
+}
+
+
+
 // Other SimpleVec methods
 void SimpleVec::push(double value) {
     if(length == capacity) expandCapacity();
@@ -112,6 +141,7 @@ void SimpleVec::erase(int index) {
     for(int i = index; i < length-1; ++i)
         array[i] = array[i+1];
     length--;
+    
 }
 
 void SimpleVec::insert(int index, double value) {
