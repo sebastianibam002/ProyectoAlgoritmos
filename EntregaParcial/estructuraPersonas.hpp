@@ -9,7 +9,7 @@ struct person
   //genero
   bool gender;
   //locacion
-  string location;
+  std::string location;
   // idUnico
   int id;
   //apuntador al siguiente por izquieda
@@ -28,9 +28,9 @@ private:
   //tenemos la raiz
   person *root;
   //para mostrar un nodo
-  void display_node(person* p_node, int count);
+  //void display_node(person* p_node, int count);
   //insertar un nodo
-  void insert_node(person *&node, T k, person*p);
+  void insert_node(person *&pPersona, int pId, std::string pLocation, bool pGender, int pAge, person*p);
   /*
   
   //no accedemos nunca desde afuera
@@ -46,11 +46,11 @@ public:
   //~EstructuraPersonas(){destroy_recursive(root);} //destructor 
   //crea un nodo, y derecho e izquiedo apunta a nullptr
   
-  void display();
-  bool empty();
+  //void display();
+  //bool empty();
   /*--------------*/
-  void test(T val);
-  void insert(T k){insert_node(root,k, nullptr);}
+  //void test(T val);
+  void insert(int pIdU, bool pGenderU, int pAgeU, std::string pLocationU){insert_node(root,pIdU, pLocationU, pGenderU,  pAgeU, nullptr);}
   //BSTNode<T>* find(T k){return find_node(root, k);}
   //Predecesor y sucesor
   //BSTNode<T> *predecessor(BSTNode<T> *pNode); //le doy un nodo y me deberia retorna el predecesor de este
