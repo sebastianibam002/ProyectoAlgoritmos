@@ -85,12 +85,12 @@ void BST<T>::insert_node(BSTNode<T>* &node, BSTNode<T> *p, T k) {
       node->left = nullptr;
       node->right = nullptr;
       node->parent = p;
-      node->reps = 1;
+      node->reps += 1;
     }
   else
     {
       
-      node->reps = 1;
+      
       if(k < node->key)
 	insert_node(node->left, node, k);
       else
