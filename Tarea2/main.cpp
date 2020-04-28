@@ -14,8 +14,10 @@ int main() {
   my_tree.insert("Sneezy");
   my_tree.insert("Sleepy");
   my_tree.insert("Dopey");
+  my_tree.test();
   my_tree.display();
-
+  my_tree.capacity();
+  /*
   cout << my_tree.capacity() << endl;
   
   string name = "Dop";
@@ -53,6 +55,6 @@ int main() {
   my_tree.display();
 
   cout << my_tree.capacity() << endl;
-  
+  */
   return 0;
 }

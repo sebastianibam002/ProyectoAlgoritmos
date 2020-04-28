@@ -6,6 +6,8 @@
 template <typename T>
 struct BSTNode {
   T key;
+  //numero de repeticiones del mismo elemento
+  int reps;
   BSTNode<T> *left;
   BSTNode<T> *right;
   BSTNode<T> *parent;
@@ -26,11 +28,13 @@ private:
   BSTNode<T>* predecessor(BSTNode<T> *node);
   BSTNode<T>* successor(BSTNode<T> *node);
   BSTNode<T>* remove_node(BSTNode<T>* &node, T k);
+  int recursive_capacity(BSTNode<T>* node);
   
 public:
   BST() { root = nullptr; }
   ~BST() { destroy_recursive(root); }
-  
+  //calcula el numero total de llaves registradas en el arbol es decir el numero total dse llaves con lasrepetidas
+  int capacity();
   bool empty() { return root == nullptr; }
   void display();
   void insert(T k) { insert_node(root, nullptr, k); }
@@ -42,21 +46,56 @@ public:
   /*--------*/
 };
 
+
+template<typename T>
+int BST<T>::recursive_capacity(BSTNode<T>* node)
+{
+  if(node == nullptr)
+    {
+      return node->reps;
+    }
+  else if(node->left == nullptr && node->right == nullptr)
+    {
+      return 0;
+    }
+  else
+    {
+      return recursive_capacity(node->left) + recursive_capacity(node->right);
+    }
+}
+
+
+
+template<typename T>
+int BST<T>::capacity()
+{
+  //me toca recorrer el arbol con un contador
+  int contador = 0;
+  
+  std::cout<<recursive_capacity(root)<<std::endl;
+  
+}
+
 template <typename T>
 void BST<T>::insert_node(BSTNode<T>* &node, BSTNode<T> *p, T k) {
-  if(node == nullptr){
-    node = new BSTNode<T>;
-    node->key = k;
-    node->left = nullptr;
-    node->right = nullptr;
-    node->parent = p;
-  } else{
-    if(k != node->key){
+  if(node == nullptr)
+    {
+      node = new BSTNode<T>;
+      node->key = k;
+      node->left = nullptr;
+      node->right = nullptr;
+      node->parent = p;
+      node->reps = 1;
+    }
+  else
+    {
+      
+      node->reps = 1;
       if(k < node->key)
 	insert_node(node->left, node, k);
       else
 	insert_node(node->right, node, k);
-    }
+     
   }
 }
 
@@ -202,6 +241,7 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 /*--------*/
 template <typename T>
 void BST<T>::test() {
+  /*
   std::cout << "Lowest element: " << minimum(root)->key << "\n";
   std::cout << "Highest element: " << maximum(root)->key << "\n";
   
@@ -211,6 +251,9 @@ void BST<T>::test() {
   std::cout << "Successor of Dopey is "
   	    << successor(find("Dopey"))->key
   	    << "\n";
+  */
+
+  std::cout<<root->reps<<std::endl;
 }
 /*--------*/
 
