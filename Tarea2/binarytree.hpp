@@ -52,15 +52,16 @@ int BST<T>::recursive_capacity(BSTNode<T>* node)
 {
   if(node == nullptr)
     {
-      return node->reps;
+      return 0;
+      
     }
   else if(node->left == nullptr && node->right == nullptr)
     {
-      return 0;
+      return node->reps;
     }
   else
     {
-      return recursive_capacity(node->left) + recursive_capacity(node->right);
+      return recursive_capacity(node->left) + recursive_capacity(node->right) + node->reps;
     }
 }
 
@@ -253,7 +254,7 @@ void BST<T>::test() {
   	    << "\n";
   */
 
-  std::cout<<root->reps<<std::endl;
+  std::cout<<(root->left)->reps<<std::endl;
 }
 /*--------*/
 
