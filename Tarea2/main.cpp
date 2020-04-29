@@ -14,9 +14,12 @@ int main() {
   my_tree.insert("Sneezy");
   my_tree.insert("Sleepy");
   my_tree.insert("Dopey");
-  my_tree.test();
+  my_tree.insert("Dopey");
   my_tree.display();
-  my_tree.capacity();
+  cout<<"la capacity es: "<<my_tree.capacity()<<endl;
+  my_tree.remove("Dopey");
+  my_tree.display();
+  cout<<"la capacity es: "<<my_tree.capacity()<<endl;  
   /*
   cout << my_tree.capacity() << endl;
   

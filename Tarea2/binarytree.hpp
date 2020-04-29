@@ -71,10 +71,10 @@ template<typename T>
 int BST<T>::capacity()
 {
   //me toca recorrer el arbol con un contador
-  int contador = 0;
+  //int contador = 0;
   
-  std::cout<<recursive_capacity(root)<<std::endl;
-  
+  //std::cout<<recursive_capacity(root)<<std::endl;
+  return recursive_capacity(root);
 }
 
 template <typename T>
@@ -86,17 +86,23 @@ void BST<T>::insert_node(BSTNode<T>* &node, BSTNode<T> *p, T k) {
       node->left = nullptr;
       node->right = nullptr;
       node->parent = p;
-      node->reps += 1;
+      node->reps = 1;
     }
   else
     {
+      if(k != node->key)
+	{
+	  
       
-      
-      if(k < node->key)
-	insert_node(node->left, node, k);
+	  if(k < node->key)
+	    insert_node(node->left, node, k);
+	  else
+	    insert_node(node->right, node, k);
+	}
       else
-	insert_node(node->right, node, k);
-     
+	{
+	  node->reps++;
+	}
   }
 }
 
@@ -105,7 +111,7 @@ void BST<T>::display_node(BSTNode<T> *node, int count) {
   if(node != nullptr){
     count++;
     display_node(node->left, count);
-    std::cout << "(" << count-1 << ")" << node->key << " ";
+    std::cout << "(" << count-1 << ")" << "(" <<node->key << "," <<node->reps<<")"<<" ";
     display_node(node->right, count);
   }
 }
@@ -187,39 +193,53 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
     if(n->left == nullptr && n->right == nullptr){
       //
       std::cout<<"Case1\n";
-      //
-      if(p == nullptr){ //if node is root
-	root = nullptr;  
-      } else{
-	if(n == p->left) //if n is left child
-	  p->left = nullptr;
-	else
-	  p->right = nullptr;
-      }
-      delete n;
+      if(n->reps ==1)
+	{if(p == nullptr){ //if node is root
+	    root = nullptr;  
+	  } else{
+	    if(n == p->left) //if n is left child
+	      p->left = nullptr;
+	    else
+	      p->right = nullptr;
+	  }
+	  delete n;
+	}
+      else
+	{
+	  //en caso de que las repeteiciones sean un valor diferentes a uno solose le resta uno a las repeticiones
+	  n->reps--;
+	}
     }
+    
     
     //Case 2: One child
     else if(n->left == nullptr || n->right == nullptr){
       //
       std::cout<<"Case2\n";
       //
-      BSTNode<T>* c;
-      if(n == p->left){ //if n is left child
-	if(n->left != nullptr) //if child was left
-	  c = n->left;
-	else //if child was right
-	  c = n->right;
-	if(p != nullptr) p->left = c;
-      } else{ //if n is right child
-	if(n->left != nullptr) //if child was left
-	  c = n->left;
-	else //if child was right
-	  c = n->right;
-	if(p != nullptr) p->right = c;
-      }
-      c->parent = p;
-      delete n;
+      if(n->reps == 1)
+	{
+	  BSTNode<T>* c;
+	  if(n == p->left){ //if n is left child
+	    if(n->left != nullptr) //if child was left
+	      c = n->left;
+	    else //if child was right
+	      c = n->right;
+	    if(p != nullptr) p->left = c;
+	  } else{ //if n is right child
+	    if(n->left != nullptr) //if child was left
+	      c = n->left;
+	    else //if child was right
+	      c = n->right;
+	    if(p != nullptr) p->right = c;
+	  }
+	  c->parent = p;
+	  delete n;
+	}
+      else
+	{
+	  n->reps--;
+	}
     }
     
     //Case 3: Two children
@@ -227,11 +247,19 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
       //
       std::cout<<"Case3\n";
       //
-      BSTNode<T>* s = successor(n);
-      T new_key = s->key;
-      p = remove_node(s->parent, s->key);
-      n->key = new_key;
-    }
+      if(n->reps == 1)
+	{
+	  BSTNode<T>* s = successor(n);
+	  T new_key = s->key;
+	  p = remove_node(s->parent, s->key);
+	  n->key = new_key;
+	}
+      else
+	{
+	  n->reps--;
+	}
+
+     }
 
     return p;
   }
@@ -254,7 +282,7 @@ void BST<T>::test() {
   	    << "\n";
   */
 
-  std::cout<<(root->left)->reps<<std::endl;
+  //std::cout<<(root->left)->reps<<std::endl;
 }
 /*--------*/
 
