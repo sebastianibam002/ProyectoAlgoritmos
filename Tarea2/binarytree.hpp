@@ -48,8 +48,7 @@ public:
 
 
 template<typename T>
-int BST<T>::recursive_capacity(BSTNode<T>* node)
-{
+int BST<T>::recursive_capacity(BSTNode<T>* node){
   if(node == nullptr)
     {
       return 0;
@@ -68,9 +67,7 @@ int BST<T>::recursive_capacity(BSTNode<T>* node)
 
 
 template<typename T>
-int BST<T>::capacity()
-{
-  //me toca recorrer el arbol con un contador
+int BST<T>::capacity(){
   //int contador = 0;
   
   //std::cout<<recursive_capacity(root)<<std::endl;
@@ -79,8 +76,7 @@ int BST<T>::capacity()
 
 template <typename T>
 void BST<T>::insert_node(BSTNode<T>* &node, BSTNode<T> *p, T k) {
-  if(node == nullptr)
-    {
+  if(node == nullptr){
       node = new BSTNode<T>;
       node->key = k;
       node->left = nullptr;
@@ -206,7 +202,7 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 	}
       else
 	{
-	  //en caso de que las repeteiciones sean un valor diferentes a uno solose le resta uno a las repeticiones
+	  //en caso de que las repeteiciones sean un valor diferentes a uno solo se le resta uno a las repeticiones
 	  n->reps--;
 	}
     }
