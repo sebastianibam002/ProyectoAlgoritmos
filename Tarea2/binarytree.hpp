@@ -18,7 +18,7 @@ template <typename T>
 class BST {
 private:
   BSTNode<T> *root;
-  
+
   void insert_node(BSTNode<T>* &node, BSTNode<T>* p, T k);
   void destroy_recursive(BSTNode<T> *node);
   void display_node(BSTNode<T> *node, int count);
@@ -29,7 +29,7 @@ private:
   BSTNode<T>* successor(BSTNode<T> *node);
   BSTNode<T>* remove_node(BSTNode<T>* &node, T k);
   int recursive_capacity(BSTNode<T>* node);
-  
+
 public:
   BST() { root = nullptr; }
   ~BST() { destroy_recursive(root); }
@@ -49,28 +49,20 @@ public:
 
 template<typename T>
 int BST<T>::recursive_capacity(BSTNode<T>* node){
-  if(node == nullptr)
-    {
-      return 0;
-      
-    }
-  else if(node->left == nullptr && node->right == nullptr)
-    {
-      return node->reps;
-    }
-  else
-    {
-      return recursive_capacity(node->left) + recursive_capacity(node->right) + node->reps;
-    }
+  if(node == nullptr){
+    return 0;
+  }
+  else if(node->left == nullptr && node->right == nullptr){
+    return node->reps;
+  }else{
+    return recursive_capacity(node->left) + recursive_capacity(node->right) + node->reps;
+  }
 }
 
 
 
 template<typename T>
 int BST<T>::capacity(){
-  //int contador = 0;
-  
-  //std::cout<<recursive_capacity(root)<<std::endl;
   return recursive_capacity(root);
 }
 
@@ -83,24 +75,18 @@ void BST<T>::insert_node(BSTNode<T>* &node, BSTNode<T> *p, T k) {
       node->right = nullptr;
       node->parent = p;
       node->reps = 1;
+    }else{
+      if(k != node->key){
+        if(k < node->key){
+          insert_node(node->left, node, k);
+        }else{
+          insert_node(node->right, node, k);
+        }
+      }else{
+        node->reps++;
+      }
     }
-  else
-    {
-      if(k != node->key)
-	{
-	  
-      
-	  if(k < node->key)
-	    insert_node(node->left, node, k);
-	  else
-	    insert_node(node->right, node, k);
-	}
-      else
-	{
-	  node->reps++;
-	}
   }
-}
 
 template <typename T>
 void BST<T>::display_node(BSTNode<T> *node, int count) {
@@ -113,7 +99,7 @@ void BST<T>::display_node(BSTNode<T> *node, int count) {
 }
 
 template <typename T>
-void BST<T>::display() {
+void BST<T>::display(){
   display_node(root, 0);
   std::cout << std::endl;
 }
@@ -184,37 +170,35 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
   BSTNode<T>* n = find_node(node, k);
   if(n != nullptr){
     BSTNode<T>* p = n->parent;
-    
+
     //Case 1: No children
     if(n->left == nullptr && n->right == nullptr){
       //
       std::cout<<"Case1\n";
-      if(n->reps ==1)
-	{if(p == nullptr){ //if node is root
-	    root = nullptr;  
-	  } else{
-	    if(n == p->left) //if n is left child
-	      p->left = nullptr;
-	    else
-	      p->right = nullptr;
-	  }
+      if(n->reps ==1){
+        if(p == nullptr){ //if node is root
+          root = nullptr;
+        }else{
+          if(n == p->left){
+            p->left = nullptr;
+          }else{
+            p->right = nullptr;
+          }
+        }
 	  delete n;
-	}
-      else
-	{
-	  //en caso de que las repeteiciones sean un valor diferentes a uno solo se le resta uno a las repeticiones
+  }else{
+	  //en caso de que las repeteiciones sean un valor diferentes a uno solose le resta uno a las repeticiones
 	  n->reps--;
-	}
-    }
-    
-    
+  }
+}
+
+
     //Case 2: One child
     else if(n->left == nullptr || n->right == nullptr){
       //
       std::cout<<"Case2\n";
       //
-      if(n->reps == 1)
-	{
+      if(n->reps == 1){
 	  BSTNode<T>* c;
 	  if(n == p->left){ //if n is left child
 	    if(n->left != nullptr) //if child was left
@@ -222,7 +206,7 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 	    else //if child was right
 	      c = n->right;
 	    if(p != nullptr) p->left = c;
-	  } else{ //if n is right child
+	  }else{ //if n is right child
 	    if(n->left != nullptr) //if child was left
 	      c = n->left;
 	    else //if child was right
@@ -231,13 +215,11 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 	  }
 	  c->parent = p;
 	  delete n;
-	}
-      else
-	{
+	}else{
 	  n->reps--;
 	}
-    }
-    
+}
+
     //Case 3: Two children
     else{
       //
@@ -249,9 +231,7 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 	  T new_key = s->key;
 	  p = remove_node(s->parent, s->key);
 	  n->key = new_key;
-	}
-      else
-	{
+	}else{
 	  n->reps--;
 	}
 
@@ -266,19 +246,18 @@ BSTNode<T>* BST<T>::remove_node(BSTNode<T>* &node, T k) {
 /*--------*/
 template <typename T>
 void BST<T>::test() {
-  /*
+
   std::cout << "Lowest element: " << minimum(root)->key << "\n";
   std::cout << "Highest element: " << maximum(root)->key << "\n";
-  
+
   std::cout << "Predecessor of Sneezy is "
   	    << predecessor(find("Sneezy"))->key
   	    << "\n";
   std::cout << "Successor of Dopey is "
   	    << successor(find("Dopey"))->key
   	    << "\n";
-  */
 
-  //std::cout<<(root->left)->reps<<std::endl;
+  std::cout<<(root->left)->reps<<std::endl;
 }
 /*--------*/
 
