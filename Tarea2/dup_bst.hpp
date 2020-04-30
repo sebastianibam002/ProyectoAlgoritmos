@@ -1,3 +1,4 @@
+//Sebastian Ibarra, Sebastian Suarez, Camilo Tejada
 #ifndef _BINARYTREE_HPP
 #define _BINARYTREE_HPP
 
