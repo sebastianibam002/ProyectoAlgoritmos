@@ -1,31 +1,56 @@
+#include "nodeLayers.hpp"
 
 
-#ifndef _NODELAYERS_CPP
-#define _NODELAYERS_CPP
-#include <string>
-struct node
+
+
+LayerNode::LayerNode()
 {
-
-  String location;
-  int age;
-  bool gender;
-  node* nextGender;
-  node* nextAge;
-  node* nextLocation;
+  length = 0;
+  root = nullptr;
 }
 
 
-class LayerNode
+bool LayerNode::empty()
 {
-private:
-  node* root;
-  int length;
-  
-public:
-  
-  
+  return root == nullptr;
+}
+
+int LayerNode::size()
+{
+  return length;
+}
+
+void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
+{
+  //creo primero el objeto que pienso intrudcir
+
+  node* nuevo = new node;
+  nuevo->location = pLocation;
+  nuevo->age = pAge;
+  nuevo->gender = pGender;
+
+
+  if(empty())
+    {
+      nuevo->nextGender = nullptr;
+      nuevo->nextAge = nullptr;
+      nuevo->nextLocation = nullptr;
+      //en el caso de que root este apuntando a nullptr
+      root = nuevo;
+    }
+ 
+      //en el caso de que ya exista un elemento tenemos que volver a organizadorlos haciendo una comparación
+      
+    
+}
+
+void LayerNode::display()
+{
+  std::cout<<"genero: "<<root->gender<<"edad"<<root->age<<"locacion: "<<root->location<<std::endl;
 }
 
 
 
-#endif
+/*
+node* LayerNode::find()
+*/

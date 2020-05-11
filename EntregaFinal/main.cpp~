@@ -1,0 +1,11 @@
+#include "nodeLayers.cpp"
+using namespace std;
+int main()
+{
+  LayerNode prueba;
+  prueba.insert("Bogota", 15, false);
+  prueba.display();
+  
+  return 0;
+}
+   
