@@ -1,7 +1,7 @@
 #include "nodeLayers.hpp"
 //BAJO
-int BAJOA = 0;
-int BAJOB = 21;
+int BAJAA = 0;
+int BAJAB = 21;
 //MEDIANA
 int MEDIANAA = 22;
 int MEDIANAB = 55;
@@ -12,10 +12,14 @@ int ALTAA = 56;
 LayerNode::LayerNode()
 {
   length = 0;
+  back = nullptr;
   root = nullptr;
+  baja = root;
+  mediana = root;
+  alta = root;
   //edad
   //corresponde al ultimo nodo ue quedo en la parte de baja
-  baja = nullptr; 
+  //baja = nullptr; 
 }
 
 
@@ -29,6 +33,9 @@ int LayerNode::size()
   return length;
 }
 
+
+
+
 void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
 {
   //creo primero el objeto que pienso intrudcir
@@ -37,7 +44,9 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
   nuevo->location = pLocation;
   nuevo->age = pAge;
   nuevo->gender = pGender;
-
+  node* temp = root;
+  
+  
 
   if(empty())
     {
@@ -45,12 +54,22 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
       nuevo->nextAge = nullptr;
       nuevo->nextLocation = nullptr;
       //en el caso de que root este apuntando a nullptr
+      findNodeAge(nuevo);
       root = nuevo;
+      
     }
   else
     {
-      //primero lo relacionamos en cuanto a la edad en baja, mediana o alta
+
+      //en el caso que sea el primer elemento en anadirse
+      nuevo->nextGender = nullptr;
+      nuevo->nextLocation = nullptr;
+      nuevo->next = root;
+      root = nuevo;
       findNodeAge(nuevo);
+
+	
+      
     }
   
  
@@ -61,14 +80,34 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
 
 void LayerNode::display()
 {
-  std::cout<<"genero: "<<root->gender<<"edad"<<root->age<<"locacion: "<<root->location<<std::endl;
+  node* temp = root;
+  while(temp != nullptr)
+    {
+      std::cout<<"Genero: "<<temp->gender<<" Edad: "<<temp->age<<" Locacion: "<<temp->location<<" NextAge: "<< baja->location<<std::endl;
+      //std::cout<<"quien es baja: "<<temp->nextAge<<std::endl;
+      temp = temp->next;
+ 
+    }
+  
+}
+
+void LayerNode::test()
+{
+  node* temp = root;
+  while(temp != nullptr)
+    {
+      std::cout<<temp->age<<" ";
+      temp = temp->nextAge;
+
+    }
+  std::cout<<std::endl;
 }
 
 
 
-
-void LayerNode::findNodeAge(node* pNode)
+void LayerNode::findNodeAge(node* &pNode)
 {
+  
   //tiene como parametro un nodo y va a buscar asociar de la mejor manera
   //comienzo con la edad
   //tengo asi que dividir por tres edades: menores, mediana y alta
@@ -77,18 +116,17 @@ void LayerNode::findNodeAge(node* pNode)
   if(pNode->age >= BAJAA && pNode->age <= BAJAB)
     {
       //entra al primer rango
-      pNode->next = baja;
+      pNode->nextAge = baja;
       baja = pNode;
-      
     }
   else if(pNode->age >= MEDIANAA && pNode->age <= MEDIANAB)
     {
-      pNode->next = mediana;
+      pNode->nextAge = mediana;
       mediana = pNode;
     }
   else if(pNode->age > ALTAA)
     {
-      pNode->next = alta;
+      pNode->nextAge = alta;
       alta = pNode;
     }
   
