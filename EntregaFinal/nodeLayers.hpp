@@ -19,7 +19,13 @@ class LayerNode
 {
 private:
   node* root;
+  //son unos apuntadores que estan a los segmentos en cuano a la edad
+  node* baja;
+  node* mediana;
+  node* alta;
+  
   int length;
+  void findNodeAge(node* pNodo);
   
 public:
   LayerNode();
