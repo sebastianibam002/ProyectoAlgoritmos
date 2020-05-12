@@ -10,6 +10,13 @@ int ALTAA = 56;
 
 
 bool firstTimeM = true;
+bool firstTimeW = true;
+
+bool firstB = true;
+bool firstM = true;
+bool firstA = true;
+
+bool firstC = true;
 
 LayerNode::LayerNode()
 {
@@ -25,7 +32,15 @@ LayerNode::LayerNode()
   
   //edad
   //corresponde al ultimo nodo ue quedo en la parte de baja
-  //baja = nullptr; 
+  //baja = nullptr;
+  //topG = new node;
+  topG2 = new node;
+
+  topB = new node;
+  topM = new node;
+  topA = new node;
+  topCity = new node;
+  
 }
 
 
@@ -53,13 +68,46 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
   node* temp = root;
   length++;
 
-  
+  //primera vez que se inserta un genero
   if(firstTimeM && pGender == false)
     {
       //es el primer hombre que introduzco
       topG = nuevo;
+      //firstTimeM = false;
     }
+  
+  else if(firstTimeW && pGender == true)
+    {
+      //el la primer mujer
+      topG2 = nuevo;
+      //firstTimeW = false;
+    }
+  /*
+  //primera vez que se inserta cierta edad
+  if(firstB && (pAge >= BAJAA && pAge <= BAJAB))
+    {
+      topB = nuevo;
+      firstB = false;
+    }
+  else if(firstM && (pAge >= MEDIANAA && pAge <= MEDIANAB))
+    {
+      topM = nuevo;
+      firstM = false;
+    }
+  else if(firstA && (pAge >= ALTAA))
+    {
+      topA = nuevo;
+      firstA = false;
+    }
+  //primera vez qu se inserta la ciudad
+  if(firstC)
+    {
+      topCity = nuevo;
+      firstC = false;
+    }
+  */
 
+    
   if(empty())
     {
       nuevo->nextGender = nullptr;
@@ -173,23 +221,69 @@ void LayerNode::findNodeAge(node* &pNode)
 
 int LayerNode::countGender(bool pSeleccion)
 {
-
+ 
   int contador = 0;
-  node* temp = topG;
   if(pSeleccion)
     {
-      node* temp = wom;
+      
+      node* temp = topG2;
+      while(temp != nullptr)
+	{
+	  contador++;
+	  temp = temp->nextGender;
+	}
     }
   else
     {
-      node* temp = men;
+      node* temp = topG;
+      while(temp != nullptr)
+	{
+	  contador++;
+	  temp = temp->nextGender;
+	} 
     }
     
-  while(temp != nullptr)
-    {
-      contador++;
-      temp = temp->nextGender;
-    }
+
 
   return contador;
 }
+
+void LayerNode::destroy(node* pNode)
+{
+  node* temp = pNode;
+  //node* temp2 = new node;
+  while(temp != nullptr)
+    {
+
+      //if(temp->next != nullptr)
+      
+      node* reTemp = temp->next;
+      if(reTemp != nullptr)
+	{
+	  //std::cout<<"borrando: "<<temp->location<<" el siguiente es:"<<reTemp->location<<std::endl;
+	  delete temp;
+	  temp = reTemp;
+	}
+      else
+	{
+	  //std::cout<<"borrando: "<<temp->location<<std::endl;
+	  delete temp;
+	  break;
+	}
+      
+    }
+}
+/*
+void LayerNode::display()
+{
+  node* temp = root;
+  while(temp != nullptr)
+    {
+      std::cout<<"Genero: "<<temp->gender<<" Edad: "<<temp->age<<" Locacion: "<<temp->location<<std::endl;
+      //std::cout<<"quien es baja: "<<temp->nextAge<<std::endl;
+      temp = temp->next;
+ 
+    }
+  
+}
+ */

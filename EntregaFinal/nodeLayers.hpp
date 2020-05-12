@@ -25,15 +25,22 @@ private:
   node* back;
   node* root;
   //son unos apuntadores que estan a los segmentos en cuano a la edad
+  node* topB;
   node* baja;
+  
+  node* topM;
   node* mediana;
+
+  node* topA;
   node* alta;
   //apuntador a mujeres
   node* topG;
   node* wom;
+  node* topG2;
   node* men;
   //para recorrer las locaciones se va a hacer uso de mas o menos un binary tree
   //para eso necesito organizarlos
+  node* topCity;
   node* city;
 
   //el simplement next
@@ -41,9 +48,10 @@ private:
   void findNodeAge(node* &pNodo);
   void findNodeGender(node* &pNodo);
   void findNodeCity(node* &pNode);
+  void destroy(node* pNode);
 public:
   LayerNode();
-  //~LayerNode();
+  ~LayerNode(){destroy(root);}
   bool empty();
   int size();//retorna el numero de elementos que hay en las layers
   void insertNode(std::string pLocation, int pAge, bool pGender);
