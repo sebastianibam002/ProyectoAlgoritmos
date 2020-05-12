@@ -144,10 +144,12 @@ void HashMap<VT>::rehash() {
 
 template <typename VT>
 VT HashMap<VT>::get(std::string key){
-    if (contains() == true){
-        return <VT> KeyValueNode.value();
+    KeyValueNode<VT> *cursor = search_bucket(hash_fun(key), key);
+    if (contains(key) == true){
+        return cursor->value;
     }else{
-        throw runtime_error("get: Attempting to get a nonexistent key\n");
+        //throw runtime_error("get: Attempting to get a nonexistent key\n");
+        std::cout << "No hay" << std::endl;
     }
 
 }
@@ -165,6 +167,12 @@ bool HashMap<VT>::contains(std::string key){
 
 template <typename VT>
 void HashMap<VT>::remove(std::string key){
+    if (contains(key) == true){
+        //borra
+    }else{
+        //throw runtime_error("remove: Attempting to remove a nonexistent key\n");
+        std::cout << "No se puede borrar" << std::endl;
+    }
 
 }
 
