@@ -10,8 +10,11 @@ int main()
   prueba.insert(6);//3
   prueba.insert(4);//4
   prueba.insert(8);//5
+  cout<<"contiene el elemento 8: "<<prueba.contains(8)<<endl;
+  cout<<"contiene el 9: "<<prueba.contains(9)<<endl;
   prueba.display();
   prueba.test();
+  
   
   
   

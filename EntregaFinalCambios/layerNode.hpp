@@ -23,7 +23,7 @@
  *
  */
 
-  
+int NEXT = 10;
 
 //nodo de localizacion para el arbol
 struct nodeLoc
@@ -63,58 +63,129 @@ public:
   nodeLoc* predecessor(nodeLoc *pNode);
   nodeLoc* successor(nodeLoc *pNode);
   nodeLoc* find(int pEdad){return findNode(root, pEdad);}
+  bool contains(int pEdad);//este elemento existe en la estructura
+  int searchNext(int pEdad);
+  int searchLast(int pEdad);
+  
   std::vector<int> rango(int pDesde, int pHasta);
   void test();
   
 };
 
-
-std::vector<int> BinLoc::rango(int pDesde, int pHasta)
+int BinLoc::searchNext(int pEdad)
 {
-  std::vector<int> retorno;
-  nodeLoc* temp = find(pDesde);
-  std::cout<<"el hasta: "<<find(pHasta)->idUnico<<std::endl;
-  nodeLoc* tempDos = find(pHasta);
-  //los numeros mayores
-  while(temp != nullptr)
+  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+  int tempEdad = pEdad;
+  int contador = 0;
+  while(contador < NEXT && !contains(tempEdad))
     {
-      //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
-
-
-	  
-      retorno.push_back(temp->idUnico);
-      //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
-      //std::cout<<"elemento introducido"<<std::endl;
-      temp = successor(temp);
-      //std::cout<<"llego"<<std::endl;
-      //std::cout<<"siguiente elemento "<< temp<<std::endl;
-      if(tempDos->idUnico == temp->idUnico)
-	{
-	  retorno.push_back(temp->idUnico);
-	  break;
-	}
+      tempEdad++;
+      contador++;
+      
     }
 
+  if(contains(tempEdad))
+    return tempEdad;
+  else
+    return -1;
+}
+
+int BinLoc::searchLast(int pEdad)
+{
+  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+  int tempEdad = pEdad;
+  int contador = 0;
+  while(contador < NEXT && !contains(tempEdad))
+    {
+      tempEdad--;
+      contador++;
+      
+    }
+
+  if(contains(tempEdad))
+    return tempEdad;
+  else
+    return -1;
+}
+
+
+bool BinLoc::contains(int pEdad)
+{
+  if(find(pEdad) == nullptr)
+    {
+      return false;
+    }
+  return true;
+}
+std::vector<int> BinLoc::rango(int pDesde, int pHasta)
+{
+
+  if(pDesde != -1 && pHasta != -1)
+    {
+      std::vector<int> retorno;
+      if(contains(pDesde) && contains(pHasta))
+	{
+	  nodeLoc* temp = find(pDesde);
+	  std::cout<<"el hasta: "<<find(pHasta)->idUnico<<std::endl;
+	  nodeLoc* tempDos = find(pHasta);
+	  //los numeros mayores
+	  while(temp != nullptr)
+	    {
+	      //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
+	      
+	      
+	      
+	      retorno.push_back(temp->idUnico);
+	      //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
+	      //std::cout<<"elemento introducido"<<std::endl;
+	      temp = successor(temp);
+	      //std::cout<<"llego"<<std::endl;
+	      //std::cout<<"siguiente elemento "<< temp<<std::endl;
+	      if(tempDos->idUnico == temp->idUnico)
+		{
+		  retorno.push_back(temp->idUnico);
+		  break;
+		}
+	    }
+	  return retorno;
+	  
+	}
+      else
+	{
+	  //if(pDesde == -1 && !pHasta != -1)
+	 return rango(searchNext(pDesde), searchLast(pHasta));
+	   
+	}
+    }
   
 
-  return retorno;
 }
+
+
+
 
 
 void BinLoc::test()
 {
   //std::cout<<"el predecessor de 5 es: "<< predecessor(find(5))->edad<<std::endl;
   //std::cout<<root->parent<<std::endl;
-  std::vector<int> prueba= rango(5,8);
+
+  
+  std::vector<int> prueba= rango(0,10);
+
   for(unsigned int i =0; i < prueba.size(); i++)
     {
       std::cout<<prueba[i]<<" ";
     }
   std::cout<<std::endl;
   
+}
+
+  
+  //std::cout<<searchLast(12)<<std::endl;
 
   //std::cout<<"sucesor del ultimo: "<<successor(find(6))->idUnico<<std::endl;
-}
+
 
 nodeLoc* BinLoc::minimum(nodeLoc *t)
 {  
@@ -194,7 +265,7 @@ void BinLoc::displayNode(nodeLoc *pNode, int count)
     {
 
       displayNode(pNode->left, count);	
-      std::cout<< "("<<count -1<< ")"<<pNode->edad<<"id: "<<pNode->idUnico << " ";
+      std::cout<< "("<<count -1<< ")"<<pNode->edad<<" id["<<pNode->idUnico <<"] " ;
       displayNode(pNode->right, count);
 	
     }
