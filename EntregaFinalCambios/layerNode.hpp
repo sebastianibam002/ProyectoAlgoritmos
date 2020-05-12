@@ -2,10 +2,48 @@
 #define _LAYERNODE_HPP
 #include <iostream>
 #include <vector>
-#include <map>
+#include <string>
 //es la estructura que contiene las direcciones a cad auno de sus elementos en las 3 estructuras que las van a estar almacenando
 
 //ahora bien toca hacer la parte que divide los generos en dos mapas
+
+
+/*
+
+ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
+ 
+
+struct nodoMaster
+{
+  int idUnico;
+  int age;
+  bool gender;
+  std::string location;
+};
+
+
+class BDCovid
+{
+private:
+  nodeMaster* array;//es la general
+  GenderMap genderMap;//contine los generos
+  BinLoc binaryTree;//contirne las edades
+  
+public:
+  BDCovid();
+  ~BDCovid();
+};
+
+BDCovid::BDCovid()
+{
+  //inicializar los atributos
+  
+}
+
+
+*/
+
+
 
 
 /*
