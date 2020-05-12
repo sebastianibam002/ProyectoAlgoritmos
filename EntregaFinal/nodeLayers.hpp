@@ -9,10 +9,13 @@ struct node
   std::string location;
   int age;
   bool gender;
+  //siguiente
   node* nextGender;
   node* nextAge;
   node* nextLocation;
   node* next;
+  //el anterior
+  //node* lasGender;
 };
 
 
@@ -26,6 +29,7 @@ private:
   node* mediana;
   node* alta;
   //apuntador a mujeres
+  node* topG;
   node* wom;
   node* men;
   //para recorrer las locaciones se va a hacer uso de mas o menos un binary tree

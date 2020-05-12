@@ -9,6 +9,8 @@ int MEDIANAB = 55;
 int ALTAA = 56;
 
 
+bool firstTimeM = true;
+
 LayerNode::LayerNode()
 {
   length = 0;
@@ -50,7 +52,13 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
   nuevo->gender = pGender;
   node* temp = root;
   length++;
+
   
+  if(firstTimeM && pGender == false)
+    {
+      //es el primer hombre que introduzco
+      topG = nuevo;
+    }
 
   if(empty())
     {
@@ -123,6 +131,7 @@ void LayerNode::findNodeGender(node *&pNode)
   if(pNode->gender == true)
     {
       //es mujer
+      
       pNode->nextGender = wom;
       wom = pNode;
     }
@@ -162,3 +171,25 @@ void LayerNode::findNodeAge(node* &pNode)
   
 }
 
+int LayerNode::countGender(bool pSeleccion)
+{
+
+  int contador = 0;
+  node* temp = topG;
+  if(pSeleccion)
+    {
+      node* temp = wom;
+    }
+  else
+    {
+      node* temp = men;
+    }
+    
+  while(temp != nullptr)
+    {
+      contador++;
+      temp = temp->nextGender;
+    }
+
+  return contador;
+}
