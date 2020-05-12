@@ -33,13 +33,13 @@ LayerNode::LayerNode()
   //edad
   //corresponde al ultimo nodo ue quedo en la parte de baja
   //baja = nullptr;
-  //topG = new node;
-  topG2 = new node;
+  topG = nullptr;
+  topG2 = nullptr;
 
-  topB = new node;
-  topM = new node;
-  topA = new node;
-  topCity = new node;
+  topB = nullptr;
+  topM = nullptr;
+  topA = nullptr;
+  //topCity = new node;
   
 }
 
@@ -82,30 +82,30 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
       topG2 = nuevo;
       //firstTimeW = false;
     }
-  /*
+ 
   //primera vez que se inserta cierta edad
   if(firstB && (pAge >= BAJAA && pAge <= BAJAB))
     {
       topB = nuevo;
-      firstB = false;
+      //firstB = false;
     }
   else if(firstM && (pAge >= MEDIANAA && pAge <= MEDIANAB))
     {
       topM = nuevo;
-      firstM = false;
+      //firstM = false;
     }
   else if(firstA && (pAge >= ALTAA))
     {
       topA = nuevo;
-      firstA = false;
+      //firstA = false;
     }
   //primera vez qu se inserta la ciudad
   if(firstC)
     {
       topCity = nuevo;
-      firstC = false;
+      //firstC = false;
     }
-  */
+  
 
     
   if(empty())
@@ -219,6 +219,49 @@ void LayerNode::findNodeAge(node* &pNode)
   
 }
 
+int LayerNode::countAge(int pGroup)
+{
+  int contador = 0;
+ 
+
+  if(pGroup == 0)
+    {
+      //vamos a contar a los que son de edad baja
+      node* temp = topB;
+      
+      while(temp != nullptr)
+	{
+	  contador++;
+	  temp = temp->next;
+	}
+      
+    }
+  else if(pGroup == 1)
+    {
+      
+      node* temp = topM;
+      while(temp != nullptr)
+	{
+	  contador++;
+	  temp = temp->next;
+	}
+    }
+  else if(pGroup == 2)
+    {
+      
+      node* temp = topA;
+      while(temp != nullptr)
+	{
+	  contador++;
+	  temp = temp->next;
+	}
+     
+    }
+
+  return contador;
+}
+
+
 int LayerNode::countGender(bool pSeleccion)
 {
  
@@ -273,17 +316,4 @@ void LayerNode::destroy(node* pNode)
       
     }
 }
-/*
-void LayerNode::display()
-{
-  node* temp = root;
-  while(temp != nullptr)
-    {
-      std::cout<<"Genero: "<<temp->gender<<" Edad: "<<temp->age<<" Locacion: "<<temp->location<<std::endl;
-      //std::cout<<"quien es baja: "<<temp->nextAge<<std::endl;
-      temp = temp->next;
- 
-    }
-  
-}
- */
+

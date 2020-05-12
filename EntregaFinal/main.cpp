@@ -12,6 +12,7 @@ int main()
   //prueba.test();
   cout<<"hay: "<<prueba.size() <<" personitas"<<endl;
   cout<<"de esas: "<<prueba.countGender(true)<<" son mujeres"<<endl;
+  cout<<"hay: "<<prueba.countAge(0)<<" de baja edad"<<endl;
   return 0;
 }
    

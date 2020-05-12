@@ -61,6 +61,7 @@ public:
   //node* find();
   //metodos para comenzar a contar elmentos
   int countGender(bool pSeleccion);//verdadero para mujeres, falso para hombres
+  int countAge(int pGroup); //puede seleccionar un grupo de edades por ejemplo 0 que es baja 1 que es mediana y 2 que es alta
  
 };
 
