@@ -142,11 +142,32 @@ void HashMap<VT>::rehash() {
 
 /* *********************************** */
 
-//Implemente
+template <typename VT>
+VT HashMap<VT>::get(std::string key){
+    if (contains() == true){
+        return <VT> KeyValueNode.value();
+    }else{
+        throw runtime_error("get: Attempting to get a nonexistent key\n");
+    }
 
-//los métodos
+}
 
-//aquí
+
+template <typename VT>
+bool HashMap<VT>::contains(std::string key){
+    if(search_bucket(hash_fun(key), key)->key == key){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+template <typename VT>
+void HashMap<VT>::remove(std::string key){
+
+}
+
 
 /* *********************************** */
 
