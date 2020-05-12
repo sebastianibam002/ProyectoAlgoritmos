@@ -12,11 +12,15 @@ int ALTAA = 56;
 LayerNode::LayerNode()
 {
   length = 0;
-  back = nullptr;
+  //back = nullptr;
   root = nullptr;
   baja = root;
   mediana = root;
   alta = root;
+  city = root;
+  wom = nullptr;
+  men = nullptr;
+  
   //edad
   //corresponde al ultimo nodo ue quedo en la parte de baja
   //baja = nullptr; 
@@ -45,7 +49,7 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
   nuevo->age = pAge;
   nuevo->gender = pGender;
   node* temp = root;
-  
+  length++;
   
 
   if(empty())
@@ -55,6 +59,8 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
       nuevo->nextLocation = nullptr;
       //en el caso de que root este apuntando a nullptr
       findNodeAge(nuevo);
+      findNodeGender(nuevo);
+      findNodeCity(nuevo);
       root = nuevo;
       
     }
@@ -62,11 +68,11 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
     {
 
       //en el caso que sea el primer elemento en anadirse
-      nuevo->nextGender = nullptr;
-      nuevo->nextLocation = nullptr;
       nuevo->next = root;
       root = nuevo;
       findNodeAge(nuevo);
+      findNodeGender(nuevo);
+      findNodeCity(nuevo);
 
 	
       
@@ -78,12 +84,14 @@ void LayerNode::insertNode(std::string pLocation, int pAge, bool pGender)
     
 }
 
+
+
 void LayerNode::display()
 {
   node* temp = root;
   while(temp != nullptr)
     {
-      std::cout<<"Genero: "<<temp->gender<<" Edad: "<<temp->age<<" Locacion: "<<temp->location<<" NextAge: "<< baja->location<<std::endl;
+      std::cout<<"Genero: "<<temp->gender<<" Edad: "<<temp->age<<" Locacion: "<<temp->location<<std::endl;
       //std::cout<<"quien es baja: "<<temp->nextAge<<std::endl;
       temp = temp->next;
  
@@ -96,13 +104,35 @@ void LayerNode::test()
   node* temp = root;
   while(temp != nullptr)
     {
-      std::cout<<temp->age<<" ";
-      temp = temp->nextAge;
+      std::cout<<temp->location<<" ";
+      temp = temp->nextLocation;
 
     }
   std::cout<<std::endl;
 }
 
+void LayerNode::findNodeCity(node* &pNode)
+{
+  pNode->nextLocation = city;
+  city = pNode;
+}
+
+
+void LayerNode::findNodeGender(node *&pNode)
+{
+  if(pNode->gender == true)
+    {
+      //es mujer
+      pNode->nextGender = wom;
+      wom = pNode;
+    }
+  else
+    {
+      //es hombre
+      pNode->nextGender = men;
+      men = pNode;
+    }
+}
 
 
 void LayerNode::findNodeAge(node* &pNode)

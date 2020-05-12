@@ -25,10 +25,18 @@ private:
   node* baja;
   node* mediana;
   node* alta;
+  //apuntador a mujeres
+  node* wom;
+  node* men;
+  //para recorrer las locaciones se va a hacer uso de mas o menos un binary tree
+  //para eso necesito organizarlos
+  node* city;
+
   //el simplement next
   int length;
   void findNodeAge(node* &pNodo);
-  
+  void findNodeGender(node* &pNodo);
+  void findNodeCity(node* &pNode);
 public:
   LayerNode();
   //~LayerNode();
@@ -39,6 +47,9 @@ public:
   //test para ir probando
   void test();
   //node* find();
+  //metodos para comenzar a contar elmentos
+  int countGender(bool pSeleccion);//verdadero para mujeres, falso para hombres
+ 
 };
 
 #endif
