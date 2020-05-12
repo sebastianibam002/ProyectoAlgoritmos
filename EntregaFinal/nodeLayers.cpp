@@ -203,16 +203,19 @@ void LayerNode::findNodeAge(node* &pNode)
   if(pNode->age >= BAJAA && pNode->age <= BAJAB)
     {
       //entra al primer rango
+      //std::cout<<"ese man tiene baja"<<std::endl;
       pNode->nextAge = baja;
       baja = pNode;
     }
   else if(pNode->age >= MEDIANAA && pNode->age <= MEDIANAB)
     {
+      //std::cout<<"ese man tiene mediana edad"<<std::endl;
       pNode->nextAge = mediana;
       mediana = pNode;
     }
-  else if(pNode->age > ALTAA)
+  else if(pNode->age >= ALTAA)
     {
+      //std::cout<<"ese man tiene alta edad"<<std::endl;
       pNode->nextAge = alta;
       alta = pNode;
     }
@@ -222,8 +225,6 @@ void LayerNode::findNodeAge(node* &pNode)
 int LayerNode::countAge(int pGroup)
 {
   int contador = 0;
- 
-
   if(pGroup == 0)
     {
       //vamos a contar a los que son de edad baja

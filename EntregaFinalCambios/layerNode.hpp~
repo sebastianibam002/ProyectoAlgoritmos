@@ -1,0 +1,24 @@
+#ifndef _LAYERNODE_HPP
+#define _LAYERNODE_HPP
+#include <iostream>
+
+//nodo de localizacion para el arbol
+struct nodeLoc
+{
+  int edad;
+  //izquierda
+  nodeLoc* left;
+  //derecha que es mayor
+  nodeLoc*  right;
+
+  //el padrecito
+  nodeLoc* parent;
+  
+};
+  
+
+
+
+
+
+#endif

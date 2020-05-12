@@ -13,6 +13,7 @@ struct node
   node* nextGender;
   node* nextAge;
   node* nextLocation;
+  //
   node* next;
   //el anterior
   //node* lasGender;
