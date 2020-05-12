@@ -2,18 +2,225 @@
 #define _LAYERNODE_HPP
 #include <iostream>
 #include <vector>
+#include <map>
 //es la estructura que contiene las direcciones a cad auno de sus elementos en las 3 estructuras que las van a estar almacenando
 
+//ahora bien toca hacer la parte que divide los generos en dos mapas
+
+
+/*
+
+  ACA COMIENZA EL MAPA QUE SE USA PARA EL GENERO
+
+ */
+
+
+
+const int INITIAL_SIZE = 5;
+
+struct nodeGender
+{
+  bool value;
+  int key;
+  nodeGender* next;
+};
+
+class GenderMap
+{
+private:
+  nodeGender** table;
+  int table_size;
+  int count;
+
+  void reHash();
+  int hash_fun(int key);
+  nodeGender* search_bucket(int i, int key);
+public:
+  GenderMap();
+  ~GenderMap();
+
+  int size();
+  bool empty();
+
+  void insert(int pKey, bool value);
+  void display();
+  void clear();
+  
+};
+
+void GenderMap::reHash()
+{
+
+  int old_table_size = table_size;
+  nodeGender **old_table = table;
+  table_size = 2*table_size;
+  table = new nodeGender*[table_size];
+  for(int i = 0; i < table_size;++i) table[i] = nullptr;
+  count = 0;
+  //un cursor para ir recorriendolo
+  nodeGender *cursor;
+  //creo la nueva tabla
+  
+  
+  for(int i = 0; i < old_table_size; ++i)
+    {
+      cursor = old_table[i];
+      while(old_table[i] != nullptr)
+	{
+	  insert(cursor->key, cursor->value);
+	  cursor = cursor->next;
+	  delete old_table[i];
+	  old_table[i] = cursor;
+	}
+    }
+  delete[] old_table;
+
+}
+
+GenderMap::~GenderMap()
+{
+  clear();
+  delete[] table;
+}
+
+
+void clear_bucket(nodeGender* pNodo)
+{
+  nodeGender* temp;
+  
+  if(pNodo != nullptr)
+    {
+      // std::cout<<pNodo->key<<std::
+      temp = pNodo->next;
+      delete pNodo;
+      
+      clear_bucket(temp);
+    }
+  
+}
+
+void GenderMap::clear()
+{
+
+  
+  for(int i = 0; i < table_size; ++i)
+    {
+      clear_bucket(table[i]);
+      table[i] = nullptr;
+      //std::cout<<table[i]<<std::endl;
+      
+    }
+
+}
 
 
 
 
+GenderMap::GenderMap()
+{
+  
+  table_size = INITIAL_SIZE;
+  table = new nodeGender*[INITIAL_SIZE];
+  for(int i = 0; i < table_size; i++)
+    { 
+      table[i] = nullptr;
+    }
+  count = 0;
+}
+
+int GenderMap::size()
+{
+  return count;
+}
+
+bool GenderMap::empty()
+{
+  return count == 0;
+}
+
+int GenderMap::hash_fun(int key)
+{
+
+  return key%table_size;
+  
+}
+
+void GenderMap::insert(int pKey, bool value)
+{
+  int entra = hash_fun(pKey);
+  nodeGender* esta = search_bucket(entra, pKey);
+  //
+  //std::cout<<"es nullptr: "<< esta<<std::endl;
+  
+  if(esta == nullptr && count < (2*table_size))
+    {
+      nodeGender*temporal = new nodeGender;
+      temporal->value = value;
+      temporal->key = pKey;
+      //el next ahora es el primero del tabl
+      temporal->next = table[entra];
+      //lo introduzco al inicio del bucket
+      table[entra]= temporal;
+      count++;
+    }
+  else if(esta == nullptr && count == (2* table_size))
+    {
+      //hay que hacer el rehash
+      reHash();
+      insert(pKey, value);
+    }
+  else
+    {
+      //remplaza
+      
+      esta->value=value;
+    }
+  //table[entra] = temp;
+  
+  
+  
+}
+
+nodeGender* GenderMap::search_bucket(int i, int key)
+{
+
+  nodeGender* elemento = new nodeGender;
+  if(table[i] != nullptr)
+    {
+      
+      elemento->key = table[i]->key;
+      elemento->value = table[i]->value;
+      elemento->next = table[i]->next;
+      
+      while(elemento != nullptr)
+	{
+	  
+	  if(elemento->key == key)
+	    return elemento;
+	  elemento = elemento->next;
+	  
+	}
+    }
 
 
+  return nullptr;
+}
 
-
-
-
+void GenderMap::display()
+{
+  std::cout<<count<<" elements:\n";
+  nodeGender* cursor;
+  for(int i = 0; i <table_size; ++i)
+    {
+      cursor = table[i];
+      while(cursor != nullptr)
+	{
+	  std::cout<<"("<<cursor->key<< ","<<cursor->value<<")";
+	  cursor =cursor->next;
+	}
+      std::cout<<std::endl;
+    }
+}
 
 
 /*
