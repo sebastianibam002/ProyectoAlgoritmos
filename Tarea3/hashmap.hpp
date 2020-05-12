@@ -148,7 +148,7 @@ VT HashMap<VT>::get(std::string key){
     if (contains(key) == true){
         return cursor->value;
     }else{
-        //throw runtime_error("get: Attempting to get a nonexistent key\n");
+        //throw std::runtime_error("get: Attempting to get value for non-existent key\n");
         std::cout << "No hay" << std::endl;
     }
 
@@ -167,10 +167,13 @@ bool HashMap<VT>::contains(std::string key){
 
 template <typename VT>
 void HashMap<VT>::remove(std::string key){
+    int p = hash_fun(key);
+    
     if (contains(key) == true){
+        
         //borra
     }else{
-        //throw runtime_error("remove: Attempting to remove a nonexistent key\n");
+        //throw std::runtime_error("remove: Attempting to remove a non-existent key\n");
         std::cout << "No se puede borrar" << std::endl;
     }
 
