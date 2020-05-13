@@ -167,7 +167,7 @@ bool HashMap<VT>::contains(std::string key){
 
 template <typename VT>
 void HashMap<VT>::remove(std::string key){
-    int p = hash_fun(key);
+    
 
     if (contains(key) == true){
         KeyValueNode<VT>* temp = search_bucket(hash_fun(key),key);

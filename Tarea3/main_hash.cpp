@@ -21,11 +21,12 @@ int main() {
   my_map.insert("y", -45);
 
   my_map.display();
-  
+  string s = "x";
+  my_map.remove(s);
   // string s = "o";
   // if(my_map.contains(s)){
   //   cout << "Value with key '" << s << "': " << my_map.get(s) << endl;
-  //   my_map.remove(s);
+  //   
   // }
   // my_map.display();
   
