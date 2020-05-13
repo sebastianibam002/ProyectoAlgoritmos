@@ -157,7 +157,8 @@ VT HashMap<VT>::get(std::string key){
 
 template <typename VT>
 bool HashMap<VT>::contains(std::string key){
-    if(search_bucket(hash_fun(key), key)->key == key){
+    KeyValueNode<VT>* temp = search_bucket(hash_fun(key), key);
+    if(temp != nullptr){
         return true;
     }else{
         return false;
@@ -171,14 +172,35 @@ void HashMap<VT>::remove(std::string key){
     
     if (contains(key) == true){
         
-        //borra
+        //borra 
+        KeyValueNode<VT>* temp = search_bucket(hash_fun(key),key);
+        KeyValueNode<VT>* temp2 = temp->next;
+        KeyValueNode<VT>* cursor = table[hash_fun(key)];
+        if(temp == cursor){
+            table[hash_fun(key)] = temp2;
+            delete temp;
+        }else{
+            std::cout<<cursor->key<<std::endl;
+        while(cursor != nullptr){
+            if(cursor->next == temp){
+                break;
+            }
+            cursor = cursor->next;
+        }
+        
+        delete temp;
+        
+        cursor->next = temp2;
+            
+        }
+        count--;
+        
     }else{
         //throw std::runtime_error("remove: Attempting to remove a non-existent key\n");
         std::cout << "No se puede borrar" << std::endl;
     }
 
 }
-
 
 /* *********************************** */
 
