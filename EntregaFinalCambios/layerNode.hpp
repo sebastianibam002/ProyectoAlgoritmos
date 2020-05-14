@@ -740,7 +740,7 @@ public:
   DptoSet();
   ~DptoSet();
 
-  void insert(int pKey, bool value);
+  void insert();
   void display();
   void clear();
 
@@ -791,7 +791,7 @@ DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
 }
 
 
-void DptoSet::insert(int pKey, bool value){
+void DptoSet::insert(){
 
 }
 
