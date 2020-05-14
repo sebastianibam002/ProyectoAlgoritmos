@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <set>
 //libreria para poder trabajar con el archivo de tipo texto
 #include <fstream>
 //es la estructura que contiene las direcciones a cad auno de sus elementos en las 3 estructuras que las van a estar almacenando
@@ -695,4 +696,80 @@ nodeLoc* BinLoc::findNode(nodeLoc *pNode, int pEdad)
   else
     return findNode(pNode->left, pEdad);
 }
+
+/* CLASE QUE CREA UN SET PARA CADA DEPARTAMENTO */
+
+class DptoSet{
+private:
+  std::set<int> antioquia; // 05
+  std::set<int> atlantico; // 08
+  std::set<int> bogota; // 11
+  std::set<int> bolivar; // 13
+  std::set<int> boyaca; // 15
+  std::set<int> caldas; // 17
+  std::set<int> caqueta; // 18
+  std::set<int> cauca; // 19
+  std::set<int> cesar; // 20
+  std::set<int> cordova; // 23
+  std::set<int> cundinamarca; // 25
+  std::set<int> choco; // 27
+  std::set<int> huila; // 41
+  std::set<int> la_guajira; // 44
+  std::set<int> magdalena; //47
+  std::set<int> meta; // 50
+  std::set<int> narino; // 52
+  std::set<int> norte_de_santander; // 54
+  std::set<int> quindio; // 63
+  std::set<int> risaralda; // 66
+  std::set<int> santander; // 68
+  std::set<int> sucre; // 70
+  std::set<int> tolima; // 73
+  std::set<int> valle_del_cauca; // 76
+  std::set<int> arauca; // 81
+  std::set<int> casanare; // 85
+  std::set<int> putumayo; // 86
+  std::set<int> san_andres; // 88
+  std::set<int> amazonas; // 91
+  std::set<int> guainia; // 94
+  std::set<int> guaviare; // 95
+  std::set<int> vaupes; //  97
+  std::set<int> vichada; //  99
+  std::vector<int> interseccion;
+
+public:
+  DptoSet();
+  ~DptoSet();
+
+  void insert(int pKey, bool value);
+  void display();
+  void clear();
+
+};
+
+
+DptoSet::~DptoSet(){
+  clear();
+  delete[] table;
+}
+
+void DptoSet::DptoSet(){
+  
+}
+
+
+DptoSet::DptoSet(){
+
+}
+
+
+void DptoSet::insert(int pKey, bool value){
+
+}
+
+
+void DptoSet::display()
+{
+
+}
+
 #endif
