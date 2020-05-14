@@ -10,12 +10,14 @@
 //ahora bien toca hacer la parte que divide los generos en dos mapas
 
 
+
+/*
+ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
+*/
+
 /*
 
-ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
- 
-
-struct nodoMaster
+struct nodeMaster
 {
   int idUnico;
   int age;
@@ -27,10 +29,10 @@ struct nodoMaster
 class BDCovid
 {
 private:
-  nodeMaster* array;//es la general
+  vector<nodeMaster*> tabla ;//es la general
   GenderMap genderMap;//contine los generos
   BinLoc binaryTree;//contirne las edades
-  
+  //colocar set
 public:
   BDCovid();
   ~BDCovid();
@@ -38,14 +40,15 @@ public:
 
 BDCovid::BDCovid()
 {
-  //inicializar los atributos
+  
+  
   
   
 }
 
 
-*/
 
+*/
 
 
 
@@ -87,9 +90,59 @@ public:
   void display();
   void clear();
   std::vector<int> generarLista(bool pGenero);//genera un vector que contiene los nombres que contienen cierta propiedad
+  void test();
   
 };
 
+
+void GenderMap::test()
+{
+    //inicializar los atributos
+  std::ifstream ifs("dataset.txt");
+  std::string line = "";
+  
+  if(ifs.good())
+    {
+      while(!ifs.eof())
+	{
+	  std::getline(ifs, line);
+	  std::cout<<line<<std::endl;
+	  //se extrae linea y se guarda en line
+	  
+	  int cont1 = 0;
+	  //bool para cada uno de los atributos
+	  bool id = true;
+	  bool gender = true;
+	  bool age = true;
+	  bool loc = true;
+	  for(int i = 0; i < line.length(); i++)
+	    {
+
+	      nodeMaster* temp = new nodeMaster;
+	      //recorro la linea
+	      if(line[i] == ',')
+		{
+		  
+		  //separo el espacio en memoria
+		  if(id)
+		    {
+		      temp->idUnico = int(line[i:cont1]);
+		      id = false;
+		      cont1 = i;
+		      std::cout<<temp->idUnico<<std::endl;
+		    }
+
+		  
+		}
+	      delete temp;
+	      //tabla.push_back(temp);
+	    }
+	}
+    }
+
+  ifs.close();
+
+}
 
 
 std::vector<int> GenderMap::generarLista(bool pGenero)
@@ -105,6 +158,14 @@ std::vector<int> GenderMap::generarLista(bool pGenero)
     {
       cursor = table[i];
       while(cursor != nullptr)
+
+
+
+
+
+
+
+
 	{
 	  std::cout<<"("<<cursor->key<< ","<<cursor->value<<")";
 	  cursor =cursor->next;
