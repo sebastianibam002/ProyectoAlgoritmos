@@ -697,6 +697,8 @@ nodeLoc* BinLoc::findNode(nodeLoc *pNode, int pEdad)
     return findNode(pNode->left, pEdad);
 }
 
+
+
 /* CLASE QUE CREA UN SET PARA CADA DEPARTAMENTO */
 
 class DptoSet{
@@ -740,19 +742,51 @@ public:
   DptoSet();
   ~DptoSet();
 
-  void insert();
+  void insert(int pKey, bool value);
   void display();
-  void clear();
 
 };
 
 
 DptoSet::~DptoSet(){
-  clear();
-  delete[] table;
+  antioquia.clear(); // 05
+  atlantico.clear(); // 08
+  bogota.clear(); // 11
+  bolivar.clear(); // 13
+  boyaca.clear(); // 15
+  caldas.clear(); // 17
+  caqueta.clear(); // 18
+  cauca.clear(); // 19
+  cesar.clear(); // 20
+  cordova.clear(); // 23
+  cundinamarca.clear(); // 25
+  choco.clear(); // 27
+  huila.clear(); // 41
+  la_guajira.clear(); // 44
+  magdalena.clear(); //47
+  meta.clear(); // 50
+  narino.clear(); // 52
+  norte_de_santander.clear(); // 54
+  quindio.clear(); // 63
+  risaralda.clear(); // 66
+  santander.clear(); // 68
+  sucre.clear(); // 70
+  tolima.clear(); // 73
+  valle_del_cauca.clear(); // 76
+  arauca.clear(); // 81
+  casanare.clear(); // 85
+  putumayo.clear(); // 86
+  san_andres.clear(); // 88
+  amazonas.clear(); // 91
+  guainia.clear(); // 94
+  guaviare.clear(); // 95
+  vaupes.clear(); //  97
+  vichada.clear(); //  99
+  interseccion.clear();
+  //delete[] table;
 }
 
-DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
+DptoSet::DptoSet(){
   std::set<int> antioquia {}; // 05
   std::set<int> atlantico {}; // 08
   std::set<int> bogota {}; // 11
@@ -786,7 +820,7 @@ DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
   std::set<int> guaviare {}; // 95
   std::set<int> vaupes {}; //  97
   std::set<int> vichada {}; //  99
-  std::vector<int> interseccion; /////////////////////////////////////////// FALTA //////////////////////////////
+  std::vector<int> interseccion; ///////////////////////////////////////////
 
 }
 
@@ -799,5 +833,7 @@ void DptoSet::insert(){
 void DptoSet::display(){
 
 }
+
+
 
 #endif
