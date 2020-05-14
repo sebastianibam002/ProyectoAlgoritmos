@@ -752,7 +752,7 @@ DptoSet::~DptoSet(){
   delete[] table;
 }
 
-void DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
+DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
   std::set<int> antioquia {}; // 05
   std::set<int> atlantico {}; // 08
   std::set<int> bogota {}; // 11
@@ -787,11 +787,6 @@ void DptoSet::DptoSet(){ // se inicializan los sets como una lista vacia
   std::set<int> vaupes {}; //  97
   std::set<int> vichada {}; //  99
   std::vector<int> interseccion; /////////////////////////////////////////// FALTA //////////////////////////////
-
-}
-
-
-DptoSet::DptoSet(){
 
 }
 
