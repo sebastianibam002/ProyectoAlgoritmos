@@ -12,44 +12,7 @@
 
 
 
-/*
-ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
-*/
 
-/*
-
-struct nodeMaster
-{
-  int idUnico;
-  int age;
-  bool gender;
-  std::string location;
-};
-
-
-class BDCovid
-{
-private:
-  vector<nodeMaster*> tabla ;//es la general
-  GenderMap genderMap;//contine los generos
-  BinLoc binaryTree;//contirne las edades
-  //colocar set
-public:
-  BDCovid();
-  ~BDCovid();
-};
-
-BDCovid::BDCovid()
-{
-  
-  
-  
-  
-}
-
-
-
-*/
 
 
 
@@ -98,51 +61,7 @@ public:
 
 void GenderMap::test()
 {
-    //inicializar los atributos
-  std::ifstream ifs("dataset.txt");
-  std::string line = "";
-  
-  if(ifs.good())
-    {
-      while(!ifs.eof())
-	{
-	  std::getline(ifs, line);
-	  std::cout<<line<<std::endl;
-	  //se extrae linea y se guarda en line
-	  
-	  int cont1 = 0;
-	  //bool para cada uno de los atributos
-	  bool id = true;
-	  bool gender = true;
-	  bool age = true;
-	  bool loc = true;
-	  for(int i = 0; i < line.length(); i++)
-	    {
-
-	      nodeMaster* temp = new nodeMaster;
-	      //recorro la linea
-	      if(line[i] == ',')
-		{
-		  
-		  //separo el espacio en memoria
-		  if(id)
-		    {
-		      temp->idUnico = int(line[i:cont1]);
-		      id = false;
-		      cont1 = i;
-		      std::cout<<temp->idUnico<<std::endl;
-		    }
-
-		  
-		}
-	      delete temp;
-	      //tabla.push_back(temp);
-	    }
-	}
-    }
-
-  ifs.close();
-
+  std::cout<<"e¡test"<<std::endl;
 }
 
 
@@ -786,6 +705,8 @@ DptoSet::~DptoSet(){
   //delete[] table;
 }
 
+
+/*
 DptoSet::DptoSet(){
   std::set<int> antioquia {}; // 05
   std::set<int> atlantico {}; // 08
@@ -832,6 +753,132 @@ void DptoSet::insert(){
 
 void DptoSet::display(){
 
+}
+*/
+
+
+
+
+
+/*
+ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
+*/
+
+
+
+struct nodeMaster
+{
+  int idUnico;
+  int age;
+  bool gender;
+  std::string location;
+};
+
+
+class BDCovid
+{
+private:
+  std::vector<nodeMaster*> tabla ;//es la general
+  GenderMap genderMap;//contine los generos
+  BinLoc binaryTree;//contirne las edades
+  //colocar set
+public:
+  BDCovid();
+  ~BDCovid();
+};
+
+BDCovid::BDCovid()
+{
+  //inicializar los atributos
+  std::ifstream ifs("dataset.txt");
+  std::string line = "";
+
+  
+  if(ifs.good())
+    {
+      while(!ifs.eof())
+	{
+	  std::getline(ifs, line);
+	  //std::cout<<line<<std::endl;
+	  //se extrae linea y se guarda en line
+	  
+	  int cont1 = 0;
+	  //bool para cada uno de los atributos
+	  bool id = true;
+	  bool gender = true;
+	  bool age = true;
+	  bool loc = true;
+	  nodeMaster* temp = new nodeMaster;
+	  for(int i = 0; i < line.length(); i++)
+	    {
+ 
+	      //recorro la linea
+	      if(line[i] == ',')
+		{
+		  
+		  //separo el espacio en memoria
+		  if(id)
+		    {
+		      temp->idUnico = std::stoi(line.substr(cont1,1));
+		      
+		      id = false;
+		      cont1 = i;
+		      //std::cout<<temp->idUnico<<std::endl;
+		    }
+		  else if(age)
+		    {
+		      int tam = line.find(",", cont1+1);
+		      //std::cout<<"tam: "<<tam<<" i: "<<cont1<<"substr"<< line.substr(cont1, tam)<<std::endl;
+		      temp->age = std::stoi(line.substr(cont1+1, tam-1));
+		      
+		      age = false;
+		      
+		    }
+		  else if(gender)
+		    {
+		      
+		      if(line.substr(cont1,1) == "F")
+			{
+			  temp->gender = true;
+			}
+		      else if(line.substr(cont1,1) == "M")
+			{
+			  temp->gender = false;
+			}
+		      gender = false;
+		      cont1 = i;
+		    }
+		  else if(loc)
+		    {
+		      int tam = line.find(",",cont1+1);
+		      //el menos siete es importante aunque no se exactamente por que
+		      tam -= 7;
+		      //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
+		      temp->location = line.substr(cont1+1, tam);
+		      loc = false;
+		    }
+
+		}
+	    }
+	  //std::cout<<"Id("<<temp->idUnico<<") "<<"Age("<<temp->age<<") "<<"Gender("<<temp->gender<<") "<<"Location("<<temp->location<<") "<<std::endl;
+	  //delete temp;
+	  tabla.push_back(temp);
+	}
+
+       
+    }
+
+  ifs.close();
+
+  //ahora para ver que esta todo
+  for(unsigned int i = 0; i < tabla.size(); i++)
+    {
+      std::cout<<"Id("<<tabla[i]->idUnico<<") "<<"Age("<<tabla[i]->age<<") "<<"Gender("<<tabla[i]->gender<<") "<<"Location("<<tabla[i]->location<<") "<<std::endl;
+    }
+
+  
+  
+  
 }
 
 
