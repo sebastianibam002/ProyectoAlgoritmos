@@ -39,7 +39,9 @@ public:
 BDCovid::BDCovid()
 {
   //inicializar los atributos
-  
+  std::ifstream inFile;
+  inFile.open("dataset.txt");
+  if(!nFile)
   
 }
 
