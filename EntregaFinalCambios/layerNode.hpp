@@ -13,9 +13,6 @@
 
 
 
-
-
-
 /*
 
   ACA COMIENZA EL MAPA QUE SE USA PARA EL GENERO
@@ -323,7 +320,7 @@ private:
   nodeLoc* root;
   void displayNode(nodeLoc* pNode, int count);
   //
-  void insertNode(nodeLoc* &pNode, int pKey, nodeLoc* pParent);
+  void insertNode(nodeLoc* &pNode, int pKey, int pIdUnico, nodeLoc* pParent);
   void destroyRecursive(nodeLoc* pNode);
   nodeLoc* maximum(nodeLoc *t);
   nodeLoc* minimum(nodeLoc *t);
@@ -331,7 +328,7 @@ private:
 public:
   BinLoc(){root = nullptr;}
   ~BinLoc(){destroyRecursive(root);}
-  void insert(int pKey){insertNode(root, pKey, nullptr);}
+  void insert(int pKey, int pIdUnico){insertNode(root, pKey, pIdUnico, nullptr);}
   void display();
   nodeLoc* predecessor(nodeLoc *pNode);
   nodeLoc* successor(nodeLoc *pNode);
@@ -487,7 +484,7 @@ nodeLoc* BinLoc::maximum(nodeLoc *t)
     }
 }
 
-void BinLoc::insertNode(nodeLoc *&pNode, int pKey, nodeLoc *pParent)
+void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent)
 {
 
   if(pNode == nullptr)
@@ -498,7 +495,7 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, nodeLoc *pParent)
       pNode->left = nullptr;
       pNode->right = nullptr;
       pNode->parent = pParent;
-      pNode->idUnico = contadorId++;
+      pNode->idUnico = pIdUnico;
     }
   else
     {
@@ -506,11 +503,11 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, nodeLoc *pParent)
 	{
 	  if(pKey < pNode->edad)
 	    {
-	      insertNode(pNode->left, pKey, pNode);
+	      insertNode(pNode->left, pKey, pIdUnico , pNode);
 	    }
 	  else
 	    {
-	      insertNode(pNode->right, pKey, pNode);
+	      insertNode(pNode->right, pKey, pIdUnico, pNode);
 	    }
 	}
     }
@@ -784,7 +781,7 @@ private:
   //colocar set
 public:
   BDCovid();
-  ~BDCovid();
+  //~BDCovid();
 };
 
 BDCovid::BDCovid()
@@ -829,7 +826,10 @@ BDCovid::BDCovid()
 		    {
 		      int tam = line.find(",", cont1+1);
 		      //std::cout<<"tam: "<<tam<<" i: "<<cont1<<"substr"<< line.substr(cont1, tam)<<std::endl;
-		      temp->age = std::stoi(line.substr(cont1+1, tam-1));
+		      int pAge = std::stoi(line.substr(cont1+1, tam-1));
+		      temp->age = pAge;
+		      //lo introduzco al arbol
+		      binaryTree.insert(pAge, temp->idUnico);
 		      
 		      age = false;
 		      
@@ -840,11 +840,15 @@ BDCovid::BDCovid()
 		      if(line.substr(cont1,1) == "F")
 			{
 			  temp->gender = true;
+		   
+			  
 			}
 		      else if(line.substr(cont1,1) == "M")
 			{
 			  temp->gender = false;
 			}
+
+		      genderMap.insert(temp->idUnico, temp->gender);
 		      gender = false;
 		      cont1 = i;
 		    }
@@ -876,6 +880,10 @@ BDCovid::BDCovid()
       std::cout<<"Id("<<tabla[i]->idUnico<<") "<<"Age("<<tabla[i]->age<<") "<<"Gender("<<tabla[i]->gender<<") "<<"Location("<<tabla[i]->location<<") "<<std::endl;
     }
 
+
+  binaryTree.display();
+  std::cout<<"Gender Map display"<<std::endl;
+  genderMap.display();
   
   
   

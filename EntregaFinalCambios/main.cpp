@@ -13,17 +13,20 @@ int main()
   prueba.insert(8);//5
   
   */
-  GenderMap pruebaII;
+  //GenderMap pruebaII;
   //pruebaII.insert(1,true);
   //pruebaII.insert(2, false);
   //pruebaII.display();
-  pruebaII.test();
+  //pruebaII.test();
   /*
   cout<<"contiene el elemento 8: "<<prueba.contains(8)<<endl;
   cout<<"contiene el 9: "<<prueba.contains(9)<<endl;
   prueba.display();
   prueba.test();
   */
+
+  BDCovid prueba;
+  
   
   
   
