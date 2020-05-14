@@ -843,7 +843,11 @@ BDCovid::BDCovid()
 		      //el menos siete es importante aunque no se exactamente por que
 		      tam -= 7;
 		      //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
-		      temp->location = line.substr(cont1+1, tam);
+		      int tam2 = line.find(",", tam);
+		      temp->location = line.substr(tam2+1, 2);
+		      
+		      std::cout<<"numero de departamento: "<<temp->location<<std::endl;
+		      
 		      loc = false;
 		    }
 
