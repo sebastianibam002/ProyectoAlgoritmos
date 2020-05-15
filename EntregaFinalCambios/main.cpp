@@ -26,6 +26,7 @@ int main()
   */
 
   BDCovid prueba;
+ 
   
   
   

@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 #include <set>
+//para ponerlas todas en  mayusculas
+#include <cctype>
+
 //libreria para poder trabajar con el archivo de tipo texto
 #include <fstream>
 //es la estructura que contiene las direcciones a cad auno de sus elementos en las 3 estructuras que las van a estar almacenando
@@ -638,7 +641,8 @@ public:
   void displaySet(int pNumero);
   void display();
   std::vector<int> generarLista(int valor);
-  std::vector<int> interseccion(std::string pString); ///////////////////////////////////////////
+  std::vector<int> unionDepto(std::string pString); ///////////////////////////////////////////
+  void test();
 };
 
 /*
@@ -727,30 +731,71 @@ DptoSet::DptoSet()
 }
 
 
+void DptoSet::test()
+{
+  std::vector<int> prueba = generarLista(8);
+  for(unsigned int i = 0; i < prueba.size(); i++)
+    {
+      std::cout<<prueba[i]<<" ";
+    }
+  std::cout<<std::endl;
+
+
+  unionDepto("Amazonas,Putumayo");
+}
+
+
 std::vector<int> DptoSet::generarLista(int numero)
 {
 
-  std::vector<int> retorno;
+  std::vector<int> retorno{};
   int contador = 0;
-  std::set<int>::iterator it;
+  
   int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
+  //std::cout<<"el valor que entro: "<<numero <<std::endl;
   for(int i = 0; i < 34; i++)
     {
+      
       if(numero == lista[i])
 	{
 	  //si numero es igual al de la lista
-	  
-	  for(it = elementos[i].begin(); it !=  elementos[i].end(); it++)
+
+	  if(elementos[i].size() != 0)
 	    {
-	      retorno.push_back(*it);
+	      std::set<int>::iterator it;
+	      //std::cout<<"cantidad de elementps
+
+	      for(it = elementos[i].begin(); it !=  elementos[i].end(); it++)
+		{
+		  //std::cout<<"el *it: "<<(*it)<<std::endl;
+		  retorno.push_back(*it);
+		  
+		}
 	    }
+
+	  break;
 	}
+
     }
+
+  return retorno;
 
   
 }
 
-std::vector<int> DptoSet::interseccion(std::string pString)
+
+std::string mayus(std::string pCadena)
+{
+
+  std::string retorno = "";
+  for(int i = 0; i < pCadena.length(); i++)
+    {
+      retorno += std::toupper(pCadena[i]);
+    }
+
+  return retorno;
+}
+std::vector<int> DptoSet::unionDepto(std::string pString)
 {
   //dada una string hace una interseccion entre los departamentos dados
   std::vector<std::string> numeros;
@@ -765,35 +810,195 @@ std::vector<int> DptoSet::interseccion(std::string pString)
 	  //encontre una separacion
 	  int count2 = pString.find(",", count1);
 	  pString.replace(count2,1,"");
-	  numeros.push_back(pString.substr(count1,count2));
+	  numeros.push_back(mayus(pString.substr(count1,count2)));
 	  count1 = i;
+	  
 	}
       
       
     }
-  /*
+  
   if(numeros.size() == 0)
     {
       numeros.push_back(pString);
     }
-  */
+  
+  /*
   std::cout<<"Lugares: ";
   for(unsigned int i = 0; i < numeros.size();i++)
     {
       std::cout<<numeros[i] <<" ";
     }
   std::cout<<std::endl;
+  */
+  
 
-  /*
+
+  //por cada uno de los elemntos que se tiene hay que adignarle primero que todo un numero y hay que generar una lista para asi
+
+  std::vector<std::vector<int>> vectorPadre;
+  //std::cout<<"Tengo estos("<<numeros.size()<<"): ";
   for (unsigned int i = 0; i < numeros.size(); i++)
     {
       //se recorre todos los elementos
-
-
-      
-      
+      if(numeros[i] == "ANTIOQUIA")
+	{
+	  //std::cout<<"entre a antioquia"<<std::endl;
+	  vectorPadre.push_back(generarLista(5));
+	}
+      else if(numeros[i] == "ATLANTICO")
+	{
+	  vectorPadre.push_back(generarLista(8));
+	}
+      else if(numeros[i] == "BOGOTA")
+	{
+	  //std::cout<<"entre a Bopgpta"<<std::endl;
+	  vectorPadre.push_back(generarLista(11));
+	}
+      else if(numeros[i] == "BOLIVAR")
+	{
+	  vectorPadre.push_back(generarLista(13));
+	}
+      else if(numeros[i] == "BOYACA")
+	{
+	  vectorPadre.push_back(generarLista(15));
+	}
+      else if(numeros[i] == "CALDAS")
+	{
+	  vectorPadre.push_back(generarLista(17));
+	}
+      else if(numeros[i] == "CAQUETA")
+	{
+	  vectorPadre.push_back(generarLista(18));
+	}
+      else if(numeros[i] == "CAUCA")
+	{
+	  vectorPadre.push_back(generarLista(19));
+	}
+      else if(numeros[i] == "CESAR")
+	{
+	  vectorPadre.push_back(generarLista(20));
+	}
+      else if(numeros[i] == "CORDOVA")
+	{
+	  vectorPadre.push_back(generarLista(23));
+	}
+      else if(numeros[i] == "CUNDINAMARCA")
+	{
+	  vectorPadre.push_back(generarLista(25));
+	}
+      else if(numeros[i] == "CHOCO")
+	{
+	  vectorPadre.push_back(generarLista(27));
+	}
+      else if(numeros[i] == "HUILA")
+	{
+	  vectorPadre.push_back(generarLista(41));
+	}
+      else if(numeros[i] == "LA GUAJIRA")
+	{
+	  vectorPadre.push_back(generarLista(44));
+	}
+      else if(numeros[i] == "MAGDALENA")
+	{
+	  vectorPadre.push_back(generarLista(47));
+	}
+      else if(numeros[i] == "META")
+	{
+	  vectorPadre.push_back(generarLista(50));
+	}
+      else if(numeros[i] == "NARINO")
+	{
+	  vectorPadre.push_back(generarLista(52));
+	}
+      else if(numeros[i] == "NORTE DE SANTANDER")
+	{
+	  vectorPadre.push_back(generarLista(54));
+	}
+      else if(numeros[i] == "QUINDIO")
+	{
+	  vectorPadre.push_back(generarLista(63));
+	}
+      else if(numeros[i] == "RISARALDA")
+	{
+	  vectorPadre.push_back(generarLista(66));
+	}
+      else if(numeros[i] == "SANTANDER")
+	{
+	  vectorPadre.push_back(generarLista(68));
+	}
+      else if(numeros[i] == "SUCRE")
+	{
+	  vectorPadre.push_back(generarLista(70));
+	}
+      else if(numeros[i] == "TOLIMA")
+	{
+	  vectorPadre.push_back(generarLista(73));
+	}
+      else if(numeros[i] == "VALLE DEL CAUCA")
+	{
+	  vectorPadre.push_back(generarLista(76));
+	}
+      else if(numeros[i] == "ARAUCA")
+	{
+	  vectorPadre.push_back(generarLista(81));
+	}
+      else if(numeros[i] == "CASANARE")
+	{
+	  vectorPadre.push_back(generarLista(85));
+	}
+      else if(numeros[i] == "PUTUMAYO")
+	{
+	  vectorPadre.push_back(generarLista(86));
+	}
+      else if(numeros[i] == "SAN ANDRES")
+	{
+	  vectorPadre.push_back(generarLista(88));
+	}
+      else if(numeros[i] == "AMAZONAS")
+	{
+	  vectorPadre.push_back(generarLista(91));
+	}
+      else if(numeros[i] == "GUAINIA")
+	{
+	  vectorPadre.push_back(generarLista(94));
+	}
+      else if(numeros[i] == "GUAVIARE")
+	{
+	  vectorPadre.push_back(generarLista(95));
+	}
+      else if(numeros[i] == "VAUPES")
+	{
+	  vectorPadre.push_back(generarLista(97));
+	}
+      else if(numeros[i] == "VICHADA")
+	{
+	  vectorPadre.push_back(generarLista(99));
+	}
+      else
+	{
+	  std::cout<<"Error: "<<numeros[i]<<" no existe"<<std::endl;
+	}
     }
-  */
+
+  //std::cout<<std::endl;
+
+  //ahora si voy a crear el vector que contenga todos los ids
+  //std::cout<<"el size de vector padre: "<<vectorPadre.size()<<std::endl;
+  std::vector<int> retorno{};
+  
+  for(int i =0; i< vectorPadre.size();i++)
+    {
+      for(int e = 0; e<vectorPadre[i].size();e++)
+	{
+	  //std::cout<<"el tamano del vector hijo("<<i<<"): "<<vectorPadre[i].size()<<std::endl;
+	  retorno.push_back((vectorPadre[i])[e]);
+	}
+    }
+  
+
+  
+  return retorno;
 }
 
 void DptoSet::insert(int pKey, std::string value)
@@ -807,7 +1012,7 @@ void DptoSet::insert(int pKey, std::string value)
   for(int i = 0; i < 34;i++)
     {
 
-      std::cout<<"casos: "<<casos<<"lista[i]: "<<lista[i]<<std::endl;
+      //std::cout<<"casos: "<<casos<<"lista[i]: "<<lista[i]<<std::endl;
       if(casos == lista[i])
 	{
 	  
@@ -970,6 +1175,7 @@ BDCovid::BDCovid()
     {
       std::cout<<"Id("<<tabla[i]->idUnico<<") "<<"Age("<<tabla[i]->age<<") "<<"Gender("<<tabla[i]->gender<<") "<<"Location("<<tabla[i]->location<<") "<<std::endl;
     }
+  
   binaryTree.display();
   std::cout<<"Gender Map display"<<std::endl;
   genderMap.display();
@@ -977,10 +1183,15 @@ BDCovid::BDCovid()
 
   std::cout<<"depSet*********************"<<std::endl;
   depSet.display();
-  depSet.interseccion("Amazonas");
+  
+  std::vector<int>pipal = depSet.unionDepto("antioquiA,BOGOTA");
+  for(unsigned int i = 0; i < pipal.size(); i++)
+    std::cout<<pipal[i]<<" ";
+  std::cout<<std::endl;
+  //std::cout<<"TEST"<<std::endl;
+  //depSet.test();
   
 }
-
 
 
 #endif
