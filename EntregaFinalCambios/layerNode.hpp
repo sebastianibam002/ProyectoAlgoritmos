@@ -637,7 +637,8 @@ public:
   void insert(int pKey, std::string value);
   void displaySet(int pNumero);
   void display();
-
+  std::vector<int> generarLista(int valor);
+  std::vector<int> interseccion(std::string pString); ///////////////////////////////////////////
 };
 
 /*
@@ -718,11 +719,81 @@ DptoSet::DptoSet()
   std::set<int> guaviare {}; // 95
   std::set<int> vaupes {}; //  97
   std::set<int> vichada; //  99
-  //std::vector<int> interseccion; ///////////////////////////////////////////
+  
   std::vector<std::set<int>> prueba{antioquia, atlantico, bogota, bolivar, boyaca, caldas, caqueta, cauca, cesar, cordova, cundinamarca, choco, huila, la_guajira, magdalena, meta, narino, norte_de_santander, quindio, risaralda, santander, sucre, tolima, valle_del_cauca, arauca, casanare, putumayo, san_andres, amazonas, guainia, vaupes, vichada};
   elementos = prueba;
   //std::vector<std::set<int>> elementos;
  
+}
+
+
+std::vector<int> DptoSet::generarLista(int numero)
+{
+
+  std::vector<int> retorno;
+  int contador = 0;
+  std::set<int>::iterator it;
+  int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
+  for(int i = 0; i < 34; i++)
+    {
+      if(numero == lista[i])
+	{
+	  //si numero es igual al de la lista
+	  
+	  for(it = elementos[i].begin(); it !=  elementos[i].end(); it++)
+	    {
+	      retorno.push_back(*it);
+	    }
+	}
+    }
+
+  
+}
+
+std::vector<int> DptoSet::interseccion(std::string pString)
+{
+  //dada una string hace una interseccion entre los departamentos dados
+  std::vector<std::string> numeros;
+  int count1 = 0;
+  int count2 = 0;
+  pString+= ",";
+  for(int i = 0; i < pString.length(); i++)
+    {
+      
+      if(pString.substr(i,1) == ",")
+	{
+	  //encontre una separacion
+	  int count2 = pString.find(",", count1);
+	  pString.replace(count2,1,"");
+	  numeros.push_back(pString.substr(count1,count2));
+	  count1 = i;
+	}
+      
+      
+    }
+  /*
+  if(numeros.size() == 0)
+    {
+      numeros.push_back(pString);
+    }
+  */
+  std::cout<<"Lugares: ";
+  for(unsigned int i = 0; i < numeros.size();i++)
+    {
+      std::cout<<numeros[i] <<" ";
+    }
+  std::cout<<std::endl;
+
+  /*
+  for (unsigned int i = 0; i < numeros.size(); i++)
+    {
+      //se recorre todos los elementos
+
+
+      
+      
+    }
+  */
 }
 
 void DptoSet::insert(int pKey, std::string value)
@@ -906,6 +977,7 @@ BDCovid::BDCovid()
 
   std::cout<<"depSet*********************"<<std::endl;
   depSet.display();
+  depSet.interseccion("Amazonas");
   
 }
 
