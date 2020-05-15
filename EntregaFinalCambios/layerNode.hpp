@@ -204,7 +204,7 @@ bool GenderMap::empty()
 int GenderMap::hash_fun(int key)
 {
 
-  return key%table_size;
+  return key % table_size;
   
 }
 
@@ -344,7 +344,7 @@ public:
 
 int BinLoc::searchNext(int pEdad)
 {
-  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+  // en caso de que no exista el elemento, esto se usara para encontrar el umbral mas parecido a NEXT
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -362,7 +362,8 @@ int BinLoc::searchNext(int pEdad)
 
 int BinLoc::searchLast(int pEdad)
 {
-  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+  // en caso de que no exista el elemento, esto se usara para encontrar el umbral mas parecido a NEXT
+
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -694,7 +695,7 @@ DptoSet::DptoSet()
   std::set<int> caldas {}; // 17 == 5
   std::set<int> caqueta {}; // 18 == 6
   std::set<int> cauca {}; // 19 == 7 
-  std::set<int> cesar {}; // 20== 8
+  std::set<int> cesar {}; // 20 == 8
   std::set<int> cordova {}; // 23
   std::set<int> cundinamarca {}; // 25
   std::set<int> choco {}; // 27
