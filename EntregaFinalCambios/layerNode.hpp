@@ -70,46 +70,26 @@ std::vector<int> GenderMap::generarLista(bool pGenero)
   //recordar si es true es mujer si es hombre es false
 
 
-  /*
-   *
-   *  std::cout<<count<<" elements:\n";
-  nodeGender* cursor;
-  for(int i = 0; i <table_size; ++i)
-    {
-      cursor = table[i];
-      while(cursor != nullptr)
-
-
-
-
-
-
-
-
-	{
-	  std::cout<<"("<<cursor->key<< ","<<cursor->value<<")";
-	  cursor =cursor->next;
-	}
-      std::cout<<std::endl;
-    }
-   *
-   *
-   */
 
   std::vector<int> retorno;
-  nodeGender* cursor;
-  
+  nodeGender* cursor = new nodeGender;
+  std::cout<<"generando lista generos.."<<std::endl;
   for(int i = 0; i <table_size; i++)
     {
       cursor = table[i];
       while(cursor != nullptr)
 	{
+	  //std::cout<<"cursor->key: "<<cursor->key<<"cursor->value: "<<cursor->value<<std::endl;
 	  if(cursor->value == pGenero)
 	    {
+	      
 	      retorno.push_back(cursor->key);
 	    }
+	  cursor = cursor->next;
 	}
     }
+
+  return retorno;
   
 }
 
@@ -207,7 +187,7 @@ bool GenderMap::empty()
 int GenderMap::hash_fun(int key)
 {
 
-  return key % table_size;
+  return key%table_size;
   
 }
 
@@ -347,7 +327,7 @@ public:
 
 int BinLoc::searchNext(int pEdad)
 {
-  // en caso de que no exista el elemento, esto se usara para encontrar el umbral mas parecido a NEXT
+  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -365,8 +345,7 @@ int BinLoc::searchNext(int pEdad)
 
 int BinLoc::searchLast(int pEdad)
 {
-  // en caso de que no exista el elemento, esto se usara para encontrar el umbral mas parecido a NEXT
-
+  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -400,25 +379,33 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
       if(contains(pDesde) && contains(pHasta))
 	{
 	  nodeLoc* temp = find(pDesde);
-	  std::cout<<"el hasta: "<<find(pHasta)->idUnico<<std::endl;
+	  
 	  nodeLoc* tempDos = find(pHasta);
 	  //los numeros mayores
+	  //std::cout<<"El desde: "<<find(pDesde)->idUnico<<" el phasta: "<<find(pHasta)->idUnico<<std::endl;
 	  while(temp != nullptr)
 	    {
-	      //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
-	      
-	      
-	      
-	      retorno.push_back(temp->idUnico);
-	      //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
-	      //std::cout<<"elemento introducido"<<std::endl;
-	      temp = successor(temp);
-	      //std::cout<<"llego"<<std::endl;
-	      //std::cout<<"siguiente elemento "<< temp<<std::endl;
-	      if(tempDos->idUnico == temp->idUnico)
+	      if(temp->idUnico == tempDos->idUnico)
 		{
 		  retorno.push_back(temp->idUnico);
 		  break;
+		}
+	      else
+		{
+		
+		  //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
+		  retorno.push_back(temp->idUnico);
+		  //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
+		  
+		  //std::cout<<"elemento introducido"<<std::endl;
+		  temp = successor(temp);
+		  //std::cout<<"llego"<<std::endl;
+		  //std::cout<<"siguiente elemento "<< temp->idUnico<<std::endl;
+		  if(tempDos->idUnico == temp->idUnico)
+		    {
+		      retorno.push_back(temp->idUnico);
+		      break;
+		    }
 		}
 	    }
 	  return retorno;
@@ -699,7 +686,7 @@ DptoSet::DptoSet()
   std::set<int> caldas {}; // 17 == 5
   std::set<int> caqueta {}; // 18 == 6
   std::set<int> cauca {}; // 19 == 7 
-  std::set<int> cesar {}; // 20 == 8
+  std::set<int> cesar {}; // 20== 8
   std::set<int> cordova {}; // 23
   std::set<int> cundinamarca {}; // 25
   std::set<int> choco {}; // 27
@@ -1073,6 +1060,7 @@ class BDCovid
 {
 private:
   std::vector<nodeMaster*> tabla ;//es la general
+  
   GenderMap genderMap;//contine los generos
   BinLoc binaryTree;//contirne las edades
   DptoSet depSet;
@@ -1080,6 +1068,7 @@ private:
 public:
   BDCovid();
   //~BDCovid();
+  std::vector<int> busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation);
 };
 
 BDCovid::BDCovid()
@@ -1091,86 +1080,105 @@ BDCovid::BDCovid()
   
   if(ifs.good())
     {
+      //int contadorBorrar = 0;
       while(!ifs.eof())
 	{
 	  std::getline(ifs, line);
-	  //std::cout<<line<<std::endl;
-	  //se extrae linea y se guarda en line
-	  
-	  int cont1 = 0;
-	  //bool para cada uno de los atributos
-	  bool id = true;
-	  bool gender = true;
-	  bool age = true;
-	  bool loc = true;
-	  nodeMaster* temp = new nodeMaster;
-	  for(int i = 0; i < line.length(); i++)
+
+
+	  if(line != "")
 	    {
- 
-	      //recorro la linea
-	      if(line[i] == ',')
+	      //std::cout<<line<<std::endl;
+	      //se extrae linea y se guarda en line
+	      int cont1 = 0;
+	      //bool para cada uno de los atributos
+	      bool id = true;
+	      bool gender = true;
+	      bool age = true;
+	      bool loc = true;
+	      nodeMaster* temp = new nodeMaster;
+	      
+	      //contadorBorrar++;
+	      for(int i = 0; i < line.length(); i++)
 		{
 		  
-		  //separo el espacio en memoria
-		  if(id)
-		    {
-		      temp->idUnico = std::stoi(line.substr(cont1,1));
-		      
-		      id = false;
-		      cont1 = i;
-		      //std::cout<<temp->idUnico<<std::endl;
-		    }
-		  else if(age)
-		    {
-		      int tam = line.find(",", cont1+1);
-		      //std::cout<<"tam: "<<tam<<" i: "<<cont1<<"substr"<< line.substr(cont1, tam)<<std::endl;
-		      int pAge = std::stoi(line.substr(cont1+1, tam-1));
-		      temp->age = pAge;
-		      //lo introduzco al arbol
-		      binaryTree.insert(pAge, temp->idUnico);
-		      
-		      age = false;
-		      
-		    }
-		  else if(gender)
+		  //recorro la linea
+		  if(line[i] == ',')
 		    {
 		      
-		      if(line.substr(cont1,1) == "F")
+		      //separo el espacio en memoria
+		      if(id)
 			{
-			  temp->gender = true;
-		   
+			  temp->idUnico = std::stoi(line.substr(cont1,1));
+			  id = false;
+			  cont1 = i;
+			  //std::cout<<temp->idUnico<<std::endl;
+			}
+		      else if(age)
+			{
+			  int tam = line.find(",", cont1+1);
+			  //std::cout<<"tam: "<<tam<<" i: "<<cont1<<"substr"<< line.substr(cont1, tam)<<std::endl;
+			  int pAge = std::stoi(line.substr(cont1+1, tam-1));
+			  temp->age = pAge;
+			  //lo introduzco al arbol
+			  binaryTree.insert(pAge, temp->idUnico);
+			  //std::cout<<"edad: "<<pAge<<"id: "<<temp->idUnico<<std::endl;
+			  age = false;
+			  cont1 = i;
 			  
 			}
-		      else if(line.substr(cont1,1) == "M")
+		      else if(gender)
 			{
-			  temp->gender = false;
-			}
+			  
+			  //std::cout<<line.substr(cont1+1,1)<<std::endl;
+			  if(line.substr(cont1+1,1) == "F")
+			    {
+			      //std::cout<<"mujer"<<std::endl;
+			      temp->gender = true;
+			      
+			      
+			    }
+			  else if(line.substr(cont1+1,1) == "M")
+			    {
+			      //std::cout<<"hombre"<<std::endl;
+			      temp->gender = false;
+			    }
 
-		      genderMap.insert(temp->idUnico, temp->gender);
-		      gender = false;
-		      cont1 = i;
+			  genderMap.insert(temp->idUnico, temp->gender);
+			  gender = false;
+			  cont1 = i;
+			}
+		      else if(loc)
+			{
+			  int tam = line.find(",",cont1+1);
+			  //el menos siete es importante aunque no se exactamente por que
+			  tam -= 7;
+			  //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
+			  int tam2 = line.find(",", tam);
+			  temp->location = line.substr(tam2+1, 2);
+			  //std::cout<<"numero de departamento: "<<temp->location<<std::endl;
+			  loc = false;
+			  depSet.insert(temp->idUnico, temp->location);
+			
+			}
 		    }
-		  else if(loc)
-		    {
-		      int tam = line.find(",",cont1+1);
-		      //el menos siete es importante aunque no se exactamente por que
-		      tam -= 7;
-		      //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
-		      int tam2 = line.find(",", tam);
-		      temp->location = line.substr(tam2+1, 2);
-		      std::cout<<"numero de departamento: "<<temp->location<<std::endl;
-		      loc = false;
-		      depSet.insert(temp->idUnico, temp->location);
-       
-		    }
+		
 		}
+	      tabla.push_back(temp);
 	    }
+	      
+	  //std::cout<<"contador: "<<contadorBorrar<<" ifs: " <<!ifs.eof()<<std::endl;
 	  //std::cout<<"Id("<<temp->idUnico<<") "<<"Age("<<temp->age<<") "<<"Gender("<<temp->gender<<") "<<"Location("<<temp->location<<") "<<std::endl;
 	  //delete temp;
-	  tabla.push_back(temp);
+	  
+	  
 	}
+      //std::cout<<"contadorb orrar: "<<contadorBorrar<<std::endl;
     }
+  
   ifs.close();
+
+  /*
   //ahora para ver que esta todo
   for(unsigned int i = 0; i < tabla.size(); i++)
     {
@@ -1191,6 +1199,57 @@ BDCovid::BDCovid()
   std::cout<<std::endl;
   //std::cout<<"TEST"<<std::endl;
   //depSet.test();
+  */
+}
+
+std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation)
+{
+  /*
+    GenderMap genderMap;//contine los generos
+    BinLoc binaryTree;//contirne las edades
+    DptoSet depSet;
+  */
+  std::vector<std::vector<int>> retorno;
+  std::vector<int> retornoFinal;
+  std::cout<<"antes de los generos"<<std::endl;
+  retorno.push_back(genderMap.generarLista(pGenero));
+  std::cout<<"ya se tienen los del genero: "<<retorno[0].size()<<std::endl;
+  retorno.push_back(binaryTree.rango(pDesde, pHasta));
+  std::cout<<"ya se tienen los de edad: "<<retorno[1].size()<<std::endl;
+  retorno.push_back(depSet.unionDepto(pLocation));
+  std::cout<<"ya se tienen los de locacion: "<<retorno[2].size()<<std::endl;
+  
+  //ahora bien un elemento es decir un elemento con id unico dado puede pasar si y sol si esta en las tres listas para esose vaa comparar de a pares
+  int elemento;
+  for(int i = 0;i < retorno[0].size(); i++)
+    {
+      for(int e = 0; e < retorno[1].size();e++)
+	{
+	  for(int j = 0; j< retorno[2].size(); j++)
+	    {
+	      if(e != 0 && j == i && i == e && j == e)
+		{
+		  //std::cout<<"i: "<<i<<" j: "<<j<<" e: "<<e<<std::endl;
+		  retornoFinal.push_back(i);
+		}
+	    }
+	}
+    }
+
+  std::cout<<"hay: "<<retornoFinal.size()<<" personas que satisfacen los parametros"<<std::endl;
+
+  /*
+  for(int i = 0; i < tabla.size();i++)
+    {
+      std::cout<<tabla[i]->idUnico<<" ";
+    }
+  std::cout<<std::endl;
+  std::cout<<"persona:"<<tabla[0]->idUnico<<std::endl;
+  */
+  return retornoFinal;
+  
+  
+  
   
 }
 

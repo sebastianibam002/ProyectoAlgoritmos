@@ -26,6 +26,7 @@ int main()
   */
 
   BDCovid prueba;
+  prueba.busqueda(false,19,56,"Antioquia");
  
   
   
