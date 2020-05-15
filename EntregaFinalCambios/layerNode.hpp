@@ -623,7 +623,7 @@ class DptoSet{
 private:
 
   //contiene cada uno de los sets que se crearon
-  std::vector<int> elementos;
+  std::vector<std::set<int>> elementos;
 
 
   //metodo que hace toda la parte de la busqueda que necesitamos
@@ -631,10 +631,11 @@ private:
 
 public:
   DptoSet();
-  ~DptoSet();
+  //~DptoSet();
 
   //le introduzco una llave que es el idUnico y el departametno en formato "amazonas"
   void insert(int pKey, std::string value);
+  void displaySet(int pNumero);
   void display();
 
 };
@@ -684,7 +685,7 @@ DptoSet::~DptoSet(){
 
 DptoSet::DptoSet()
 {
-  std::set<int> antioquia {}; // 05 == 0
+  std::set<int> antioquia; // 05 == 0
   std::set<int> atlantico {}; // 08 ==1
   std::set<int> bogota {}; // 11 == 2
   std::set<int> bolivar {}; // 13 == 3
@@ -716,31 +717,65 @@ DptoSet::DptoSet()
   std::set<int> guainia {}; // 94
   std::set<int> guaviare {}; // 95
   std::set<int> vaupes {}; //  97
-  std::set<int> vichada {}; //  99
-  std::vector<int> interseccion; ///////////////////////////////////////////
-  std::vector<std::set<int>>elementos{antioquia, atlantico, bogota, bolivar, boyaca, caldas, caqueta, cauca, cesar, cordova, cundinamarca, choco, huila, la_guajira, magdalena, meta, narino, norte_de_santander, quindio, risaralda, santander, sucre, tolima, valle_del_cauca, arauca, casanare, putumayo, san_andres, amazonas, guainia, vaupes, vichada};
-  
-  
-
+  std::set<int> vichada; //  99
+  //std::vector<int> interseccion; ///////////////////////////////////////////
+  std::vector<std::set<int>> prueba{antioquia, atlantico, bogota, bolivar, boyaca, caldas, caqueta, cauca, cesar, cordova, cundinamarca, choco, huila, la_guajira, magdalena, meta, narino, norte_de_santander, quindio, risaralda, santander, sucre, tolima, valle_del_cauca, arauca, casanare, putumayo, san_andres, amazonas, guainia, vaupes, vichada};
+  elementos = prueba;
+  //std::vector<std::set<int>> elementos;
+ 
 }
-
-
 
 void DptoSet::insert(int pKey, std::string value)
 {
   //debe bucar que value corresponde para esto hay que compararlos con las que existan
+  
+  //5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99
+  int casos = std::stoi(value);
+  int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
+    
+  for(int i = 0; i < 34;i++)
+    {
 
+      std::cout<<"casos: "<<casos<<"lista[i]: "<<lista[i]<<std::endl;
+      if(casos == lista[i])
+	{
+	  
+	  (elementos[i]).insert(pKey);
+	  
+	}
+      
+    }
+  
+
+  //elementos[0].insert(2);
+ 
 }
 
-/*
-void DptoSet::display(){
+void DptoSet::displaySet(int pNumero)
+{
 
+  std::set<int>::iterator it;
+  //std::cout<<"este tiene: "<<elementos[pNumero].size();
+  for(it = (elementos[pNumero]).begin(); it != elementos[pNumero].end(); it++)
+    {
+      std::cout<<*it<<" ";
+    }
+
+  std::cout<<std::endl;
 }
 
-*/
-
-
-
+void DptoSet::display()
+{
+  //std::cout<<"elementos size: "<<elementos.size()<<std::endl;
+  for(int i = 0; i < elementos.size();i++)
+    {
+      if(elementos[i].size() != 0)
+	{
+	  std::cout<<"Elementos("<<i<<"): ";
+	  displaySet(i);
+	}
+    }
+}
 
 /*
 ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
@@ -763,6 +798,7 @@ private:
   std::vector<nodeMaster*> tabla ;//es la general
   GenderMap genderMap;//contine los generos
   BinLoc binaryTree;//contirne las edades
+  DptoSet depSet;
   //colocar set
 public:
   BDCovid();
@@ -845,38 +881,31 @@ BDCovid::BDCovid()
 		      //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
 		      int tam2 = line.find(",", tam);
 		      temp->location = line.substr(tam2+1, 2);
-		      
 		      std::cout<<"numero de departamento: "<<temp->location<<std::endl;
-		      
 		      loc = false;
+		      depSet.insert(temp->idUnico, temp->location);
+       
 		    }
-
 		}
 	    }
 	  //std::cout<<"Id("<<temp->idUnico<<") "<<"Age("<<temp->age<<") "<<"Gender("<<temp->gender<<") "<<"Location("<<temp->location<<") "<<std::endl;
 	  //delete temp;
 	  tabla.push_back(temp);
 	}
-
-       
     }
-
   ifs.close();
-
   //ahora para ver que esta todo
   for(unsigned int i = 0; i < tabla.size(); i++)
     {
       std::cout<<"Id("<<tabla[i]->idUnico<<") "<<"Age("<<tabla[i]->age<<") "<<"Gender("<<tabla[i]->gender<<") "<<"Location("<<tabla[i]->location<<") "<<std::endl;
     }
-
-
   binaryTree.display();
   std::cout<<"Gender Map display"<<std::endl;
   genderMap.display();
-
   //falta el de las localizacines
-  
-  
+
+  std::cout<<"depSet*********************"<<std::endl;
+  depSet.display();
   
 }
 
