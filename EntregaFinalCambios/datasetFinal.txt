@@ -2967,7 +2967,7 @@
 3961,51,F,Bogotá D.C.,11
 3962,19,F,Bogotá D.C.,11
 3963,25,M,Bogotá D.C.,11
-3964,0,M,Cundinamarca,
+3964,0,M,Cundinamarca,25
 3965,58,F,Bogotá D.C.,11
 3966,39,M,Bogotá D.C.,11
 3967,35,M,Bogotá D.C.,11
@@ -3431,10 +3431,10 @@
 3416,54,F,Barranquilla D.E.,8
 3417,67,M,Cundinamarca,25
 3418,40,M,Huila,41
-3419,47,F,Chocó,
-3420,37,F,Chocó,
-3421,49,F,Chocó,
-3422,49,F,Chocó,
+3419,47,F,Chocó,2727
+3420,37,F,Chocó,2727
+3421,49,F,Chocó,2727
+3422,49,F,Chocó,2727
 3423,27,M,Cundinamarca,25
 3424,85,M,Caldas,17
 3425,40,F,Valle del Cauca,76
@@ -3450,7 +3450,7 @@
 3435,60,M,Bogotá D.C.,11
 3436,61,M,Bogotá D.C.,11
 3437,25,F,Antioquia,5
-3438,24,F,Chocó,
+3438,24,F,Chocó,2727
 3439,26,M,Amazonas,91
 3440,47,F,Amazonas,91
 3441,59,M,Barranquilla D.E.,8
@@ -3499,8 +3499,8 @@
 3484,24,M,Barranquilla D.E.,8
 3485,52,F,Barranquilla D.E.,8
 3486,27,F,Cundinamarca,25
-3487,43,F,Chocó,
-3488,34,M,Chocó,
+3487,43,F,Chocó,27
+3488,34,M,Chocó,27
 3489,37,M,Cundinamarca,25
 3490,38,M,Cundinamarca,25
 3491,59,M,Bogotá D.C.,11
@@ -3525,7 +3525,7 @@
 4529,65,M,Amazonas,91
 2512,39,M,Cartagena D.T. y C.,13
 4017,35,F,Valle del Cauca,76
-4530,74,M,Chocó,
+4530,74,M,Chocó,27
 2513,27,F,Cartagena D.T. y C.,13
 4018,56,F,Valle del Cauca,76
 4531,60,M,Amazonas,91
@@ -3574,7 +3574,7 @@
 4052,32,M,Valle del Cauca,76
 4053,28,F,Valle del Cauca,76
 4054,28,M,Valle del Cauca,76
-4055,46,F,Chocó,
+4055,46,F,Chocó,27
 4056,36,F,Santa Marta D.T. y C.,47
 4057,31,M,Santa Marta D.T. y C.,47
 4058,33,M,Santa Marta D.T. y C.,47
@@ -4618,7 +4618,7 @@
 2624,78,F,Huila,41
 2625,30,M,Huila,41
 2626,60,M,Huila,41
-2627,47,F,Chocó,
+2627,47,F,Chocó,27
 2628,79,M,Huila,41
 2629,58,M,Risaralda,66
 2630,24,F,Santa Marta D.T. y C.,47
@@ -5011,8 +5011,8 @@
 6545,56,M,Barranquilla D.E.,8
 7044,22,F,Amazonas,91
 7045,24,M,Amazonas,91
-7046,37,M,Chocó,
-7047,22,F,Chocó,
+7046,37,M,Chocó,27
+7047,22,F,Chocó,27
 7048,10,M,Tolima,73
 7049,83,M,Norte de Santander,54
 7050,71,M,Norte de Santander,54
@@ -5911,7 +5911,7 @@
 5928,81,F,Amazonas,91
 5929,27,F,Boyacá,15
 5930,77,F,Boyacá,15
-5931,42,M,Chocó,
+5931,42,M,Chocó,27
 5932,31,M,Caquetá,18
 5933,7,F,Meta,50
 5934,0,F,Meta,50
@@ -5956,7 +5956,7 @@
 5973,21,M,Meta,50
 5974,41,M,Meta,50
 5975,67,M,Meta,50
-5976,18,M,Chocó,
+5976,18,M,Chocó,27
 5977,51,M,Huila,41
 5978,71,M,Huila,41
 5979,22,F,Caquetá,18
@@ -6793,7 +6793,7 @@
 5280,26,M,Santa Marta D.T. y C.,47
 5281,35,M,Santa Marta D.T. y C.,47
 5282,33,M,Santa Marta D.T. y C.,47
-5283,53,M,Chocó,
+5283,53,M,Chocó,27
 5284,60,M,Valle del Cauca,76
 5285,26,M,Bogotá D.C.,11
 5286,30,F,Bogotá D.C.,11
@@ -7590,7 +7590,7 @@
 8634,37,F,Nariño,52
 8635,24,M,Caquetá,18
 8636,66,F,Nariño,52
-8637,66,M,Chocó,
+8637,66,M,Chocó,27
 8638,76,M,Nariño,52
 8639,19,M,Nariño,52
 8640,26,F,Caquetá,18
@@ -7628,9 +7628,9 @@
 8672,30,F,Valle del Cauca,76
 8673,50,F,Valle del Cauca,76
 8674,23,M,Valle del Cauca,76
-8675,45,M,Chocó,
-8676,31,M,Chocó,
-8677,56,M,Chocó,
+8675,45,M,Chocó,27
+8676,31,M,Chocó,27
+8677,56,M,Chocó,27
 8678,66,M,Meta,50
 8679,41,M,Meta,50
 8680,37,M,Meta,50
@@ -8756,14 +8756,14 @@
 7791,24,F,Cartagena D.T. y C.,13
 7792,61,F,Cartagena D.T. y C.,13
 7793,23,M,Casanare,85
-7794,40,M,Chocó,
-7795,1,M,Chocó,
-7796,11,M,Chocó,
-7797,44,F,Chocó,
-7798,63,M,Chocó,
-7799,0,F,Chocó,
-7800,67,F,Chocó,
-7801,46,F,Chocó,
+7794,40,M,Chocó,27
+7795,1,M,Chocó,27
+7796,11,M,Chocó,27
+7797,44,F,Chocó,27
+7798,63,M,Chocó,27
+7799,0,F,Chocó,27
+7800,67,F,Chocó,27
+7801,46,F,Chocó,27
 7802,46,M,Valle del Cauca,76
 7803,18,M,Buenaventura D.E.,76
 7804,51,F,Valle del Cauca,76
@@ -11174,7 +11174,7 @@
 10698,53,M,Nariño,52
 10699,33,M,Nariño,52
 10700,79,M,Nariño,52
-10701,42,M,Chocó,
+10701,42,M,Chocó,27
 10702,35,F,Nariño,52
 10703,68,F,Nariño,52
 10704,1,F,Nariño,52
@@ -11759,13 +11759,13 @@
 12289,22,M,Bogotá D.C.,11
 12290,28,M,Bogotá D.C.,11
 12291,22,F,Bogotá D.C.,11
-12292,32,F,Chocó,
-12293,56,F,Chocó,
-12294,30,F,Chocó,
-12295,25,F,Chocó,
-12296,2,M,Chocó,
-12297,25,M,Chocó,
-12298,18,F,Chocó,
+12292,32,F,Chocó,27
+12293,56,F,Chocó,27
+12294,30,F,Chocó,27
+12295,25,F,Chocó,27
+12296,2,M,Chocó,27
+12297,25,M,Chocó,27
+12298,18,F,Chocó,27
 12299,30,M,La Guajira,44
 12300,70,M,Norte de Santander,54
 12301,44,M,Norte de Santander,54
@@ -11834,11 +11834,11 @@
 12364,57,M,Valle del Cauca,76
 12365,72,M,Valle del Cauca,76
 12366,33,M,Cundinamarca,25
-12367,75,M,Chocó,
-12368,45,M,Chocó,
-12369,38,F,Chocó,
-12370,6,F,Chocó,
-12371,39,F,Chocó,
+12367,75,M,Chocó,27
+12368,45,M,Chocó,27
+12369,38,F,Chocó,27
+12370,6,F,Chocó,27
+12371,39,F,Chocó,27
 12372,32,M,Valle del Cauca,76
 12373,25,M,Vaupés,97
 12374,20,M,Vaupés,97

@@ -797,9 +797,11 @@ std::vector<int> DptoSet::unionDepto(std::string pString)
 	{
 	  //encontre una separacion
 	  int count2 = pString.find(",", count1);
-	  pString.replace(count2,1,"");
-	  numeros.push_back(mayus(pString.substr(count1,count2)));
-	  count1 = i;
+	  //std::cout<<"count2: "<<count2<<std::endl;
+	  //pString.replace(count2,1,"");
+	  numeros.push_back(mayus(pString.substr(count1,(count2-count1))));
+	  //std::cout<<"Word: "<<mayus(pString.substr(count1,(count2-count1)))<<std::endl;
+	  count1 = count2+1;
 	  
 	}
       
@@ -994,7 +996,9 @@ void DptoSet::insert(int pKey, std::string value)
   //debe bucar que value corresponde para esto hay que compararlos con las que existan
   
   //5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99
+  //std::cout<<"casos: "<<value<<std::endl;
   int casos = std::stoi(value);
+  
   int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
     
   for(int i = 0; i < 34;i++)
@@ -1074,7 +1078,7 @@ public:
 BDCovid::BDCovid()
 {
   //inicializar los atributos
-  std::ifstream ifs("dataset.txt");
+  std::ifstream ifs("datasetFinal.txt");
   std::string line = "";
 
   
@@ -1109,7 +1113,10 @@ BDCovid::BDCovid()
 		      //separo el espacio en memoria
 		      if(id)
 			{
-			  temp->idUnico = std::stoi(line.substr(cont1,1));
+			  
+			  int tempCont = line.find(",");
+  
+			  temp->idUnico = std::stoi(line.substr(cont1,tempCont));
 			  id = false;
 			  cont1 = i;
 			  //std::cout<<temp->idUnico<<std::endl;
@@ -1122,9 +1129,11 @@ BDCovid::BDCovid()
 			  temp->age = pAge;
 			  //lo introduzco al arbol
 			  binaryTree.insert(pAge, temp->idUnico);
+			  //std::cout<<"prorblm bro? "<<pAge<<std::endl;
 			  //std::cout<<"edad: "<<pAge<<"id: "<<temp->idUnico<<std::endl;
 			  age = false;
 			  cont1 = i;
+			  
 			  
 			}
 		      else if(gender)
@@ -1152,9 +1161,10 @@ BDCovid::BDCovid()
 			{
 			  int tam = line.find(",",cont1+1);
 			  //el menos siete es importante aunque no se exactamente por que
-			  tam -= 7;
+			  //tam -= 7;
 			  //std::cout<<"la segunda coma esa en: "<<tam<<std::endl;
 			  int tam2 = line.find(",", tam);
+			  
 			  temp->location = line.substr(tam2+1, 2);
 			  //std::cout<<"numero de departamento: "<<temp->location<<std::endl;
 			  loc = false;
