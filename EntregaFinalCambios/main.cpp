@@ -6,7 +6,10 @@ int main()
 
 
   BDCovid prueba;
-  prueba.generarArchivoVis(false,0,100,"Bogota");
+  prueba.generarArchivoVis(true,19,42,"Bogota");
+  
+  //vector<int> test = prueba.busqueda(true,19,42,"Bogota");
+  //std::cout<<"size: "<<test.size()<<std::endl;
   /*
   for(int i = 0; i < test.size(); i++)
     {
@@ -15,6 +18,7 @@ int main()
   
   cout<<endl;
   */
+  //std::cout<<"size: "<<test.size()<<std::endl;
   
   
   

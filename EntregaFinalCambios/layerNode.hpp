@@ -1259,6 +1259,32 @@ int binary_search(int x, const std::vector<int>&v)
   return -1;
 }
 
+
+
+int binary_search(int x, const std::vector<nodeMaster*>&v)
+{
+  
+  int left = 0, right = v.size()-1;
+  while(left <= right)
+    {
+      int mid = (right+left)/2;
+      if(v[mid]->idUnico== x)
+	return mid;
+      else
+	{
+	  if(x> v[mid]->idUnico)
+	    {
+	      left = mid+1;
+	    }
+	  else
+	    {
+	      right = mid-1;
+	    }
+	}
+    }
+  return -1;
+}
+
 void swap(int i, int j, std::vector<int>& v){
   int temp = v[i];
   v[i] = v[j];
@@ -1301,35 +1327,6 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
   
   //ahora bien un elemento es decir un elemento con id unico dado puede pasar si y sol si esta en las tres listas para esose vaa comparar de a pares
   //int elemento;
-  /*
-  for(int i = 0; i < retorno[1].size();i++)
-    {
-      std::cout<<retorno[1][i]<<" ";
-    }
-  std::cout<<std::endl;
-  */
-  //int contador = 0;
-  //como se esta demorando tanto tiempo voy a usar binary search para enontrar las intersecciones
-  /*
-  for(int i = 0;i < retorno[2].size(); i++)
-    {
-      for(int e = 0; e < retorno[1].size();e++)
-	{
-	  for(int j = 0; j< retorno[0].size(); j++)
-	    {
-	      
-	      
-	      if(e != 0 && j == i && i == e && j == e)
-		{
-		  //std::cout<<"i: "<<i<<" j: "<<j<<" e: "<<e<<std::endl;
-		  retornoFinal.push_back(i);
-		}
-	      //std::cout<<contador<<" "<<std::endl;
-	    }
-	}
-    }
-  
-  */
 
   //std::cout<<"vector 1: "<<retorno[1].size()<<std::endl;
   std::vector<int> parcial;
@@ -1346,14 +1343,6 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
     }
   //entonces hice el primer filtro
 
-  /*
-  for(int i = 0; i < retorno[0].size(); i++)
-    {
-      std::cout<<retorno[0][i]<<" ";
-    }
-  std::cout<<std::endl;
-  el vector de generos no esta organizado
-*/
   bubble_sort(retorno[0]);
   
   for(int i = 0; i < parcial.size(); i++)
@@ -1387,23 +1376,46 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
   
 }
 
+
+
 void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation)
 {
   std::vector<int> resultado = busqueda(pGenero,pDesde, pHasta, pLocation);
   std::ofstream ofs("vis.txt",std::ios::app);
+
+  bubble_sort(resultado);
+  
+  
+  //std::cout<<std::endl;
+  
+  
   if(ofs.good())
     {
-      for(unsigned int i = 0; i < resultado.size();i++)
-	{
-	  int elemento = resultado[i];
-	  ofs<<tabla[elemento-1]->location<<"\n";
-	}
 
+      //int elemento = std::stoi(tabla[resultado[0]-1]->location);
+      for(int i = 0; i <tabla.size(); i++)
+	{
+	  
+	  int elemento = binary_search(tabla[i]->idUnico,resultado);
+	  if(elemento != -1)
+	    {
+	      ofs<<tabla[i]->location<<"\n";
+	    }
+	  //std::cout<<tabla[i]->idUnico<<" ";
+	  
+	}
+      //std::cout<<std::endl;
+      
     }
+  
+  /*
+  for(int i = 0; i <resultado.size(); i++)
+    std::cout<<resultado[i]<<" ";
+  std::cout<<std::endl;
+  */
   ofs.close();
   
   
 }
-
 
 #endif

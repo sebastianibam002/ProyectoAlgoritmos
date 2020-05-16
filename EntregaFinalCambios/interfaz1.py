@@ -4,15 +4,16 @@ import numpy as np
 
 def obtenerInfo():
     f = open("vis.txt","r")
-    contents = f.read()
+    contents = f.readlines()
     dic = {}
     for line in contents:
+        line = line.replace("\n", "")
         if line in dic.keys():
             dic[line] += 1
         else:
             dic[line] = 1
 
-     print(dic)       
+    print(dic)       
 
 obtenerInfo()
 rng = np.random.RandomState(0)
