@@ -276,7 +276,7 @@ void GenderMap::display()
  *
  */
 
-int NEXT = 10;
+int NEXT = 20;
 
 //nodo de localizacion para el arbol
 struct nodeLoc
@@ -295,7 +295,7 @@ struct nodeLoc
 
 
 
-int contadorId = 0;
+//int contadorId = 0;
 class BinLoc
 {
 
@@ -382,7 +382,7 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 	  
 	  nodeLoc* tempDos = find(pHasta);
 	  //los numeros mayores
-	  //std::cout<<"El desde: "<<find(pDesde)->idUnico<<" el phasta: "<<find(pHasta)->idUnico<<std::endl;
+	  std::cout<<"El desde: "<<find(pDesde)->idUnico<<" el phasta: "<<find(pHasta)->idUnico<<std::endl;
 	  while(temp != nullptr)
 	    {
 	      if(temp->idUnico == tempDos->idUnico)
@@ -392,7 +392,8 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 		}
 	      else
 		{
-		
+
+		  
 		  //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
 		  retorno.push_back(temp->idUnico);
 		  //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
@@ -400,7 +401,7 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 		  //std::cout<<"elemento introducido"<<std::endl;
 		  temp = successor(temp);
 		  //std::cout<<"llego"<<std::endl;
-		  //std::cout<<"siguiente elemento "<< temp->idUnico<<std::endl;
+		  //std::cout<<"siguiente elemento "<< temp->edad<<std::endl;
 		  if(tempDos->idUnico == temp->idUnico)
 		    {
 		      retorno.push_back(temp->idUnico);
@@ -413,6 +414,8 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 	}
       else
 	{
+
+	  std::cout<<"caso del else rango: "<<searchNext(pDesde) <<" hasta: "<< searchLast(pHasta)<<std::endl;
 	  //if(pDesde == -1 && !pHasta != -1)
 	 return rango(searchNext(pDesde), searchLast(pHasta));
 	   
@@ -490,8 +493,7 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParen
     }
   else
     {
-      if(pKey != pNode->edad)
-	{
+     
 	  if(pKey < pNode->edad)
 	    {
 	      insertNode(pNode->left, pKey, pIdUnico , pNode);
@@ -500,7 +502,7 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParen
 	    {
 	      insertNode(pNode->right, pKey, pIdUnico, pNode);
 	    }
-	}
+	
     }
 
   
@@ -1128,6 +1130,7 @@ BDCovid::BDCovid()
 			  int pAge = std::stoi(line.substr(cont1+1, tam-1));
 			  temp->age = pAge;
 			  //lo introduzco al arbol
+			  //BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent)
 			  binaryTree.insert(pAge, temp->idUnico);
 			  //std::cout<<"prorblm bro? "<<pAge<<std::endl;
 			  //std::cout<<"edad: "<<pAge<<"id: "<<temp->idUnico<<std::endl;
@@ -1188,6 +1191,7 @@ BDCovid::BDCovid()
   
   ifs.close();
 
+  //binaryTree.display();
   /*
   //ahora para ver que esta todo
   for(unsigned int i = 0; i < tabla.size(); i++)
@@ -1195,7 +1199,7 @@ BDCovid::BDCovid()
       std::cout<<"Id("<<tabla[i]->idUnico<<") "<<"Age("<<tabla[i]->age<<") "<<"Gender("<<tabla[i]->gender<<") "<<"Location("<<tabla[i]->location<<") "<<std::endl;
     }
   
-  binaryTree.display();
+  
   std::cout<<"Gender Map display"<<std::endl;
   genderMap.display();
   //falta el de las localizacines
@@ -1230,7 +1234,14 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
   std::cout<<"ya se tienen los de locacion: "<<retorno[2].size()<<std::endl;
   
   //ahora bien un elemento es decir un elemento con id unico dado puede pasar si y sol si esta en las tres listas para esose vaa comparar de a pares
-  int elemento;
+  //int elemento;
+  /*
+  for(int i = 0; i < retorno[1].size();i++)
+    {
+      std::cout<<retorno[1][i]<<" ";
+    }
+  std::cout<<std::endl;
+  */
   for(int i = 0;i < retorno[0].size(); i++)
     {
       for(int e = 0; e < retorno[1].size();e++)
