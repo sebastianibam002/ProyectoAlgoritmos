@@ -1,4 +1,4 @@
-1,19,F,Bogotá D.C,11
+1,19,F,Bogotá D.C.,11
 2,34,M,Valle del Cauca,76
 3,50,F,Antioquia,5
 4,55,M,Antioquia,5
@@ -11,3 +11,190 @@
 11,42,F,Bogotá D.C.,11
 12,74,F,Huila,41
 13,68,F,Huila,41
+14,48,M,Valle del Cauca,76
+15,30,F,Meta,50
+16,61,F,Bogotá D.C.,11
+17,73,F,Bogotá D.C.,11
+18,54,M,Bogotá D.C.,11
+19,54,F,Bogotá D.C.,11
+20,26,F,Antioquia,5
+21,28,M,Antioquia,5
+22,36,M,Antioquia,5
+23,23,M,Bogotá D.C.,11
+24,18,F,Bogotá D.C.,11
+25,49,M,Valle del Cauca,76
+26,30,F,Cartagena D.T. y C.,13
+27,30,F,Cartagena D.T. y C.,13
+28,22,M,Risaralda,66
+29,55,F,Huila,41
+30,48,F,Norte de Santander,54
+31,65,M,Caldas,17
+32,55,M,Antioquia,5
+33,59,M,Bogotá D.C.,11
+34,23,F,Bogotá D.C.,11
+35,54,M,Bogotá D.C.,11
+36,72,M,Bogotá D.C.,11
+37,45,F,Bogotá D.C.,11
+38,29,M,Bogotá D.C.,11
+39,21,M,Bogotá D.C.,11
+40,23,F,Bogotá D.C.,11
+41,79,M,Huila,41
+42,52,F,Huila,41
+43,71,M,Huila,41
+44,24,F,Huila,41
+45,29,M,Cundinamarca,25
+46,44,F,Bogotá D.C.,11
+47,38,M,Bogotá D.C.,11
+48,31,M,Bogotá D.C.,11
+49,41,F,Bogotá D.C.,11
+50,67,F,Bogotá D.C.,11
+51,24,M,Cundinamarca,25
+52,29,M,Bogotá D.C.,11
+53,62,M,Bogotá D.C.,11
+54,42,F,Bogotá D.C.,11
+55,58,F,Bogotá D.C.,11
+56,34,M,Bogotá D.C.,11
+57,37,M,Bogotá D.C.,11
+58,27,M,Cartagena D.T. y C.,13
+59,20,M,Barranquilla D.E.,8
+60,24,M,Santander,68
+61,21,M,Barranquilla D.E.,8
+62,32,M,Valle del Cauca,76
+63,26,F,Valle del Cauca,76
+64,31,M,Bogotá D.C.,11
+65,64,M,Bogotá D.C.,11
+66,40,F,Bogotá D.C.,11
+67,21,M,Bogotá D.C.,11
+68,72,M,Bogotá D.C.,11
+69,22,F,Bogotá D.C.,11
+70,37,F,Bogotá D.C.,11
+71,54,M,Norte de Santander,54
+72,22,F,Norte de Santander,54
+73,54,F,Cartagena D.T. y C.,13
+74,18,M,Bogotá D.C.,11
+75,49,F,Bogotá D.C.,11
+76,46,F,Quindio,63
+77,18,M,Quindio,63
+78,39,F,Valle del Cauca,76
+79,9,M,Valle del Cauca,76
+80,53,F,Valle del Cauca,76
+81,49,F,Valle del Cauca,76
+82,54,M,Valle del Cauca,76
+83,56,M,Valle del Cauca,76
+84,51,M,Valle del Cauca,76
+85,42,F,Valle del Cauca,76
+86,29,M,Risaralda,66
+87,45,M,Cundinamarca,25
+88,36,M,Tolima,73
+89,39,F,Santander,68
+90,53,F,Huila,41
+91,32,M,Cundinamarca,25
+92,50,M,Bogotá D.C.,11
+93,26,F,Bogotá D.C.,11
+94,53,M,Bogotá D.C.,11
+95,69,M,Bogotá D.C.,11
+96,37,F,Bogotá D.C.,11
+97,24,M,Cartagena D.T. y C.,13
+98,21,M,Cartagena D.T. y C.,13
+99,16,M,Tolima,73
+100,21,M,Risaralda,66
+101,18,M,Risaralda,66
+102,79,M,Risaralda,66
+103,24,F,Cartagena D.T. y C.,13
+104,48,F,Barranquilla D.E.,8
+105,23,F,Valle del Cauca,76
+106,44,M,Antioquia,5
+107,56,M,Antioquia,5
+108,57,F,Antioquia,5
+109,54,M,Bogotá D.C.,11
+110,62,F,Bogotá D.C.,11
+111,60,M,Bogotá D.C.,11
+112,30,M,Bogotá D.C.,11
+113,33,M,Bogotá D.C.,11
+114,49,M,Bogotá D.C.,11
+115,29,M,Bogotá D.C.,11
+116,40,F,Bogotá D.C.,11
+117,28,M,Norte de Santander,54
+118,50,M,Norte de Santander,54
+119,24,M,Norte de Santander,54
+120,23,F,Quindio,63
+121,61,M,Cauca,19
+122,32,F,Cauca,19
+123,38,F,Caldas,17
+124,76,F,Huila,41
+125,47,M,Cartagena D.T. y C.,13
+126,52,F,Barranquilla D.E.,8
+127,30,F,Barranquilla D.E.,8
+128,58,M,Cundinamarca,25
+129,26,F,Risaralda,66
+130,53,M,Cundinamarca,25
+131,22,F,Antioquia,5
+132,33,M,Valle del Cauca,76
+133,51,M,Antioquia,5
+134,28,M,Antioquia,5
+135,44,F,Antioquia,5
+136,37,M,Antioquia,5
+137,54,M,Antioquia,5
+138,54,M,Bogotá D.C.,11
+139,30,M,Bogotá D.C.,11
+140,34,M,Bogotá D.C.,11
+141,62,F,Antioquia,5
+142,35,F,Antioquia,5
+143,46,M,Antioquia,5
+144,41,M,Antioquia,5
+145,18,F,Antioquia,5
+146,31,F,Cundinamarca,25
+147,25,F,Cundinamarca,25
+148,32,M,Bogotá D.C.,11
+149,37,M,Bogotá D.C.,11
+150,29,F,Bogotá D.C.,11
+151,47,M,Bogotá D.C.,11
+152,65,M,Bogotá D.C.,11
+153,53,F,Bogotá D.C.,11
+154,40,M,Bogotá D.C.,11
+155,20,M,Santa Marta D.T. y C.,47
+156,28,F,Cundinamarca,25
+157,88,M,Santa Marta D.T. y C.,47
+158,32,M,Cundinamarca,25
+159,34,M,Bogotá D.C.,11
+160,42,F,Bogotá D.C.,11
+161,22,F,Bogotá D.C.,11
+162,25,M,Bogotá D.C.,11
+163,28,M,Bogotá D.C.,11
+164,67,F,Bogotá D.C.,11
+165,32,F,Bogotá D.C.,11
+166,45,F,Bogotá D.C.,11
+167,46,F,Bogotá D.C.,11
+168,25,F,Bogotá D.C.,11
+169,42,F,Bogotá D.C.,11
+170,45,F,Bogotá D.C.,11
+171,21,F,Bogotá D.C.,11
+172,27,M,Bogotá D.C.,11
+173,65,F,Bogotá D.C.,11
+174,70,M,Bogotá D.C.,11
+175,23,F,Bogotá D.C.,11
+176,26,F,Tolima,73
+177,28,M,Cartagena D.T. y C.,13
+178,28,M,Cartagena D.T. y C.,13
+179,44,F,Cartagena D.T. y C.,13
+180,27,M,Norte de Santander,54
+181,22,F,Caldas,17
+182,44,F,Norte de Santander,54
+183,48,F,Valle del Cauca,76
+184,41,F,Valle del Cauca,76
+185,58,F,Valle del Cauca,76
+186,50,F,Valle del Cauca,76
+187,74,M,Valle del Cauca,76
+188,70,F,Valle del Cauca,76
+189,81,F,Valle del Cauca,76
+190,28,M,Valle del Cauca,76
+191,17,M,Valle del Cauca,76
+192,30,F,Valle del Cauca,76
+193,53,F,Valle del Cauca,76
+194,63,F,Valle del Cauca,76
+195,65,F,Risaralda,66
+196,50,F,Huila,41
+197,58,M,Cartagena D.T. y C.,13
+198,39,M,Antioquia,5
+199,28,M,Antioquia,5
+200,53,F,Cartagena D.T. y C.,13

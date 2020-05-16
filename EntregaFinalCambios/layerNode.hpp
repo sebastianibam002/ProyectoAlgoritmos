@@ -308,6 +308,7 @@ private:
   nodeLoc* maximum(nodeLoc *t);
   nodeLoc* minimum(nodeLoc *t);
   nodeLoc* findNode(nodeLoc* pNode, int pEdad);
+  int size;
 public:
   BinLoc(){root = nullptr;}
   ~BinLoc(){destroyRecursive(root);}
@@ -319,7 +320,7 @@ public:
   bool contains(int pEdad);//este elemento existe en la estructura
   int searchNext(int pEdad);
   int searchLast(int pEdad);
-  
+  int tamano();
   std::vector<int> rango(int pDesde, int pHasta);
   void test();
   
@@ -372,7 +373,7 @@ bool BinLoc::contains(int pEdad)
 }
 std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 {
-
+  //std::cout<<"tamano: "<<tamano()<<std::endl;
   if(pDesde != -1 && pHasta != -1)
     {
       std::vector<int> retorno;
@@ -382,11 +383,13 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 	  
 	  nodeLoc* tempDos = find(pHasta);
 	  //los numeros mayores
-	  std::cout<<"El desde: "<<find(pDesde)->idUnico<<" el phasta: "<<find(pHasta)->idUnico<<std::endl;
+	  // std::cout<<"El desde: "<<find(pDesde)->edad<<" el phasta: "<<find(pHasta)->edad<<std::endl;
 	  while(temp != nullptr)
 	    {
 	      if(temp->idUnico == tempDos->idUnico)
 		{
+		  //aca es donde deja de ver si hay mas con el mismo valor del predecesor
+		  
 		  retorno.push_back(temp->idUnico);
 		  break;
 		}
@@ -396,26 +399,36 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 		  
 		  //std::cout<<"id unico: "<<temp->idUnico<<std::endl;
 		  retorno.push_back(temp->idUnico);
+		  //retorno.push_back(tempDos->idUnico);
 		  //std::cout<<"paso primer filtro"<<" temp "<<temp->right<<std::endl;
 		  
 		  //std::cout<<"elemento introducido"<<std::endl;
 		  temp = successor(temp);
+		  //tempDos = predecessor(tempDos);
 		  //std::cout<<"llego"<<std::endl;
 		  //std::cout<<"siguiente elemento "<< temp->edad<<std::endl;
 		  if(tempDos->idUnico == temp->idUnico)
 		    {
-		      retorno.push_back(temp->idUnico);
+		      while(temp->edad == tempDos->edad)
+			{
+			  retorno.push_back(temp->idUnico);
+			  temp = successor(temp);
+			}
 		      break;
 		    }
+
+		  
 		}
 	    }
+
+
 	  return retorno;
 	  
 	}
       else
 	{
 
-	  std::cout<<"caso del else rango: "<<searchNext(pDesde) <<" hasta: "<< searchLast(pHasta)<<std::endl;
+	  //std::cout<<"caso del else rango: "<<searchNext(pDesde) <<" hasta: "<< searchLast(pHasta)<<std::endl;
 	  //if(pDesde == -1 && !pHasta != -1)
 	 return rango(searchNext(pDesde), searchLast(pHasta));
 	   
@@ -478,9 +491,14 @@ nodeLoc* BinLoc::maximum(nodeLoc *t)
     }
 }
 
+int BinLoc::tamano()
+{
+  return size;
+}
+
 void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent)
 {
-
+  
   if(pNode == nullptr)
     {
       
@@ -490,6 +508,7 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParen
       pNode->right = nullptr;
       pNode->parent = pParent;
       pNode->idUnico = pIdUnico;
+      size++;
     }
   else
     {
@@ -1216,6 +1235,52 @@ BDCovid::BDCovid()
   */
 }
 
+int binary_search(int x, const std::vector<int>&v)
+{
+  int left = 0, right = v.size()-1;
+  while(left <= right)
+    {
+      int mid = (right+left)/2;
+      if(v[mid]== x)
+	return mid;
+      else
+	{
+	  if(x> v[mid])
+	    {
+	      left = mid+1;
+	    }
+	  else
+	    {
+	      right = mid-1;
+	    }
+	}
+    }
+  return -1;
+}
+
+void swap(int i, int j, std::vector<int>& v){
+  int temp = v[i];
+  v[i] = v[j];
+  v[j] = temp;
+}
+void bubble_sort(std::vector<int> &v)
+{
+  bool swap_used = true;
+  while(swap_used)
+    {
+      swap_used = false;
+      for(int i = 0; i < v.size()-1;++i)
+	{
+	  if(v[i]> v[i+1])
+	    {
+	      swap(i, i+1, v);
+	      swap_used = true;
+	    }
+	}
+    }
+}
+
+
 std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation)
 {
   /*
@@ -1242,22 +1307,67 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
     }
   std::cout<<std::endl;
   */
-  for(int i = 0;i < retorno[0].size(); i++)
+  //int contador = 0;
+  //como se esta demorando tanto tiempo voy a usar binary search para enontrar las intersecciones
+  /*
+  for(int i = 0;i < retorno[2].size(); i++)
     {
       for(int e = 0; e < retorno[1].size();e++)
 	{
-	  for(int j = 0; j< retorno[2].size(); j++)
+	  for(int j = 0; j< retorno[0].size(); j++)
 	    {
+	      
+	      
 	      if(e != 0 && j == i && i == e && j == e)
 		{
 		  //std::cout<<"i: "<<i<<" j: "<<j<<" e: "<<e<<std::endl;
 		  retornoFinal.push_back(i);
 		}
+	      //std::cout<<contador<<" "<<std::endl;
 	    }
 	}
     }
+  
+  */
 
-  std::cout<<"hay: "<<retornoFinal.size()<<" personas que satisfacen los parametros"<<std::endl;
+  //std::cout<<"vector 1: "<<retorno[1].size()<<std::endl;
+  std::vector<int> parcial;
+  for(int i = 0; i < retorno[1].size(); i++)
+    {
+      
+      int valor = binary_search(retorno[1][i], retorno[2]);
+      
+      if(valor != -1)
+	{
+	  //std::cout<<retorno[2][valor]<<std::endl;
+	  parcial.push_back(retorno[2][valor]);
+	}
+    }
+  //entonces hice el primer filtro
+
+  /*
+  for(int i = 0; i < retorno[0].size(); i++)
+    {
+      std::cout<<retorno[0][i]<<" ";
+    }
+  std::cout<<std::endl;
+  el vector de generos no esta organizado
+*/
+  bubble_sort(retorno[0]);
+  
+  for(int i = 0; i < parcial.size(); i++)
+    {
+      int valor = binary_search(parcial[i], retorno[0]);
+      //std::cout<<"elemento: "<<parcial[i]<<std::endl;
+      if(valor != -1)
+	{
+	  retornoFinal.push_back(retorno[0][valor]);
+	}
+    }
+  
+  //del 
+
+  std::cout<<"hay: "<<retornoFinal.size()<<" personas que satisfacen los parametros de:"<< tabla.size()<<std::endl;
 
   /*
   for(int i = 0; i < tabla.size();i++)
@@ -1267,6 +1377,8 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
   std::cout<<std::endl;
   std::cout<<"persona:"<<tabla[0]->idUnico<<std::endl;
   */
+
+ 
   return retornoFinal;
   
   
