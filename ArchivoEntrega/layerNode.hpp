@@ -1004,9 +1004,9 @@ void DptoSet::insert(int pKey, std::string value)
   //std::cout<<"casos: "<<value<<std::endl;
   int casos = std::stoi(value);
   
-  int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
+  int lista[33] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
     
-  for(int i = 0; i < 34;i++)
+  for(int i = 0; i < 33;i++)
     {
 
       //std::cout<<"casos: "<<casos<<"lista[i]: "<<lista[i]<<std::endl;
@@ -1020,7 +1020,6 @@ void DptoSet::insert(int pKey, std::string value)
     }
   
 
-  //elementos[0].insert(2);
  
 }
 
@@ -1028,7 +1027,7 @@ void DptoSet::displaySet(int pNumero)
 {
 
   std::set<int>::iterator it;
-  //std::cout<<"este tiene: "<<elementos[pNumero].size();
+  
   for(it = (elementos[pNumero]).begin(); it != elementos[pNumero].end(); it++)
     {
       std::cout<<*it<<" ";
@@ -1039,7 +1038,7 @@ void DptoSet::displaySet(int pNumero)
 
 void DptoSet::display()
 {
-  //std::cout<<"elementos size: "<<elementos.size()<<std::endl;
+  
   for(int i = 0; i < elementos.size();i++)
     {
       if(elementos[i].size() != 0)
