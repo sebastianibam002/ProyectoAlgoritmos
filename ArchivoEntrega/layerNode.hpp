@@ -4,12 +4,11 @@
 #include <vector>
 #include <string>
 #include <set>
-//para ponerlas todas en  mayusculas
-#include <cctype>
 
-//libreria para poder trabajar con el archivo de tipo texto
+#include <cctype> //para poner en  mayusculas
+
+//librerias para poder trabajar con el archivo de tipo texto
 #include <fstream>
-
 #include <stdio.h>
 
 
@@ -25,11 +24,11 @@ const int INITIAL_SIZE = 5;
 
 struct nodeGender
 {
-  //el value que corresponde al genero
-  bool value;
-  //el key que es el id unico
+  //El value que corresponde al genero
+  bool value; //Si es true es mujer, si es false es hombre
+  //El key que es el id unico
   int key;
-  //el next indicando el siguiente en el bucket
+  //El next indicando el siguiente en el bucket
   nodeGender* next;
 };
 
@@ -37,62 +36,61 @@ struct nodeGender
 class GenderMap
 {
 private:
-  //como es parecido a un mapa se usa una tabla hash 
+  //Como es parecido a un mapa se usa una tabla hash 
   nodeGender** table;
   int table_size;
   int count;
 
-  //el que se encarga de volver a acomodar a todos los eleemntos
+  //Se encarga de volver a acomodar a todos los eleemntos
   void reHash();
-  //la funcion has que se tiene
+  //La funcion hash que se tiene
   int hash_fun(int key);
   //para buscar en el bucket
   nodeGender* search_bucket(int i, int key);
 public:
-  //constructor y destructor de la clase
+  //Constructor y destructor de la clase
   GenderMap();
   ~GenderMap();
 
-  //metodos base
+  //Metodos base
   int size();
   
   bool empty();
 
-  //para insetar un elemento dado un id unico y un valor que es el genero
+  //Para insetar un elemento dado un id unico y un valor que es el genero
   void insert(int pKey, bool value);
-  //para ver como se van organizando se inluye el display
+  //Para ver como se van organizando se incluye el display
   void display();
-  //con el fin de borrarlo al final
+  //Con el fin de borrarlo al final
   void clear();
  
-  std::vector<int> generarLista(bool pGenero);//genera un vector que contiene los nombres que contienen cierta propiedad es decir el genero
-  //metodo para poder ir probando los demas metodos
+  std::vector<int> generarLista(bool pGenero);//Genera un vector que contiene los nombres que contienen cierta propiedad es decir el genero
+  //Metodo para poder ir probando los demas metodos
   void test();
   
 };
 
 
-//no retorna nada y no tiene parametro es probar metodos privados
+//No retorna nada y no tiene parametro es probar metodos privados
 void GenderMap::test()
 {
   std::cout<<"Test"<<std::endl;
 }
 
-//requiere una variable de tipo booleano donde true es mujern y false es hombre y retorna un vector con los ids de estos
+//Requiere una variable de tipo booleano donde true es mujer y false es hombre y retorna un vector con los IDs de estos
 std::vector<int> GenderMap::generarLista(bool pGenero)
 {
-  //recordar si es true es mujer si es hombre es false
+  //Recordar si es true es mujer si es hombre es false
 
   std::vector<int> retorno;
   nodeGender* cursor = new nodeGender;
   std::cout<<"generando lista generos.."<<std::endl;
-  //se recorre tabla hash como el set
+  //Se recorre tabla hash como el set
   for(int i = 0; i <table_size; i++)
     {
       cursor = table[i];
       while(cursor != nullptr)
 	{
-	  //std::cout<<"cursor->key: "<<cursor->key<<"cursor->value: "<<cursor->value<<std::endl;
 	  if(cursor->value == pGenero)
 	    {
 	      
@@ -107,25 +105,21 @@ std::vector<int> GenderMap::generarLista(bool pGenero)
 }
 
 
-void GenderMap::reHash()
-{
-
+void GenderMap::reHash(){
   int old_table_size = table_size;
   nodeGender **old_table = table;
   table_size = 2*table_size;
   table = new nodeGender*[table_size];
   for(int i = 0; i < table_size;++i) table[i] = nullptr;
   count = 0;
-  //un cursor para ir recorriendolo
+  //Un cursor para ir recorriendolo
   nodeGender *cursor;
-  //creo la nueva tabla
+  //Se crea la nueva tabla
   
   
-  for(int i = 0; i < old_table_size; ++i)
-    {
+  for(int i = 0; i < old_table_size; ++i){
       cursor = old_table[i];
-      while(old_table[i] != nullptr)
-	{
+      while(old_table[i] != nullptr){
 	  insert(cursor->key, cursor->value);
 	  cursor = cursor->next;
 	  delete old_table[i];
@@ -136,21 +130,17 @@ void GenderMap::reHash()
 
 }
 
-//destructor
-GenderMap::~GenderMap()
-{
+//Destructor
+GenderMap::~GenderMap(){
   clear();
   delete[] table;
 }
 
-//forma recursiva de borrar un bucket, parametro el nodo de la tabla y no retorna nada
-void clear_bucket(nodeGender* pNodo)
-{
+//Forma recursiva de borrar un bucket tiene como parametro el nodo de la tabla y no retorna nada
+void clear_bucket(nodeGender* pNodo){
   nodeGender* temp;
   
-  if(pNodo != nullptr)
-    {
-      // std::cout<<pNodo->key<<std::
+  if(pNodo != nullptr){
       temp = pNodo->next;
       delete pNodo;
       
@@ -159,66 +149,50 @@ void clear_bucket(nodeGender* pNodo)
   
 }
 
-//wrapper para clear_bucket con cada uno de los elementos de table_size
-void GenderMap::clear()
-{
-
-  
-  for(int i = 0; i < table_size; ++i)
-    {
+//Wrapper para clear_bucket con cada uno de los elementos de table_size
+void GenderMap::clear(){
+  for(int i = 0; i < table_size; ++i){
       clear_bucket(table[i]);
       table[i] = nullptr;
-      //std::cout<<table[i]<<std::endl;
-      
     }
 
 }
 
 
 
-//constructor
-GenderMap::GenderMap()
-{
+//Constructor
+GenderMap::GenderMap(){
   
   table_size = INITIAL_SIZE;
   table = new nodeGender*[INITIAL_SIZE];
-  for(int i = 0; i < table_size; i++)
-    { 
+  for(int i = 0; i < table_size; i++){ 
       table[i] = nullptr;
     }
   count = 0;
 }
 
-//retorna el numero de elementos, no requiere parametros de entrada
-int GenderMap::size()
-{
+//Retorna el numero de elementos, no requiere parametros de entrada
+int GenderMap::size(){
   return count;
 }
 
-//retorna si esta vacio, no requiere parametro s de entrada
-bool GenderMap::empty()
-{
+//Retorna si esta vacio, no requiere parametros de entrada
+bool GenderMap::empty(){
   return count == 0;
 }
 
-//funcion hash que organiza donde deberian ir los elementos
-int GenderMap::hash_fun(int key)
-{
-
-  return key%table_size;
+//Funcion hash que organiza donde deberian ir los elementos
+int GenderMap::hash_fun(int key){
+  return key % table_size;
   
 }
-//insert a la estructura, requiere la llave que es el id unico y genero y no retorna
+//Insert a la estructura, requiere la llave que es el id unico y genero, no retorna
 
-void GenderMap::insert(int pKey, bool value)
-{
+void GenderMap::insert(int pKey, bool value){
   int entra = hash_fun(pKey);
   nodeGender* esta = search_bucket(entra, pKey);
-  //
-  //std::cout<<"es nullptr: "<< esta<<std::endl;
   
-  if(esta == nullptr && count < (2*table_size))
-    {
+  if(esta == nullptr && count < (2*table_size)){
       nodeGender*temporal = new nodeGender;
       temporal->value = value;
       temporal->key = pKey;
@@ -236,31 +210,23 @@ void GenderMap::insert(int pKey, bool value)
     }
   else
     {
-      //remplaza
+      //Remplaza
       
       esta->value=value;
     }
-  //table[entra] = temp;
-  
-  
-  
 }
 
-//metodo que retorna el apuntador a nodeGender de en que bucket se encuentra el elemento en teoria
+//Metodo que retorna el apuntador a nodeGender en que bucket se encuentra el elemento en teoria
 
-nodeGender* GenderMap::search_bucket(int i, int key)
-{
+nodeGender* GenderMap::search_bucket(int i, int key){
 
   nodeGender* elemento = new nodeGender;
-  if(table[i] != nullptr)
-    {
-      
+  if(table[i] != nullptr){
       elemento->key = table[i]->key;
       elemento->value = table[i]->value;
       elemento->next = table[i]->next;
       
-      while(elemento != nullptr)
-	{
+      while(elemento != nullptr){
 	  
 	  if(elemento->key == key)
 	    return elemento;
@@ -272,13 +238,12 @@ nodeGender* GenderMap::search_bucket(int i, int key)
 
   return nullptr;
 }
-//se utiliza para ver como esta quedando la estructura
-void GenderMap::display()
-{
+
+//Se utiliza para ver como esta quedando la estructura
+void GenderMap::display(){
   std::cout<<count<<" elements:\n";
   nodeGender* cursor;
-  for(int i = 0; i <table_size; ++i)
-    {
+  for(int i = 0; i <table_size; ++i){
       cursor = table[i];
       while(cursor != nullptr)
 	{
@@ -296,80 +261,78 @@ void GenderMap::display()
  *
  */
 
-//corresponde al rango de error que puede haber entre los rangos de edad, por ejemplo si se introduce 10 como edad minima pero el minimo elemento es 15 entonces va viendo si se encuentra y así hasta que llegue al valor minimo
+//Corresponde al margen de error que puede haber entre los rangos de edad, por ejemplo si se introduce 10 como edad minima pero el minimo elemento es 15 entonces va viendo si se encuentra y así hasta que llegue al valor minimo
 int NEXT = 20;
 
-//nodo de localizacion para el arbol
+//Nodo de localizacion para el arbol
 struct nodeLoc
 {
   
   int idUnico;
   int edad;
-  //izquierda
+  //Izquierda
   nodeLoc* left;
-  //derecha que es mayor
+  //Derecha que es mayor
   nodeLoc*  right;
 
-  //el padre
+  //El padre
   nodeLoc* parent;
   
 };
 
 
-
-class BinLoc
-{
+class BinLoc{
 
 private:
-  //el primer elemento que se introduce
+  //El primer elemento que se introduce
   nodeLoc* root;
-  //funcion que muetra los atributos de un node
+  //Funcion que muetra los atributos de un node
   void displayNode(nodeLoc* pNode, int count);
-  //funcion que permite insertar un nodo dada un idUnico, edad, el padre y el nodo base
+  //Funcion que permite insertar un nodo dado un idUnico, edad, el padre y el nodo base
   void insertNode(nodeLoc* &pNode, int pKey, int pIdUnico, nodeLoc* pParent);
-  //funcion para destruir recursivamente todos los elementos de la estructura
+  //Funcion para destruir recursivamente todos los elementos de la estructura
   void destroyRecursive(nodeLoc* pNode);
-  //encuentra el maximo en el arbol (hablando de edad)
+  //Encuentra el maximo en el arbol (hablando de edad)
   nodeLoc* maximum(nodeLoc *t);
-  //encuentra el minimo en el arbol (hablando de edad)
+  //Encuentra el minimo en el arbol (hablando de edad)
   nodeLoc* minimum(nodeLoc *t);
-  //encuentra un nodo, dada la edad que es el mismo idunico y el nodo desde donde debe comenzar a buscar
+  //Encuentra un nodo, dada la edad que es el mismo idUnico y el nodo desde donde debe comenzar a buscar
   nodeLoc* findNode(nodeLoc* pNode, int pEdad);
-  //almacena la cantidad de elementos que hay en el arbol
+  //Almacena la cantidad de elementos que hay en el arbol
   int size;
+	
 public:
-  //constructor inicializ los atributos
+  //Constructor inicializa los atributos
   BinLoc(){root = nullptr;}
-  //destructor recursivo
+  //Destructor recursivo
   ~BinLoc(){destroyRecursive(root);}
-  //wrapper para insertar un elemento con la propiedad de los arboles binarios, aunque permite elementos repetidos es decir el key no es unica mas su valor si lo es
+  //Wrapper para insertar un elemento con la propiedad de los arboles binarios, aunque permite elementos repetidos es decir el key no es unico pero su valor si lo es
   void insert(int pKey, int pIdUnico){insertNode(root, pKey, pIdUnico, nullptr);}
-  //muestra en la terminal como queda el arbol
+  //Muestra en la terminal como queda el arbol
   void display();
-  //encuentra el predecesor dado un nodo
+  //Encuentra el predecesor dado un nodo
   nodeLoc* predecessor(nodeLoc *pNode);
-  //encuentra el sucesor dado un nodo
+  //Encuentra el sucesor dado un nodo
   nodeLoc* successor(nodeLoc *pNode);
-  //wrapper para el metodo de find_node pero lo busca desde el root
+  //Wrapper para el metodo de find_node pero lo busca desde el root
   nodeLoc* find(int pEdad){return findNode(root, pEdad);}
-  //revisa si contiene cierta edad
+  //Revisa si contiene cierta edad
   bool contains(int pEdad);//este elemento existe en la estructura
-  //busca el siguiente elemento que se encuentre en el arbol con la edad mas parecida dentro del rango del valor next
+  //Busca el siguiente elemento que se encuentre en el arbol con la edad mas parecida dentro del rango del valor next
   int searchNext(int pEdad);
-  //busca el anterior elemento que se encuentre en el arbol dentro del rango de next
+  //Busca el anterior elemento que se encuentre en el arbol dentro del rango de next
   int searchLast(int pEdad);
-  //retorna la cantidad de elementos que hay en el arbol
+  //Retorna la cantidad de elementos que hay en el arbol
   int tamano();
-  //metodo que dado un rango es decir un desde y un hasta retorna los elementos del arbol que se encuentran dentro del rango incluyente[pDesde, pHasta] siedo int enteros
+  //Metodo que dado un rango es decir un desde y un hasta retorna los elementos del arbol que se encuentran dentro del rango incluyente[pDesde, pHasta] siedo int enteros
   std::vector<int> rango(int pDesde, int pHasta);
-  //metodo para probar metodos privados de la estructura
+  //Metodo para probar metodos privados de la estructura
   void test();
   
 };
 
-int BinLoc::searchNext(int pEdad)
-{
-  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+int BinLoc::searchNext(int pEdad){
+  //En caso de que el elemento no exista, se usara esto con el fin de encontrar el elemento mas cercano en un umbral de NEXT
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -387,7 +350,7 @@ int BinLoc::searchNext(int pEdad)
 
 int BinLoc::searchLast(int pEdad)
 {
-  //in case the element doesn't exists this will be used in order to find the most look alike in an umbral of NEXT
+  //En caso de que el elemento no exista, se usara esto con el fin de encontrar el elemento mas cercano en un umbral de NEXT
   int tempEdad = pEdad;
   int contador = 0;
   while(contador < NEXT && !contains(tempEdad))
@@ -412,9 +375,7 @@ bool BinLoc::contains(int pEdad)
     }
   return true;
 }
-std::vector<int> BinLoc::rango(int pDesde, int pHasta)
-{
-  //std::cout<<"tamano: "<<tamano()<<std::endl;
+std::vector<int> BinLoc::rango(int pDesde, int pHasta){
   if(pDesde != -1 && pHasta != -1)
     {
       std::vector<int> retorno;
@@ -423,13 +384,13 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 	  nodeLoc* temp = find(pDesde);
 	  
 	  nodeLoc* tempDos = find(pHasta);
-	  //los numeros mayores
+	  //Los numeros mayores
 	 
 	  while(temp != nullptr)
 	    {
 	      if(temp->idUnico == tempDos->idUnico)
 		{
-		  //aca es donde deja de ver si hay mas con el mismo valor del predecesor 
+		  //Aca es donde deja de ver si hay mas con el mismo valor del predecesor 
 		  retorno.push_back(temp->idUnico);
 		  break;
 		}
@@ -470,33 +431,22 @@ std::vector<int> BinLoc::rango(int pDesde, int pHasta)
 
 
 
-void BinLoc::test()
-{
-  //std::cout<<"el predecessor de 5 es: "<< predecessor(find(5))->edad<<std::endl;
-  //std::cout<<root->parent<<std::endl;
-
+void BinLoc::test(){
   
   std::vector<int> prueba= rango(0,10);
 
-  for(unsigned int i =0; i < prueba.size(); i++)
-    {
+  for(unsigned int i =0; i < prueba.size(); i++){
       std::cout<<prueba[i]<<" ";
     }
   std::cout<<std::endl;
   
 }
 
-  
-  //std::cout<<searchLast(12)<<std::endl;
-
-  //std::cout<<"sucesor del ultimo: "<<successor(find(6))->idUnico<<std::endl;
-
 
 nodeLoc* BinLoc::minimum(nodeLoc *t)
 {  
 
-  if(t->left == nullptr)
-    {
+  if(t->left == nullptr){
       return t;
     }
   else
@@ -506,8 +456,7 @@ nodeLoc* BinLoc::minimum(nodeLoc *t)
 }
 
 
-nodeLoc* BinLoc::maximum(nodeLoc *t)
-{
+nodeLoc* BinLoc::maximum(nodeLoc *t){
 
   if(t->right == nullptr)
     {
@@ -519,17 +468,13 @@ nodeLoc* BinLoc::maximum(nodeLoc *t)
     }
 }
 
-int BinLoc::tamano()
-{
+int BinLoc::tamano(){
   return size;
 }
 
-void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent)
-{
+void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent){
   
-  if(pNode == nullptr)
-    {
-      
+  if(pNode == nullptr){
       pNode = new nodeLoc;
       pNode->edad = pKey;
       pNode->left = nullptr;
@@ -541,8 +486,7 @@ void BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParen
   else
     {
      
-	  if(pKey < pNode->edad)
-	    {
+	  if(pKey < pNode->edad){
 	      insertNode(pNode->left, pKey, pIdUnico , pNode);
 	    }
 	  else
@@ -569,7 +513,7 @@ void BinLoc::destroyRecursive(nodeLoc *pNode)
 
 void BinLoc::displayNode(nodeLoc *pNode, int count)
 {
-  //recursion
+  //Recursion
   count++;
   if(pNode != nullptr)
     {
@@ -584,7 +528,7 @@ void BinLoc::displayNode(nodeLoc *pNode, int count)
 
 void BinLoc::display()
 {
-  //wraper para no acceder al root desde afuera
+  //Wraper para no acceder al root desde afuera
   int contador = 0;
   displayNode(root, contador);
   std::cout<<std::endl;
@@ -604,17 +548,11 @@ nodeLoc* BinLoc::successor(nodeLoc *pNode)
       nodeLoc* tempB = new nodeLoc;
       while(((pNode->parent)->right == pNode) && (pNode->parent) != nullptr)
 	{
-
-	  //if(pNode->parent != nullptr)
 	  pNode = pNode->parent;
 	  if(root == pNode)
 	    {
-	      //std::cout<<"successor: "<<pNode->edad<<std::endl;
 	      break;
 	    }
-
-	   
-	  
 	  
 	}
 
@@ -625,7 +563,7 @@ nodeLoc* BinLoc::successor(nodeLoc *pNode)
 
 nodeLoc* BinLoc::predecessor(nodeLoc* pNode)
 {
-  //continua mientras siga siendo hijo izquierdo de su padre
+  //Continua mientras siga siendo hijo izquierdo de su padre
   if(pNode->left != nullptr)
     {
       return maximum(pNode->left);
@@ -652,39 +590,42 @@ nodeLoc* BinLoc::findNode(nodeLoc *pNode, int pEdad)
 }
 
 
+/*
+ *
+ *ACA COMIENZA LA CLASE QUE CREA UN SET PARA CADA DEPARTAMENTO Y LOS GUARDA EN UN VECTOR
+ *
+ */
 
-
-
-/* CLASE QUE CREA UN SET PARA CADA DEPARTAMENTO */
 
 class DptoSet{
 private:
 
-  //contiene cada uno de los sets que se crearon
+  //Contiene cada uno de los sets que se crearon
   std::vector<std::set<int>> elementos;
   
 public:
   DptoSet();
 
-  //le introduzco una llave que es el idUnico y el departametno en formato "amazonas"
+  //Se introduce una llave que es el idUnico y el departametno en formato "amazonas"
   void insert(int pKey, std::string value);
-  //muestra los elementos que hay en un set dado
+  //Muestra los elementos que hay en un set dado
   void displaySet(int pNumero);
-  //muestra todos los elementos que hay en el todos los set
+  //Muestra todos los elementos que hay en el todos los set
   void display();
-  //genera un vector dado un numero de de que departamento se esta hablando
+  //Genera un vector dado un numero de de que departamento se esta hablando
   std::vector<int> generarLista(int valor);
-  //genera una union entre los ids de las personas que se encuentren en departamentos dados en formato("Amazonas,Bogota,Cundinamarca,Antioquia")
+  //Genera una union entre los ids de las personas que se encuentren en departamentos dados en formato("Amazonas,Bogota,Cundinamarca,Antioquia")
   std::vector<int> unionDepto(std::string pString); 
-  //metodo para ir probando los metodos privados de la clase
+  //Metodo para ir probando los metodos privados de la clase
   void test();
 };
 
 
 
 
-DptoSet::DptoSet()
-{
+DptoSet::DptoSet(){
+// El numero comentado es que se usa a la hora de generar el archivo de texto
+// Se tienen los 32 departamentos y Bogota, para un total de 33 set
   std::set<int> antioquia; // 05 == 0
   std::set<int> atlantico {}; // 08 ==1
   std::set<int> bogota {}; // 11 == 2
@@ -721,7 +662,6 @@ DptoSet::DptoSet()
   
   std::vector<std::set<int>> prueba{antioquia, atlantico, bogota, bolivar, boyaca, caldas, caqueta, cauca, cesar, cordova, cundinamarca, choco, huila, la_guajira, magdalena, meta, narino, norte_de_santander, quindio, risaralda, santander, sucre, tolima, valle_del_cauca, arauca, casanare, putumayo, san_andres, amazonas, guainia, vaupes, vichada};
   elementos = prueba;
-  //std::vector<std::set<int>> elementos;
  
 }
 
@@ -746,23 +686,21 @@ std::vector<int> DptoSet::generarLista(int numero)
   std::vector<int> retorno{};
   int contador = 0;
   
-  int lista[34] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
+  int lista[33] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
   //std::cout<<"el valor que entro: "<<numero <<std::endl;
-  for(int i = 0; i < 34; i++)
+  for(int i = 0; i < 33; i++)
     {
       
       if(numero == lista[i])
 	{
-	  //si numero es igual al de la lista
+	  //Si numero es igual al de la lista
 
 	  if(elementos[i].size() != 0)
 	    {
 	      std::set<int>::iterator it;
-	      //std::cout<<"cantidad de elementps
 
 	      for(it = elementos[i].begin(); it !=  elementos[i].end(); it++)
 		{
-		  //std::cout<<"el *it: "<<(*it)<<std::endl;
 		  retorno.push_back(*it);
 		  
 		}
@@ -792,7 +730,7 @@ std::string mayus(std::string pCadena)
 }
 std::vector<int> DptoSet::unionDepto(std::string pString)
 {
-  //dada una string hace una interseccion entre los departamentos dados
+  //Dada una string hace una interseccion entre los departamentos dados
   std::vector<std::string> numeros;
   int count1 = 0;
   int count2 = 0;
@@ -802,45 +740,26 @@ std::vector<int> DptoSet::unionDepto(std::string pString)
       
       if(pString.substr(i,1) == ",")
 	{
-	  //encontre una separacion
+	  //Encuentra una separacion
 	  int count2 = pString.find(",", count1);
-	  //std::cout<<"count2: "<<count2<<std::endl;
-	  //pString.replace(count2,1,"");
 	  numeros.push_back(mayus(pString.substr(count1,(count2-count1))));
-	  //std::cout<<"Word: "<<mayus(pString.substr(count1,(count2-count1)))<<std::endl;
 	  count1 = count2+1;
 	  
 	}
-      
-      
     }
   
-  if(numeros.size() == 0)
-    {
+  if(numeros.size() == 0){
       numeros.push_back(pString);
     }
   
-  /*
-  std::cout<<"Lugares: ";
-  for(unsigned int i = 0; i < numeros.size();i++)
-    {
-      std::cout<<numeros[i] <<" ";
-    }
-  std::cout<<std::endl;
-  */
-  
 
-
-  //por cada uno de los elemntos que se tiene hay que adignarle primero que todo un numero y hay que generar una lista para asi
+  //Por cada uno de los elemntos que se tiene hay que asignarle primero que todo un numero y hay que generar una lista
 
   std::vector<std::vector<int>> vectorPadre;
-  //std::cout<<"Tengo estos("<<numeros.size()<<"): ";
   for (unsigned int i = 0; i < numeros.size(); i++)
     {
-      //se recorre todos los elementos
-      if(numeros[i] == "ANTIOQUIA")
-	{
-	  //std::cout<<"entre a antioquia"<<std::endl;
+      //Se recorren todos los elementos
+      if(numeros[i] == "ANTIOQUIA"){
 	  vectorPadre.push_back(generarLista(5));
 	}
       else if(numeros[i] == "ATLANTICO")
@@ -849,7 +768,6 @@ std::vector<int> DptoSet::unionDepto(std::string pString)
 	}
       else if(numeros[i] == "BOGOTA")
 	{
-	  //std::cout<<"entre a Bopgpta"<<std::endl;
 	  vectorPadre.push_back(generarLista(11));
 	}
       else if(numeros[i] == "BOLIVAR")
@@ -978,17 +896,15 @@ std::vector<int> DptoSet::unionDepto(std::string pString)
 	}
     }
 
-  //std::cout<<std::endl;
+  /
 
-  //ahora si voy a crear el vector que contenga todos los ids
-  //std::cout<<"el size de vector padre: "<<vectorPadre.size()<<std::endl;
+  //Se crea el vector que contenga todos los ids
   std::vector<int> retorno{};
   
   for(int i =0; i< vectorPadre.size();i++)
     {
       for(int e = 0; e<vectorPadre[i].size();e++)
 	{
-	  //std::cout<<"el tamano del vector hijo("<<i<<"): "<<vectorPadre[i].size()<<std::endl;
 	  retorno.push_back((vectorPadre[i])[e]);
 	}
     }
@@ -1000,33 +916,20 @@ std::vector<int> DptoSet::unionDepto(std::string pString)
 
 void DptoSet::insert(int pKey, std::string value)
 {
-  //debe bucar que value corresponde para esto hay que compararlos con las que existan
-  
+  //Debe bucar que value corresponde para esto hay que compararlos con las que existan
   //5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99
-  //std::cout<<"casos: "<<value<<std::endl;
   int casos = std::stoi(value);
-  
   int lista[33] = {5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99};
-    
-  for(int i = 0; i < 33;i++)
-    {
-
-      //std::cout<<"casos: "<<casos<<"lista[i]: "<<lista[i]<<std::endl;
-      if(casos == lista[i])
-	{
-	  
+  for(int i = 0; i < 33;i++){
+      if(casos == lista[i]){
 	  (elementos[i]).insert(pKey);
 	  
 	}
       
     }
-  
-
- 
 }
 
-void DptoSet::displaySet(int pNumero)
-{
+void DptoSet::displaySet(int pNumero){
 
   std::set<int>::iterator it;
   
@@ -1038,8 +941,7 @@ void DptoSet::displaySet(int pNumero)
   std::cout<<std::endl;
 }
 
-void DptoSet::display()
-{
+void DptoSet::display(){
   
   for(int i = 0; i < elementos.size();i++)
     {
@@ -1051,16 +953,14 @@ void DptoSet::display()
     }
 }
 
+
+
 /*
 ESTRUCTURA GENERAL QUE CONTIENE A TODOS LOS ELEMENTOS
 */
 
 
-
-
-struct nodeMaster
-{
-  
+struct nodeMaster{
   int idUnico;
   int age;
   bool gender;
@@ -1071,39 +971,35 @@ struct nodeMaster
 class BDCovid
 {
 private:
-  std::vector<nodeMaster*> tabla ;//es la general
+  std::vector<nodeMaster*> tabla ;//Es la general que contendra todo
   
-  GenderMap genderMap;//contine los generos
-  BinLoc binaryTree;//contirne las edades
-  DptoSet depSet;//contene las locaciones
-  //colocar set
+  GenderMap genderMap;//Contine los generos
+  BinLoc binaryTree;//Contirne las edades
+  DptoSet depSet;//Contene las locaciones
+
 public:
-  //constructor
+  //Constructor
   BDCovid();
-  //metodo que retorna un vector luego de filtrar los parametros, genero ,rango  de edad(desde, hasta), y una string de locacion ("Amazonas,Bogota")
+  //Metodo que retorna un vector luego de filtrar los parametros, genero ,rango  de edad(desde, hasta), y una string de locacion ("Amazonas,Bogota")
   std::vector<int> busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation);
-  //genera los archivos de tipo texto que luego python utiliza para poder hacer un display de la informacion dados los mismos parametro que busqueda
+  //Genera los archivos de tipo texto que luego python utiliza para poder hacer un display de la informacion dados los mismos parametro que busqueda
   void generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation);
 };
 
 BDCovid::BDCovid()
 {
-  //comienza a leer todos los valores que hay en el datasetfinal.txt
+  //Comienza a leer todos los valores que hay en el datasetfinal.txt
   std::ifstream ifs("datasetFinal.txt");
   std::string line = "";
   if(ifs.good())
     {
-      //int contadorBorrar = 0;
       while(!ifs.eof())
 	{
 	  std::getline(ifs, line);
 
-
-
 	  if(line != "")
 	    {
-	      //std::cout<<line<<std::endl;
-	      //se extrae linea y se guarda en line
+	      //Se extrae linea y se guarda en line
 	      int cont1 = 0;
 	      //bool para cada uno de los atributos
 	      bool id = true;
@@ -1112,15 +1008,13 @@ BDCovid::BDCovid()
 	      bool loc = true;
 	      nodeMaster* temp = new nodeMaster;
 	      
-	      //contadorBorrar++;
 	      for(int i = 0; i < line.length(); i++)
 		{
 		  
-		  //recorro la linea
+		  //Se recorre la linea
 		  if(line[i] == ',')
 		    {
-		      
-		      //separo el espacio en memoria
+		      //Se separa el espacio en memoria
 		      if(id)
 			{
 			  
@@ -1129,38 +1023,28 @@ BDCovid::BDCovid()
 			  temp->idUnico = std::stoi(line.substr(cont1,tempCont));
 			  id = false;
 			  cont1 = i;
-			  //std::cout<<temp->idUnico<<std::endl;
 			}
 		      else if(age)
 			{
 			  int tam = line.find(",", cont1+1);
-			  //std::cout<<"tam: "<<tam<<" i: "<<cont1<<"substr"<< line.substr(cont1, tam)<<std::endl;
 			  int pAge = std::stoi(line.substr(cont1+1, tam-1));
 			  temp->age = pAge;
-			  //lo introduzco al arbol
-			  //BinLoc::insertNode(nodeLoc *&pNode, int pKey, int pIdUnico, nodeLoc *pParent)
+			  //Se introduce al arbol
 			  binaryTree.insert(pAge, temp->idUnico);
-			  //std::cout<<"prorblm bro? "<<pAge<<std::endl;
-			  //std::cout<<"edad: "<<pAge<<"id: "<<temp->idUnico<<std::endl;
 			  age = false;
 			  cont1 = i;
-			  
 			  
 			}
 		      else if(gender)
 			{
 			  
-			  //std::cout<<line.substr(cont1+1,1)<<std::endl;
 			  if(line.substr(cont1+1,1) == "F")
 			    {
-			      //std::cout<<"mujer"<<std::endl;
 			      temp->gender = true;
-			      
 			      
 			    }
 			  else if(line.substr(cont1+1,1) == "M")
 			    {
-			      //std::cout<<"hombre"<<std::endl;
 			      temp->gender = false;
 			    }
 
@@ -1175,7 +1059,6 @@ BDCovid::BDCovid()
 			  int tam2 = line.find(",", tam);
 			  
 			  temp->location = line.substr(tam2+1, 2);
-			  //std::cout<<"numero de departamento: "<<temp->location<<std::endl;
 			  loc = false;
 			  depSet.insert(temp->idUnico, temp->location);
 			
@@ -1242,27 +1125,19 @@ void bubble_sort(std::vector<int> &v)
 }
 
 
-std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation)
-{
-  /*
-    GenderMap genderMap;//contine los generos
-    BinLoc binaryTree;//contirne las edades
-    DptoSet depSet;
-  */
+std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation){
   std::vector<std::vector<int>> retorno;
   std::vector<int> retornoFinal;
-  std::cout<<"antes de los generos"<<std::endl;
+  std::cout<<"Antes de los generos"<<std::endl;
   retorno.push_back(genderMap.generarLista(pGenero));
-  std::cout<<"ya se tienen los del genero: "<<retorno[0].size()<<std::endl;
+  std::cout<<"Ya se tienen los del genero: "<<retorno[0].size()<<std::endl;
   retorno.push_back(binaryTree.rango(pDesde, pHasta));
-  std::cout<<"ya se tienen los de edad: "<<retorno[1].size()<<std::endl;
+  std::cout<<"Ya se tienen los de edad: "<<retorno[1].size()<<std::endl;
   retorno.push_back(depSet.unionDepto(pLocation));
-  std::cout<<"ya se tienen los de locacion: "<<retorno[2].size()<<std::endl;
+  std::cout<<"Ya se tienen los de locacion: "<<retorno[2].size()<<std::endl;
   
-  //ahora bien un elemento es decir un elemento con id unico dado puede pasar si y sol si esta en las tres listas para esose vaa comparar de a pares
-  //int elemento;
+  //Un elemento con id unico dado puede pasar si y solo si esta en las tres listas para eso se va comparar de a pares
 
-  //std::cout<<"vector 1: "<<retorno[1].size()<<std::endl;
   std::vector<int> parcial;
   for(int i = 0; i < retorno[1].size(); i++)
     {
@@ -1271,57 +1146,43 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
       
       if(valor != -1)
 	{
-	  //std::cout<<retorno[2][valor]<<std::endl;
 	  parcial.push_back(retorno[2][valor]);
 	}
     }
-  //entonces hice el primer filtro
+	
+  //Se hace el primer filtro
 
   bubble_sort(retorno[0]);
   
   for(int i = 0; i < parcial.size(); i++)
     {
       int valor = binary_search(parcial[i], retorno[0]);
-      //std::cout<<"elemento: "<<parcial[i]<<std::endl;
       if(valor != -1)
 	{
 	  retornoFinal.push_back(retorno[0][valor]);
 	}
     }
   
-  std::cout<<"hay: "<<retornoFinal.size()<<" personas que satisfacen los parametros de:"<< tabla.size()<<std::endl;
+  std::cout<<"Hay: "<<retornoFinal.size()<<" personas que satisfacen los parametros de: "<< tabla.size()<<std::endl;
 
  
   return retornoFinal;
   
-  
-  
-  
 }
 
-
-
-void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation)
-{
-
-  //std::ifstream ifs("vis.txt");
+void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation){
 
   std::remove("vis.txt");
-  //revisar si el archivo contiene un valor
+  //Revisa si el archivo contiene un valor
   std::vector<int> resultado = busqueda(pGenero,pDesde, pHasta, pLocation);
   std::ofstream ofs("vis.txt",std::ios::app);
 
   bubble_sort(resultado);
   
   
-  //std::cout<<std::endl;
-
-  
-  
   if(ofs.good())
     {
       
-      //int elemento = std::stoi(tabla[resultado[0]-1]->location);
       for(int i = 0; i <tabla.size(); i++)
 	{
 	  
@@ -1330,20 +1191,12 @@ void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string
 	    {
 	      ofs<<tabla[i]->location<<"\n";
 	    }
-	  //std::cout<<tabla[i]->idUnico<<" ";
 	  
 	}
-      //std::cout<<std::endl;
       
     }
-  
-  /*
-  for(int i = 0; i <resultado.size(); i++)
-    std::cout<<resultado[i]<<" ";
-  std::cout<<std::endl;
-  */
+
   ofs.close();
-  
   
 }
 
