@@ -1,3 +1,9 @@
+1,19,F,Bogotá D.C.,11
+2,34,M,Valle del Cauca,76
+3,50,F,Antioquia,5
+4,55,M,Antioquia,5
+5,25,M,Antioquia,5
+6,27,F,Antioquia,5
 7,85,F,Cartagena D.T. y C.,13
 8,22,F,Bogotá D.C.,11
 9,28,F,Bogotá D.C.,11

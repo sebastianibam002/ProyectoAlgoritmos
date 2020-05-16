@@ -18,6 +18,7 @@ x = np.random.normal(300, 100, 100)
 y = np.random.normal(400, 200, 100)
 
 ########################## OPCION 1 ################################
+
 colors = rng.rand(100)
 sizes = 1000 * rng.rand(100)
 plt.scatter(x, y, c=colors, s=sizes, alpha=0.3, cmap='viridis')
@@ -26,6 +27,7 @@ plt.imshow(col_img)
 
 
 ########################## OPCION 2 ################################
+
 #plt.scatter(x, y)
 #plt.imshow(col_img)
 

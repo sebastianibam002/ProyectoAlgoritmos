@@ -1094,6 +1094,7 @@ public:
   BDCovid();
   //~BDCovid();
   std::vector<int> busqueda(bool pGenero,int pDesde, int pHasta, std::string pLocation);
+  void generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation);
 };
 
 BDCovid::BDCovid()
@@ -1382,6 +1383,24 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
   return retornoFinal;
   
   
+  
+  
+}
+
+void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation)
+{
+  std::vector<int> resultado = busqueda(pGenero,pDesde, pHasta, pLocation);
+  std::ofstream ofs("vis.txt",std::ios::app);
+  if(ofs.good())
+    {
+      for(unsigned int i = 0; i < resultado.size();i++)
+	{
+	  int elemento = resultado[i];
+	  ofs<<tabla[elemento-1]->location<<"\n";
+	}
+
+    }
+  ofs.close();
   
   
 }
