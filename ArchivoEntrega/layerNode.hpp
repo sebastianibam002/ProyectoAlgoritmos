@@ -10,6 +10,8 @@
 //libreria para poder trabajar con el archivo de tipo texto
 #include <fstream>
 
+#include <stdio.h>
+
 
 /*
 ***************************************************
@@ -1089,8 +1091,6 @@ BDCovid::BDCovid()
   //comienza a leer todos los valores que hay en el datasetfinal.txt
   std::ifstream ifs("datasetFinal.txt");
   std::string line = "";
-
-  
   if(ifs.good())
     {
       //int contadorBorrar = 0;
@@ -1219,30 +1219,6 @@ int binary_search(int x, const std::vector<int>&v)
 
 
 
-int binary_search(int x, const std::vector<nodeMaster*>&v)
-{
-  
-  int left = 0, right = v.size()-1;
-  while(left <= right)
-    {
-      int mid = (right+left)/2;
-      if(v[mid]->idUnico== x)
-	return mid;
-      else
-	{
-	  if(x> v[mid]->idUnico)
-	    {
-	      left = mid+1;
-	    }
-	  else
-	    {
-	      right = mid-1;
-	    }
-	}
-    }
-  return -1;
-}
-
 void swap(int i, int j, std::vector<int>& v){
   int temp = v[i];
   v[i] = v[j];
@@ -1327,6 +1303,11 @@ std::vector<int> BDCovid::busqueda(bool pGenero,int pDesde, int pHasta, std::str
 
 void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string pLocation)
 {
+
+  //std::ifstream ifs("vis.txt");
+
+  std::remove("vis.txt");
+  //revisar si el archivo contiene un valor
   std::vector<int> resultado = busqueda(pGenero,pDesde, pHasta, pLocation);
   std::ofstream ofs("vis.txt",std::ios::app);
 
@@ -1334,11 +1315,12 @@ void BDCovid::generarArchivoVis(bool pGenero,int pDesde, int pHasta, std::string
   
   
   //std::cout<<std::endl;
+
   
   
   if(ofs.good())
     {
-
+      
       //int elemento = std::stoi(tabla[resultado[0]-1]->location);
       for(int i = 0; i <tabla.size(); i++)
 	{
