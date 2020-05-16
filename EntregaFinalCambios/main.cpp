@@ -6,7 +6,7 @@ int main()
 
 
   BDCovid prueba;
-  prueba.generarArchivoVis(true,19,42,"Bogota");
+  prueba.generarArchivoVis(true,10,90,"Putumayo,Amazonas,Cundinamarca,Antioquia,Quindio");
   
   //vector<int> test = prueba.busqueda(true,19,42,"Bogota");
   //std::cout<<"size: "<<test.size()<<std::endl;
